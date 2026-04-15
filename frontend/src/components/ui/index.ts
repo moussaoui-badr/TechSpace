@@ -48,3 +48,6 @@ export type { PaginationProps } from './Pagination'
 
 export { Toast, ToastContainer } from './Toast'
 export type { ToastProps, ToastContainerProps, ToastData, ToastVariant } from './Toast'
+
+export { HeroSlider } from './HeroSlider'
+export type { HeroSliderProps } from './HeroSlider'

@@ -4,6 +4,8 @@ import { Heart, Menu, Search, ShoppingCart, Truck, User, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { MegaMenu } from '@/components/layout/MegaMenu'
 import { NAV_CATEGORIES } from '@/components/layout/navigationData'
+import { useCartStore, cartTotalItems } from '@/stores/cartStore'
+import { useWishlistStore } from '@/stores/wishlistStore'
 import { cn } from '@/utils/cn'
 
 export function Header() {
@@ -12,6 +14,10 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openCategory, setOpenCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+
+  const cartItems = useCartStore((s) => s.items)
+  const wishlistCount = useWishlistStore((s) => s.productIds.length)
+  const cartCount = cartTotalItems(cartItems)
 
   const activeCategory = NAV_CATEGORIES.find((c) => c.slug === openCategory)
 
@@ -102,6 +108,11 @@ export function Header() {
             }
           >
             <Heart className="h-5 w-5" />
+            {wishlistCount > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-background">
+                {wishlistCount}
+              </span>
+            )}
           </NavLink>
 
           <NavLink
@@ -115,9 +126,11 @@ export function Header() {
             }
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-white">
-              0
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-white">
+                {cartCount}
+              </span>
+            )}
           </NavLink>
 
           <NavLink

@@ -59,7 +59,7 @@ export function Drawer({
           className,
         )}
         style={{
-          animation: `slide-in-${side === 'right' ? 'right' : 'right'} 220ms ease-out`,
+          animation: `slide-in-${side === 'right' ? 'right' : 'left'} 220ms ease-out`,
           boxShadow: 'var(--shadow-elevated)',
         }}
       >

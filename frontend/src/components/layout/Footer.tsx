@@ -1,12 +1,47 @@
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
-const socialLinks: { label: string; href: string; icon: string }[] = [
-  { label: 'Facebook', href: '#', icon: 'F' },
-  { label: 'Instagram', href: '#', icon: 'IG' },
-  { label: 'Twitter', href: '#', icon: 'X' },
-  { label: 'YouTube', href: '#', icon: 'YT' },
+function FacebookIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+      <path d="M13.5 9H16V6h-2.5C11.6 6 10 7.6 10 9.5V11H8v3h2v7h3v-7h2.3l.4-3H13v-1.2c0-.3.2-.5.5-.5z" />
+    </svg>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+    </svg>
+  )
+}
+
+function TwitterIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+      <path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.2L5.9 22H3l7-8L2 2h6.2l4.3 5.7L18.2 2zm-2.1 18h1.6L8 4H6.3l9.8 16z" />
+    </svg>
+  )
+}
+
+function YoutubeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+      <path d="M22 8.4c0-1.5-1.2-2.7-2.7-2.7H4.7C3.2 5.7 2 6.9 2 8.4v7.2c0 1.5 1.2 2.7 2.7 2.7h14.6c1.5 0 2.7-1.2 2.7-2.7V8.4zM10 15.5v-7l6 3.5-6 3.5z" />
+    </svg>
+  )
+}
+
+const socialLinks: { label: string; href: string; icon: ReactNode }[] = [
+  { label: 'Facebook', href: '#', icon: <FacebookIcon /> },
+  { label: 'Instagram', href: '#', icon: <InstagramIcon /> },
+  { label: 'Twitter', href: '#', icon: <TwitterIcon /> },
+  { label: 'YouTube', href: '#', icon: <YoutubeIcon /> },
 ]
 
 const navLinks = [
@@ -57,7 +92,7 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-xs font-bold text-text-muted transition-colors hover:border-primary hover:text-primary"
+                  className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-text-muted transition-colors hover:border-primary hover:text-primary"
                 >
                   {s.icon}
                 </a>

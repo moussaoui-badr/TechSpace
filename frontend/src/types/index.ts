@@ -128,16 +128,18 @@ export interface Order {
   createdAt: string
 }
 
+export type ProductSort = 'price-asc' | 'price-desc' | 'newest' | 'popular' | 'rating' | 'promo'
+
 export interface ProductsQuery {
   page?: number
   pageSize?: number
   categorySlug?: string
-  brandSlug?: string
+  brandSlugs?: string[]
   search?: string
   minPrice?: number
   maxPrice?: number
   inStock?: boolean
-  sortBy?: 'price-asc' | 'price-desc' | 'newest' | 'popular' | 'rating'
+  sortBy?: ProductSort
 }
 
 export interface PagedResult<T> {
