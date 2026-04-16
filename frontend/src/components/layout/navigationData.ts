@@ -23,7 +23,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'PC Gamer',
     icon: '🖥️',
     description: 'Configurations pretes a jouer, Intel ou AMD.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=PC+Gamer',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=PC+Gamer',
     children: [
       { slug: 'pc-gamer-intel', label: 'PC Gamer Intel' },
       { slug: 'pc-gamer-amd', label: 'PC Gamer AMD' },
@@ -36,7 +36,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'Composants',
     icon: '⚙️',
     description: 'Montez ou ameliorez votre configuration.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Composants',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Composants',
     children: [
       { slug: 'processeurs', label: 'Processeurs' },
       { slug: 'cartes-graphiques', label: 'Cartes graphiques' },
@@ -53,7 +53,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'PC Portables',
     icon: '💻',
     description: 'Laptops gamer, multimedia et bureautique.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Portables',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Portables',
     children: [
       { slug: 'portables-gamer', label: 'Portables Gamer' },
       { slug: 'portables-multimedia', label: 'Portables Multimedia' },
@@ -65,7 +65,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'Ecrans',
     icon: '🖵',
     description: 'Moniteurs gaming, bureautique et pro.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Ecrans',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Ecrans',
     children: [
       { slug: 'ecrans-gaming', label: 'Ecrans Gaming' },
       { slug: 'ecrans-bureau', label: 'Ecrans Bureau' },
@@ -77,7 +77,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'Peripheriques',
     icon: '⌨️',
     description: 'Claviers, souris, casques, tapis...',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Peripheriques',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Peripheriques',
     children: [
       { slug: 'claviers', label: 'Claviers' },
       { slug: 'souris', label: 'Souris' },
@@ -91,7 +91,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'Consoles',
     icon: '🎮',
     description: 'PS5, Xbox, Switch et accessoires.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Consoles',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Consoles',
     children: [
       { slug: 'console-ps5', label: 'PlayStation 5' },
       { slug: 'console-xbox', label: 'Xbox Series' },
@@ -104,7 +104,7 @@ export const NAV_CATEGORIES: NavCategory[] = [
     label: 'Chaises & Bureaux',
     icon: '🪑',
     description: 'Gaming setup confortable et stylise.',
-    imageUrl: 'https://placehold.co/400x280/334155/F6C60C?text=Gaming+Setup',
+    imageUrl: 'https://placehold.co/400x280/1E3A5F/FBD32C?text=Gaming+Setup',
     children: [
       { slug: 'chaises-gamer', label: 'Chaises Gamer' },
       { slug: 'bureaux-gamer', label: 'Bureaux Gamer' },

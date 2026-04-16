@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/layout/Logo'
 
 function FacebookIcon() {
   return (
@@ -69,21 +70,10 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-4">
           {/* Col 1 — Marque + signature */}
           <div>
-            <Link to="/" className="inline-flex items-center gap-2">
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-sm text-base font-black text-white"
-                style={{ backgroundColor: 'var(--color-primary)' }}
-              >
-                T
-              </span>
-              <span className="text-lg font-black leading-none tracking-tight">
-                <span className="text-white">Tech</span>
-                <span className="text-accent">Space</span>
-              </span>
-            </Link>
+            <Logo variant="dark" size="md" />
             <p className="mt-4 text-sm text-white/75">
-              Le spécialiste du matériel informatique gaming et pro au Maroc. Livraison partout
-              au royaume, paiement à la livraison.
+              Le specialiste du materiel informatique gaming et pro au Maroc. Livraison partout
+              au royaume, paiement a la livraison.
             </p>
             <div className="mt-5 flex gap-2">
               {socialLinks.map((s) => (

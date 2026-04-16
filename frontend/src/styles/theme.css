@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 /* =============================================================
-   TechSpace — Design System (palette Newegg clair : blanc + rouge + jaune)
+   TechSpace — Design System (palette Newegg authentique)
+   Orange #F26826 + Jaune #FBD32C + Bleu fonce #1E3A5F
    Tokens Tailwind v4 via @theme
    ============================================================= */
 
 @theme {
-  /* Couleurs principales (rouge Newegg) */
-  --color-primary: #E31837;
-  --color-primary-hover: #CC1430;
-  --color-primary-soft: rgba(227, 24, 55, 0.08);
+  /* Couleurs principales (orange Newegg) */
+  --color-primary: #F26826;
+  --color-primary-hover: #D9561C;
+  --color-primary-soft: rgba(242, 104, 38, 0.08);
 
   /* Fond et surfaces (theme clair marketplace) */
   --color-background: #FFFFFF;
@@ -21,9 +22,16 @@
   --color-border: #E0E0E0;
   --color-border-strong: #C8C8C8;
 
-  /* Accents (top bar fonce + jaune signature Newegg) */
-  --color-secondary: #334155;
-  --color-accent: #F6C60C;
+  /* Accents (bleu Newegg exact + jaune signature) */
+  --color-secondary: #1B3758;
+  --color-secondary-hover: #14293F;
+  --color-secondary-deep: #0E1F33;
+  --color-accent: #FBD32C;
+  --color-accent-hover: #E8C01B;
+
+  /* CTA vert (Newegg "Shop now" vert pill) */
+  --color-success-cta: #13A971;
+  --color-success-cta-hover: #0F8B5E;
 
   /* Texte */
   --color-text: #1A1A1A;
@@ -49,10 +57,13 @@
   /* Shadows subtiles light theme */
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-focus: 0 0 0 3px rgba(227, 24, 55, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(242, 104, 38, 0.2);
 
   /* Animations */
   --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-logo-pulse: logo-pulse 2.4s ease-in-out infinite;
+  --animate-logo-dot-glow: logo-dot-glow 2s ease-in-out infinite;
+  --animate-logo-slide: logo-slide 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
 /* =============================================================
@@ -114,4 +125,40 @@
 @keyframes slide-in-left {
   from { transform: translateX(-100%); }
   to { transform: translateX(0); }
+}
+
+@keyframes logo-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 2px 8px rgba(10, 22, 40, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 4px 14px rgba(10, 22, 40, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
+@keyframes logo-dot-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(242, 104, 38, 0.9),
+      0 0 20px rgba(251, 211, 44, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(242, 104, 38, 1),
+      0 0 28px rgba(251, 211, 44, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+}
+
+@keyframes logo-slide {
+  0%, 8% { transform: translateX(0); }
+  46%, 54% { transform: translateX(var(--logo-slide-distance, 18px)); }
+  92%, 100% { transform: translateX(0); }
 }

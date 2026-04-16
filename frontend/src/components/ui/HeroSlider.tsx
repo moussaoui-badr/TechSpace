@@ -33,10 +33,10 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
   return (
     <section
       className={cn(
-        'relative overflow-hidden rounded-2xl border border-border bg-surface',
+        'relative overflow-hidden rounded-md bg-surface',
         className,
       )}
-      style={{ boxShadow: 'var(--shadow-elevated)' }}
+      style={{ boxShadow: 'var(--shadow-card)' }}
     >
       <div className="relative aspect-[2.4/1] min-h-[260px] sm:aspect-[2.8/1] lg:aspect-[3.2/1]">
         {banners.map((banner, i) => (
@@ -62,19 +62,21 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
               }}
             />
 
-            <div className="relative flex h-full max-w-7xl flex-col justify-center gap-4 px-6 sm:px-10 lg:gap-6 lg:px-14">
-              <span className="inline-flex w-fit items-center gap-2 rounded-sm bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-text">
+            <div className="relative flex h-full max-w-7xl flex-col justify-center gap-4 px-6 sm:px-10 lg:gap-5 lg:px-14">
+              <span className="inline-flex w-fit items-center gap-2 rounded-sm bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-text">
                 TechSpace
               </span>
-              <h2 className="max-w-2xl text-3xl font-black leading-tight text-white drop-shadow-md sm:text-4xl lg:text-5xl">
+              <h2 className="max-w-2xl text-3xl font-black leading-[0.95] text-white drop-shadow-md sm:text-5xl lg:text-6xl">
                 {banner.title}
               </h2>
               {banner.subtitle && (
-                <p className="max-w-xl text-sm text-white/90 drop-shadow sm:text-base">{banner.subtitle}</p>
+                <p className="max-w-xl text-sm text-white/95 drop-shadow sm:text-base">{banner.subtitle}</p>
               )}
               {banner.linkUrl && (
                 <Link to={banner.linkUrl} className="w-fit">
-                  <Button size="lg">{banner.ctaLabel ?? 'Decouvrir'}</Button>
+                  <Button size="lg" variant="success">
+                    {banner.ctaLabel ?? 'Decouvrir'}
+                  </Button>
                 </Link>
               )}
             </div>
