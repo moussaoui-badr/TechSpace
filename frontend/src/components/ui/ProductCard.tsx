@@ -43,11 +43,10 @@ export function ProductCard({
     <Link
       to={`/products/${product.slug}`}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-lg border border-border bg-surface transition-all',
-        'hover:border-primary/60 hover:shadow-glow-primary',
+        'group relative flex flex-col overflow-hidden rounded-md border border-border bg-background transition-all',
+        'hover:border-primary hover:shadow-lg',
         className,
       )}
-      style={{ boxShadow: 'var(--shadow-card)' }}
     >
       {/* Badges en overlay */}
       <div className="absolute left-2.5 top-2.5 z-10 flex flex-col gap-1">
@@ -64,9 +63,9 @@ export function ProductCard({
         onClick={handleWishlist}
         aria-label={isInWishlist ? 'Retirer des favoris' : 'Ajouter aux favoris'}
         className={cn(
-          'absolute right-2.5 top-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/80 backdrop-blur transition-colors',
+          'absolute right-2.5 top-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-colors',
           'hover:border-primary hover:text-primary',
-          isInWishlist && 'border-primary text-primary',
+          isInWishlist ? 'border-primary text-primary' : 'text-text-muted',
         )}
       >
         <Heart className="h-4 w-4" fill={isInWishlist ? 'currentColor' : 'none'} />

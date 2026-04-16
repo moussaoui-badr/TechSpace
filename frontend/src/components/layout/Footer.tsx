@@ -64,25 +64,24 @@ const serviceLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-border bg-surface">
+    <footer className="mt-16 bg-secondary text-white/85">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-4">
           {/* Col 1 — Marque + signature */}
           <div>
             <Link to="/" className="inline-flex items-center gap-2">
               <span
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-lg font-bold text-white"
-                style={{
-                  background: 'linear-gradient(135deg, #F26826 0%, #E05A1A 100%)',
-                }}
+                className="flex h-9 w-9 items-center justify-center rounded-sm text-base font-black text-white"
+                style={{ backgroundColor: 'var(--color-primary)' }}
               >
                 T
               </span>
-              <span className="font-display text-lg font-bold tracking-tight text-text">
-                Tech<span className="text-primary">Space</span>
+              <span className="text-lg font-black leading-none tracking-tight">
+                <span className="text-white">Tech</span>
+                <span className="text-accent">Space</span>
               </span>
             </Link>
-            <p className="mt-4 text-sm text-text-muted">
+            <p className="mt-4 text-sm text-white/75">
               Le spécialiste du matériel informatique gaming et pro au Maroc. Livraison partout
               au royaume, paiement à la livraison.
             </p>
@@ -92,7 +91,7 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-text-muted transition-colors hover:border-primary hover:text-primary"
+                  className="flex h-9 w-9 items-center justify-center rounded-md border border-white/20 text-white/70 transition-colors hover:border-accent hover:text-accent"
                 >
                   {s.icon}
                 </a>
@@ -102,7 +101,7 @@ export function Footer() {
 
           {/* Col 2 — Navigation */}
           <div>
-            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wide text-text">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-white">
               Navigation
             </h3>
             <ul className="space-y-2.5">
@@ -110,7 +109,7 @@ export function Footer() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className="text-sm text-text-muted transition-colors hover:text-primary"
+                    className="text-sm text-white/75 transition-colors hover:text-accent"
                   >
                     {l.label}
                   </Link>
@@ -121,7 +120,7 @@ export function Footer() {
 
           {/* Col 3 — Service client */}
           <div>
-            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wide text-text">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-white">
               Service client
             </h3>
             <ul className="space-y-2.5">
@@ -129,7 +128,7 @@ export function Footer() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className="text-sm text-text-muted transition-colors hover:text-primary"
+                    className="text-sm text-white/75 transition-colors hover:text-accent"
                   >
                     {l.label}
                   </Link>
@@ -140,32 +139,32 @@ export function Footer() {
 
           {/* Col 4 — Contact + newsletter */}
           <div>
-            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wide text-text">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-white">
               Contact
             </h3>
-            <ul className="space-y-2.5 text-sm text-text-muted">
+            <ul className="space-y-2.5 text-sm text-white/75">
               <li className="flex items-start gap-2">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <span>+212 5 22 00 00 00</span>
               </li>
               <li className="flex items-start gap-2">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <span>contact@techspace.ma</span>
               </li>
               <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <span>Casablanca, Maroc</span>
               </li>
             </ul>
 
-            <h3 className="mb-3 mt-6 font-display text-sm font-semibold uppercase tracking-wide text-text">
+            <h3 className="mb-3 mt-6 text-sm font-bold uppercase tracking-wide text-white">
               Newsletter
             </h3>
             <form className="flex gap-2">
               <input
                 type="email"
                 placeholder="Votre email"
-                className="h-10 flex-1 rounded-md border border-border bg-background px-3 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="h-10 flex-1 rounded-md border border-white/20 bg-white/10 px-3 text-sm text-white placeholder:text-white/50 focus:border-accent focus:bg-white/15 focus:outline-none"
               />
               <Button type="submit" size="sm">
                 OK
@@ -174,9 +173,9 @@ export function Footer() {
           </div>
         </div>
 
-        <hr className="my-10 border-border" />
+        <hr className="my-10 border-white/10" />
 
-        <div className="flex flex-col items-center justify-between gap-3 text-xs text-text-muted sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 text-xs text-white/60 sm:flex-row">
           <p>© {new Date().getFullYear()} TechSpace. Tous droits reserves.</p>
           <p>Paiement a la livraison uniquement — Service disponible au Maroc.</p>
         </div>

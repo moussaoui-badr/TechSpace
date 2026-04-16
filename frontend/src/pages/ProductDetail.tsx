@@ -156,7 +156,7 @@ export function ProductDetailPage() {
                   className={cn(
                     'overflow-hidden rounded-lg border bg-surface transition-all',
                     activeImage === idx
-                      ? 'border-primary shadow-glow-primary'
+                      ? 'border-primary shadow-md'
                       : 'border-border hover:border-primary/60',
                   )}
                 >

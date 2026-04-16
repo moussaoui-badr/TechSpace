@@ -9,14 +9,14 @@ export interface MegaMenuProps {
 export function MegaMenu({ category }: MegaMenuProps) {
   return (
     <div
-      className="absolute left-0 right-0 top-full z-40 border-t border-border bg-surface shadow-2xl"
+      className="absolute left-0 right-0 top-full z-40 border-b border-border bg-background shadow-xl"
       role="menu"
     >
       <div className="mx-auto grid max-w-7xl gap-8 px-6 py-8 lg:grid-cols-[1.5fr_1fr]">
         {/* Sous-categories */}
         <div>
-          <div className="mb-4">
-            <h3 className="font-display text-lg font-semibold text-text">{category.label}</h3>
+          <div className="mb-4 border-b border-border pb-3">
+            <h3 className="text-lg font-bold text-text">{category.label}</h3>
             {category.description && (
               <p className="mt-1 text-sm text-text-muted">{category.description}</p>
             )}
@@ -48,7 +48,7 @@ export function MegaMenu({ category }: MegaMenuProps) {
         {category.imageUrl && (
           <Link
             to={`/category/${category.slug}`}
-            className="group relative hidden overflow-hidden rounded-lg border border-border bg-surface-hover lg:block"
+            className="group relative hidden overflow-hidden rounded-lg border border-border bg-surface lg:block"
           >
             <img
               src={category.imageUrl}
@@ -56,7 +56,7 @@ export function MegaMenu({ category }: MegaMenuProps) {
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
               <span className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-white transition-colors group-hover:bg-primary-hover">
                 Decouvrir

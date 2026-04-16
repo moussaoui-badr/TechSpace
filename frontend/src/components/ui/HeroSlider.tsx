@@ -58,19 +58,19 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(90deg, rgba(15,15,26,0.92) 0%, rgba(15,15,26,0.75) 40%, rgba(15,15,26,0.1) 100%)',
+                  'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 100%)',
               }}
             />
 
             <div className="relative flex h-full max-w-7xl flex-col justify-center gap-4 px-6 sm:px-10 lg:gap-6 lg:px-14">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+              <span className="inline-flex w-fit items-center gap-2 rounded-sm bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-text">
                 TechSpace
               </span>
-              <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight text-text sm:text-4xl lg:text-5xl">
+              <h2 className="max-w-2xl text-3xl font-black leading-tight text-white drop-shadow-md sm:text-4xl lg:text-5xl">
                 {banner.title}
               </h2>
               {banner.subtitle && (
-                <p className="max-w-xl text-sm text-text-muted sm:text-base">{banner.subtitle}</p>
+                <p className="max-w-xl text-sm text-white/90 drop-shadow sm:text-base">{banner.subtitle}</p>
               )}
               {banner.linkUrl && (
                 <Link to={banner.linkUrl} className="w-fit">
@@ -88,7 +88,7 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
             type="button"
             onClick={prev}
             aria-label="Slide precedent"
-            className="absolute left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/70 text-text backdrop-blur transition-colors hover:border-primary hover:text-primary sm:flex"
+            className="absolute left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-text transition-colors hover:bg-white hover:text-primary sm:flex"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -96,7 +96,7 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
             type="button"
             onClick={next}
             aria-label="Slide suivant"
-            className="absolute right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/70 text-text backdrop-blur transition-colors hover:border-primary hover:text-primary sm:flex"
+            className="absolute right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-text transition-colors hover:bg-white hover:text-primary sm:flex"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -110,7 +110,7 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
                 aria-label={`Aller au slide ${i + 1}`}
                 className={cn(
                   'h-1.5 rounded-full transition-all',
-                  i === index ? 'w-8 bg-primary' : 'w-4 bg-border hover:bg-text-muted',
+                  i === index ? 'w-8 bg-primary' : 'w-4 bg-white/50 hover:bg-white/80',
                 )}
               />
             ))}

@@ -10,11 +10,10 @@ export function Card({ interactive = false, className, children, ...rest }: Card
   return (
     <div
       className={cn(
-        'rounded-lg border border-border bg-surface overflow-hidden transition-all',
-        interactive && 'hover:border-primary/60 hover:shadow-glow-primary cursor-pointer',
+        'rounded-md border border-border bg-background overflow-hidden transition-all',
+        interactive && 'hover:border-primary hover:shadow-lg cursor-pointer',
         className,
       )}
-      style={interactive ? { boxShadow: 'var(--shadow-card)' } : undefined}
       {...rest}
     >
       {children}

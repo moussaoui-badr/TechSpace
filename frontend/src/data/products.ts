@@ -6,14 +6,14 @@ import type { Product } from '@/types'
  */
 function productImages(label: string): { main: string; all: string[] } {
   const enc = encodeURIComponent(label)
-  const main = `https://placehold.co/600x600/1A1A2E/F26826?text=${enc}`
+  const main = `https://placehold.co/600x600/F5F5F5/334155?text=${enc}`
   return {
     main,
     all: [
       main,
-      `https://placehold.co/600x600/1A1A2E/9CA3AF?text=${enc}+Back`,
-      `https://placehold.co/600x600/1A1A2E/9CA3AF?text=${enc}+Side`,
-      `https://placehold.co/600x600/252540/F26826?text=${enc}+Detail`,
+      `https://placehold.co/600x600/F5F5F5/666666?text=${enc}+Back`,
+      `https://placehold.co/600x600/F5F5F5/666666?text=${enc}+Side`,
+      `https://placehold.co/600x600/EEEEEE/E31837?text=${enc}+Detail`,
     ],
   }
 }

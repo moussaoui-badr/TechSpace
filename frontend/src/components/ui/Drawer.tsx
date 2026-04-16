@@ -47,7 +47,7 @@ export function Drawer({
       <div
         aria-hidden
         onClick={onClose}
-        className="absolute inset-0 bg-background/75 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50"
         style={{ animation: 'fade-in 150ms ease-out' }}
       />
 

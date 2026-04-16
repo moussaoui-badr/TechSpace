@@ -18,12 +18,11 @@ export function AdminLayout() {
       <aside className="w-60 shrink-0 border-r border-border bg-surface">
         <div className="flex h-16 items-center gap-2 border-b border-border px-5">
           <span
-            className="flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold text-white"
-            style={{ background: 'linear-gradient(135deg, #F26826 0%, #E05A1A 100%)' }}
+            className="flex h-8 w-8 items-center justify-center rounded-sm bg-primary text-sm font-black text-white"
           >
             T
           </span>
-          <span className="font-display text-sm font-bold text-text">TechSpace Admin</span>
+          <span className="text-sm font-bold text-text">TechSpace Admin</span>
         </div>
         <nav className="flex flex-col gap-0.5 p-3">
           {adminLinks.map(({ to, label, icon: Icon, end }) => (

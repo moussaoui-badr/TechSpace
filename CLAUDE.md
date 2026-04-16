@@ -3,7 +3,8 @@
 ## Vue d'ensemble
 
 Site e-commerce B2C (PC Gamer, composants, peripheriques, portables, consoles) pour le marche
-marocain. Identite visuelle inspiree de Newegg (theme sombre + accent orange #F26826).
+marocain. Identite visuelle fidele a Newegg : theme clair marketplace, accent rouge #E31837,
+jaune #F6C60C en secondaire, header 3 niveaux.
 
 **Approche : Frontend-First** — on construit toute l'UX avec des donnees mock dans `/src/data/`.
 Le backend ASP.NET Core viendra APRES validation visuelle, en Phase 4.
@@ -60,9 +61,11 @@ dotnet ef database update        # Applique migrations
   - Types : `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`
 
 ### Design
-- Theme SOMBRE gaming. Fond `#0F0F1A`. Accent orange `#F26826`
-- Glow subtil orange sur hover. Ombres douces. Transitions fluides
-- Fonts : Outfit (titres) + Inter (corps)
+- Theme CLAIR marketplace style Newegg. Body `#FFFFFF`, sections alternees `#F5F5F5`
+- Accent rouge `#E31837` (CTAs, prix, badges promo). Jaune `#F6C60C` (logo, badges jaunes)
+- Top bar header et footer `#334155` (bleu-gris fonce) avec texte clair
+- Ombres subtiles light theme (jamais de glow colore). Radius modestes (default 0.375rem)
+- Font sans-serif : Inter pour corps et titres
 
 ## Philosophie
 
