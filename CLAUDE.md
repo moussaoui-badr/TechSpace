@@ -124,8 +124,8 @@ dotnet ef database update        # Applique migrations
 
 - **Phase 0** : Init repo + CLAUDE + docs — DONE
 - **Phase 1** : Setup frontend + design system + composants UI + layout — DONE
-- **Phase 2** : Mock data + Home + Catalogue + ProductDetail
-- **Phase 3** : Panier + Checkout + Auth mock + Compte + Admin
+- **Phase 2** : Mock data + Home + Catalogue + ProductDetail — DONE (commit 8dcfbe1, design Newegg authentique)
+- **Phase 3** : Panier + Checkout + Auth mock + Compte + Admin + PC Builder — IN PROGRESS
 - **Phase 4** : Backend ASP.NET Core + integration + deploiement IIS
 
 ## Template session Claude Code
