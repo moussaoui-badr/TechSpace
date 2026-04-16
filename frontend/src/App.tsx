@@ -11,6 +11,7 @@ import { LoginPage } from '@/pages/Login'
 import { RegisterPage } from '@/pages/Register'
 import { AccountPage } from '@/pages/Account'
 import { PcBuilderPage } from '@/pages/PcBuilder'
+import { ComparePage } from '@/pages/Compare'
 import { NotFoundPage } from '@/pages/NotFound'
 import { StubPage } from '@/pages/StubPage'
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboard'
@@ -34,6 +35,7 @@ export function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route path="account/*" element={<AccountPage />} />
         <Route path="pc-builder" element={<PcBuilderPage />} />
+        <Route path="compare" element={<ComparePage />} />
         <Route path="orders" element={<StubPage title="Mes commandes" subtitle="Suivi de toutes vos commandes." phase="Phase 3" />} />
         <Route path="faq" element={<StubPage title="FAQ" subtitle="Questions fréquentes sur nos services." phase="Phase 3" />} />
         <Route path="brands" element={<StubPage title="Nos marques" subtitle="Toutes les marques disponibles sur TechSpace." phase="Phase 3" />} />

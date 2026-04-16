@@ -24,6 +24,7 @@
 
   /* Accents (bleu Newegg exact + jaune signature) */
   --color-secondary: #1B3758;
+  --color-secondary-light: #1F4070;
   --color-secondary-hover: #14293F;
   --color-secondary-deep: #0E1F33;
   --color-accent: #FBD32C;

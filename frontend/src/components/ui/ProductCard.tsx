@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
-import { Heart, ShoppingCart } from 'lucide-react'
+import { Heart, ShoppingCart, Truck, Scale } from 'lucide-react'
 import type { Product } from '@/types'
 import { Badge } from '@/components/ui/Badge'
 import { Rating } from '@/components/ui/Rating'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
 import { cn } from '@/utils/cn'
 import { computeDiscountPercent } from '@/utils/formatPrice'
+import { useCompareStore } from '@/stores/compareStore'
+
+const FREE_SHIPPING_THRESHOLD = 500
 
 export interface ProductCardProps {
   product: Product
@@ -26,6 +29,9 @@ export function ProductCard({
     ? computeDiscountPercent(product.price, product.oldPrice)
     : 0
   const isOutOfStock = product.stock <= 0
+  const hasFreeShipping = product.price >= FREE_SHIPPING_THRESHOLD
+  const isInCompare = useCompareStore((s) => s.has(product.id))
+  const toggleCompare = useCompareStore((s) => s.toggle)
 
   function handleAdd(e: React.MouseEvent) {
     e.preventDefault()
@@ -37,6 +43,12 @@ export function ProductCard({
     e.preventDefault()
     e.stopPropagation()
     onToggleWishlist?.(product)
+  }
+
+  function handleCompare(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    toggleCompare(product)
   }
 
   return (
@@ -117,8 +129,30 @@ export function ProductCard({
           reviewCount={product.reviewCount}
         />
 
-        <div className="mt-auto pt-2">
+        <div className="mt-auto flex flex-col gap-1.5 pt-2">
           <PriceDisplay price={product.price} oldPrice={product.oldPrice} size="md" />
+
+          {hasFreeShipping && (
+            <span className="inline-flex items-center gap-1 text-[10.5px] font-semibold text-success">
+              <Truck className="h-3 w-3" />
+              Livraison gratuite
+            </span>
+          )}
+
+          <button
+            type="button"
+            onClick={handleCompare}
+            aria-pressed={isInCompare}
+            className={cn(
+              'inline-flex items-center gap-1.5 self-start rounded-sm border px-1.5 py-0.5 text-[10.5px] font-semibold transition-colors',
+              isInCompare
+                ? 'border-primary bg-primary-soft text-primary'
+                : 'border-border text-text-muted hover:border-primary hover:text-primary',
+            )}
+          >
+            <Scale className="h-3 w-3" />
+            {isInCompare ? 'Comparer ✓' : 'Comparer'}
+          </button>
         </div>
       </div>
     </Link>

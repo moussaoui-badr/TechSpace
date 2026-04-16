@@ -1,36 +1,59 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  ArrowLeft,
   ArrowRight,
+  Blocks,
+  Briefcase,
+  Calculator,
   ChevronRight,
   Clock,
   Cpu,
+  Disc,
   Download,
+  Dumbbell,
   Flame,
   Gamepad2,
   Gift,
+  GraduationCap,
   Headphones,
   LayoutGrid,
-  Laptop,
   Mail,
   Monitor,
   Mouse,
+  Plug,
+  Rocket,
+  Server,
   Shield,
   Sparkles,
   Star,
+  Tag,
+  Trees,
+  TrendingDown,
   Truck,
+  Tv,
   Wallet,
+  Wifi,
+  Wrench,
   Zap,
 } from 'lucide-react'
 
 const SIDEBAR_ICONS: Record<string, React.ReactNode> = {
-  'pc-gamer': <Monitor className="h-[18px] w-[18px]" />,
-  'composants': <Cpu className="h-[18px] w-[18px]" />,
-  'pc-portables': <Laptop className="h-[18px] w-[18px]" />,
-  'ecrans': <Monitor className="h-[18px] w-[18px]" />,
-  'peripheriques': <Mouse className="h-[18px] w-[18px]" />,
-  'consoles': <Gamepad2 className="h-[18px] w-[18px]" />,
-  'chaises-bureaux': <LayoutGrid className="h-[18px] w-[18px]" />,
+  'components-storage': <Cpu className="h-[18px] w-[18px]" />,
+  'computer-systems': <Monitor className="h-[18px] w-[18px]" />,
+  'computer-peripherals': <Mouse className="h-[18px] w-[18px]" />,
+  'server-components': <Server className="h-[18px] w-[18px]" />,
+  'appliances': <Plug className="h-[18px] w-[18px]" />,
+  'electronics': <Tv className="h-[18px] w-[18px]" />,
+  'gaming-vr': <Gamepad2 className="h-[18px] w-[18px]" />,
+  'networking': <Wifi className="h-[18px] w-[18px]" />,
+  'smart-home-security': <Shield className="h-[18px] w-[18px]" />,
+  'office-solutions': <Briefcase className="h-[18px] w-[18px]" />,
+  'software-services': <Disc className="h-[18px] w-[18px]" />,
+  'automotive-tools': <Wrench className="h-[18px] w-[18px]" />,
+  'home-outdoors': <Trees className="h-[18px] w-[18px]" />,
+  'health-sports': <Dumbbell className="h-[18px] w-[18px]" />,
+  'toys-drones-maker': <Blocks className="h-[18px] w-[18px]" />,
 }
 import type { Banner, Brand, Product } from '@/types'
 import { HeroSlider } from '@/components/ui/HeroSlider'
@@ -42,7 +65,6 @@ import { NAV_CATEGORIES } from '@/components/layout/navigationData'
 import { getBanners, getFeaturedProducts, getPromoProducts, getBrands } from '@/api'
 import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
-import { cn } from '@/utils/cn'
 
 const trustItems = [
   { icon: Truck, title: 'Livraison rapide', description: 'Partout au Maroc en 2 a 4 jours.' },
@@ -171,12 +193,12 @@ export function HomePage() {
 
   return (
     <div className="bg-surface">
-      {/* ============ Hero row : sidebar + banner ============ */}
+      {/* ============ Hero row : sidebar + banner + promo tiles + combo up ============ */}
       <section className="mx-auto max-w-7xl px-3 pt-4 sm:px-4">
         <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)]">
           {/* Sidebar categories — style Newegg (fond bleu fonce, texte blanc, icones SVG) */}
-          <aside className="hidden overflow-hidden rounded-md bg-secondary shadow-card lg:block">
-            <div className="flex items-center justify-between border-b border-white/15 bg-secondary-deep px-4 py-3 text-white">
+          <aside className="hidden overflow-hidden rounded-md bg-secondary-light shadow-card lg:block lg:self-start">
+            <div className="flex items-center justify-between border-b border-white/15 bg-secondary px-4 py-3 text-white">
               <span className="text-[12px] font-bold uppercase tracking-widest text-white/90">Catégories</span>
             </div>
             <ul>
@@ -184,7 +206,7 @@ export function HomePage() {
                 <li key={cat.slug}>
                   <Link
                     to={`/category/${cat.slug}`}
-                    className="group flex items-center justify-between border-b border-white/10 px-4 py-3 transition-colors hover:bg-white/10 last:border-b-0"
+                    className="group flex items-center justify-between border-b border-white/10 px-4 py-2.5 transition-colors hover:bg-white/10 last:border-b-0"
                   >
                     <span className="flex items-center gap-3 text-[13px] text-white/90 transition-colors group-hover:text-accent">
                       <span aria-hidden className="shrink-0 text-white/60 transition-colors group-hover:text-accent">
@@ -199,20 +221,24 @@ export function HomePage() {
             </ul>
           </aside>
 
-          {/* Hero banner */}
-          <div>
+          {/* Colonne droite : hero + tuiles promo + combo up */}
+          <div className="flex flex-col gap-4">
             {loading ? (
               <Skeleton className="h-[260px] w-full rounded-md lg:h-[340px]" />
             ) : (
               <HeroSlider banners={banners} />
             )}
+
+            <PromoTilesGrid />
+
+            <ComboUpSection />
           </div>
         </div>
       </section>
 
-      {/* ============ Combo Up Savings (tabs AMD/Intel/Desktop) ============ */}
-      <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
-        <ComboUpSection />
+      {/* ============ Promo Banner 1 — Power Supply Calculator ============ */}
+      <section className="mx-auto max-w-7xl px-3 pt-8 sm:px-4">
+        <PromoBanner banner={PROMO_BANNERS[0]} />
       </section>
 
       {/* ============ Shell Shocker (deals flash) ============ */}
@@ -276,6 +302,18 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ============ Today's Best Deals (Newegg Select) ============ */}
+      <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+        <TodayBestDeals products={promos} loading={loading} />
+      </section>
+
+      {/* ============ Carousel thématique : Gamer Paradise ============ */}
+      <section className="bg-background">
+        <div className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+          <CategoryCarousel config={CATEGORY_CAROUSELS[0]} products={featured} loading={loading} />
+        </div>
+      </section>
+
       {/* ============ Categories tiles ============ */}
       <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
         <SectionHeader
@@ -284,21 +322,33 @@ export function HomePage() {
           description="Trouvez rapidement ce qui vous correspond."
           linkTo="/products"
         />
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-7">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7">
           {NAV_CATEGORIES.map((cat) => (
             <Link
               key={cat.slug}
               to={`/category/${cat.slug}`}
               className="group flex flex-col items-center gap-2.5 rounded-md border border-border bg-background p-3 text-center transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md sm:p-4"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-soft text-2xl transition-all group-hover:scale-110 group-hover:bg-primary group-hover:text-white sm:h-14 sm:w-14">
-                {cat.icon}
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-soft text-primary transition-all group-hover:scale-110 group-hover:bg-primary group-hover:text-white sm:h-14 sm:w-14">
+                {SIDEBAR_ICONS[cat.slug] ?? <LayoutGrid className="h-5 w-5" />}
               </span>
               <span className="text-[11px] font-semibold text-text transition-colors group-hover:text-primary sm:text-xs">
                 {cat.label}
               </span>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* ============ Promo Banner 2 — Optimize your work ============ */}
+      <section className="mx-auto max-w-7xl px-3 sm:px-4">
+        <PromoBanner banner={PROMO_BANNERS[1]} />
+      </section>
+
+      {/* ============ Carousel thématique : Écrans & Affichages ============ */}
+      <section className="bg-background">
+        <div className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+          <CategoryCarousel config={CATEGORY_CAROUSELS[1]} products={featured} loading={loading} />
         </div>
       </section>
 
@@ -332,6 +382,23 @@ export function HomePage() {
             </div>
           )}
         </div>
+      </section>
+
+      {/* ============ Promo Banner 3 — Gigabyte ============ */}
+      <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+        <PromoBanner banner={PROMO_BANNERS[2]} />
+      </section>
+
+      {/* ============ Carousel thématique : Cartes mères ============ */}
+      <section className="bg-background">
+        <div className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+          <CategoryCarousel config={CATEGORY_CAROUSELS[2]} products={featured} loading={loading} />
+        </div>
+      </section>
+
+      {/* ============ Featurettes grid 2×3 ============ */}
+      <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+        <FeaturettesGrid />
       </section>
 
       {/* ============ Bandeau promo paiement livraison ============ */}
@@ -399,6 +466,18 @@ export function HomePage() {
             </div>
           )}
         </div>
+      </section>
+
+      {/* ============ Carousel thématique : Casques audio ============ */}
+      <section className="bg-background">
+        <div className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
+          <CategoryCarousel config={CATEGORY_CAROUSELS[3]} products={promos} loading={loading} />
+        </div>
+      </section>
+
+      {/* ============ Promo Banner 4 — ABS ============ */}
+      <section className="mx-auto max-w-7xl px-3 py-4 sm:px-4">
+        <PromoBanner banner={PROMO_BANNERS[3]} />
       </section>
 
       {/* ============ Featured Brands ============ */}
@@ -490,6 +569,9 @@ export function HomePage() {
           <AppBlock />
         </div>
       </section>
+
+      {/* ============ SEO descriptive section (bas de page) ============ */}
+      <SeoSection />
     </div>
   )
 }
@@ -585,97 +667,183 @@ function NewsletterBlock() {
   )
 }
 
-function ComboUpSection() {
-  const [activeKey, setActiveKey] = useState<string>(COMBO_GROUPS[0].key)
-  const active = COMBO_GROUPS.find((g) => g.key === activeKey) ?? COMBO_GROUPS[0]
+interface PromoTile {
+  title: string
+  subtitle: string
+  cta: string
+  to: string
+  gradient: string
+  icon: React.ReactNode
+  emphasis: string
+}
 
+const PROMO_TILES: PromoTile[] = [
+  {
+    title: 'Shell Shocker',
+    subtitle: 'Deals éclairs, stocks limités',
+    cta: 'Voir les deals',
+    to: '/products?sort=promo',
+    gradient: 'from-[#F26826] to-[#D9561C]',
+    icon: <Zap className="h-4 w-4" />,
+    emphasis: '-40%',
+  },
+  {
+    title: 'PC Builder',
+    subtitle: 'Montez votre config en 5 minutes',
+    cta: 'Démarrer',
+    to: '/pc-builder',
+    gradient: 'from-secondary to-secondary-deep',
+    icon: <Cpu className="h-4 w-4" />,
+    emphasis: 'NEW',
+  },
+  {
+    title: 'TechSpace Card',
+    subtitle: '-10% permanent sur tout le site',
+    cta: 'Adhérer',
+    to: '/membership',
+    gradient: 'from-[#13A971] to-[#0E8A5B]',
+    icon: <Gift className="h-4 w-4" />,
+    emphasis: '-10%',
+  },
+  {
+    title: 'Gaming Zone',
+    subtitle: 'Configurations pro joueurs',
+    cta: 'Explorer',
+    to: '/category/gaming-vr',
+    gradient: 'from-[#1F4070] to-[#1B3758]',
+    icon: <Gamepad2 className="h-4 w-4" />,
+    emphasis: 'HOT',
+  },
+]
+
+function PromoTilesGrid() {
   return (
-    <div className="overflow-hidden rounded-md border border-border bg-background shadow-sm">
-      {/* Header avec eyebrow + tabs — fond bleu foncé style Newegg */}
-      <div className="flex flex-col gap-2 bg-secondary px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-            <Gift className="h-3 w-3" />
-            Combo Up
-          </span>
-          <div>
-            <p className="text-[13px] font-bold text-white">
-              Combo up savings{' '}
-              <span className="text-accent">{active.savings.toLocaleString('fr-FR')} DH</span>
-            </p>
-            <p className="text-[11px] text-white/60">
-              Économisez en achetant plusieurs produits compatibles.
-            </p>
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      {PROMO_TILES.map((tile) => (
+        <Link
+          key={tile.title}
+          to={tile.to}
+          className={`group relative flex min-h-[120px] flex-col justify-between overflow-hidden rounded-md bg-gradient-to-br ${tile.gradient} p-4 text-white shadow-sm transition-all hover:shadow-md`}
+        >
+          <div className="flex items-start justify-between gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+              {tile.icon}
+            </span>
+            <span className="rounded-sm bg-accent px-2 py-0.5 text-[10px] font-bold text-text">
+              {tile.emphasis}
+            </span>
           </div>
-        </div>
+          <div>
+            <h3 className="text-sm font-black">{tile.title}</h3>
+            <p className="mt-0.5 text-[11px] text-white/80">{tile.subtitle}</p>
+            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-accent transition-transform group-hover:translate-x-1">
+              {tile.cta} <ArrowRight className="h-3 w-3" />
+            </span>
+          </div>
+        </Link>
+      ))}
+    </div>
+  )
+}
+
+function ComboUpSection() {
+  return (
+    <div>
+      <div className="mb-3 flex items-center justify-between">
+        <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+          <Gift className="h-3.5 w-3.5" />
+          Combo Up
+        </span>
         <Link
           to="/products?sort=combos"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
         >
           Plus d'options <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-border bg-surface px-3 py-2">
-        {COMBO_GROUPS.map((g) => (
-          <button
-            key={g.key}
-            type="button"
-            onClick={() => setActiveKey(g.key)}
-            className={cn(
-              'rounded-md px-3.5 py-1.5 text-[12.5px] font-semibold transition-colors',
-              activeKey === g.key
-                ? 'bg-secondary text-white'
-                : 'text-text-muted hover:bg-surface-hover hover:text-text',
-            )}
-          >
-            {g.label}
-          </button>
+      <div className="grid gap-4 md:grid-cols-2">
+        {COMBO_GROUPS.slice(0, 2).map((group) => (
+          <ComboBlock key={group.key} group={group} />
         ))}
       </div>
+    </div>
+  )
+}
 
-      {/* Produits combos */}
-      <div className="grid gap-3 p-4 sm:grid-cols-2">
-        {active.items.map((item) => {
+function ComboBlock({ group }: { group: ComboGroup }) {
+  return (
+    <div className="overflow-hidden rounded-md border border-border bg-background shadow-sm">
+      <div className="flex items-center justify-between bg-secondary px-4 py-3 text-white">
+        <div>
+          <h3 className="text-sm font-bold">{group.label}</h3>
+          <p className="text-[11px] text-white/70">
+            Combo savings{' '}
+            <span className="font-bold text-accent">
+              {group.savings.toLocaleString('fr-FR')} DH
+            </span>
+          </p>
+        </div>
+        <Link
+          to="/products?sort=combos"
+          className="text-[11px] font-semibold text-accent transition-colors hover:text-white"
+        >
+          Voir tout
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 p-4">
+        {group.items.map((item) => {
           const discount = Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100)
           return (
-            <Link
+            <div
               key={item.name}
-              to={item.href}
-              className="group flex gap-3 rounded-md border border-border bg-background p-3 transition-all hover:border-primary hover:shadow-md"
+              className="group flex flex-col gap-2 rounded-md border border-border bg-background p-3 transition-all hover:border-primary hover:shadow-md"
             >
-              <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md bg-surface">
+              <Link to={item.href} className="flex h-24 w-full items-center justify-center overflow-hidden rounded-md bg-surface">
                 <img
                   src={item.imageUrl}
                   alt={item.name}
-                  className="h-full w-full object-contain p-2"
+                  className="h-full w-full object-contain p-2 transition-transform group-hover:scale-105"
                   loading="lazy"
                 />
-              </div>
-              <div className="flex flex-1 flex-col gap-1.5">
-                <p className="line-clamp-2 text-[13px] font-semibold text-text transition-colors group-hover:text-primary">
-                  {item.name}
-                </p>
-                <p className="text-[11px] text-text-muted">{item.spec}</p>
-                <div className="mt-auto flex items-end justify-between">
-                  <div>
-                    <p className="text-[11px] text-text-subtle line-through">
-                      {item.oldPrice.toLocaleString('fr-FR')} DH
-                    </p>
-                    <p className="text-lg font-black text-primary">
-                      {item.price.toLocaleString('fr-FR')}{' '}
-                      <span className="text-[11px] font-semibold text-text-muted">DH</span>
-                    </p>
-                  </div>
-                  {discount > 0 && (
-                    <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-text">
-                      -{discount}%
-                    </span>
-                  )}
+              </Link>
+              <Link to={item.href} className="line-clamp-2 text-[12.5px] font-semibold text-text transition-colors hover:text-primary">
+                {item.name}
+              </Link>
+              <p className="text-[11px] text-text-muted">{item.spec}</p>
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-[11px] text-text-subtle line-through">
+                    {item.oldPrice.toLocaleString('fr-FR')} DH
+                  </p>
+                  <p className="text-base font-black text-primary">
+                    {item.price.toLocaleString('fr-FR')}{' '}
+                    <span className="text-[11px] font-semibold text-text-muted">DH</span>
+                  </p>
                 </div>
+                {discount > 0 && (
+                  <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-text">
+                    -{discount}%
+                  </span>
+                )}
               </div>
-            </Link>
+              <div className="mt-1 flex gap-1.5">
+                <Link
+                  to="/pc-builder"
+                  className="flex h-8 flex-1 items-center justify-center gap-1 rounded-md border border-primary bg-primary-soft text-[11px] font-bold text-primary transition-colors hover:bg-primary hover:text-white"
+                >
+                  <Cpu className="h-3 w-3" />
+                  Configurer
+                </Link>
+                <Link
+                  to={item.href}
+                  className="flex h-8 flex-1 items-center justify-center gap-1 rounded-md bg-primary text-[11px] font-bold text-white transition-colors hover:bg-primary-hover"
+                >
+                  Voir
+                </Link>
+              </div>
+            </div>
           )
         })}
       </div>
@@ -707,5 +875,471 @@ function AppBlock() {
         </span>
       </div>
     </div>
+  )
+}
+
+// ================= Promo Banners (horizontaux 1150x320 — style Newegg) =================
+
+interface PromoBannerData {
+  eyebrow: string
+  title: string
+  subtitle: string
+  cta: string
+  to: string
+  theme: 'dark' | 'orange' | 'blue' | 'purple'
+  icon: React.ReactNode
+}
+
+const PROMO_BANNERS: PromoBannerData[] = [
+  {
+    eyebrow: 'Outil TechSpace',
+    title: 'Trouvez votre alimentation idéale',
+    subtitle: 'Calculateur de puissance : évitez les sous-dimensionnements et dimensionnez votre PSU en 2 minutes.',
+    cta: 'Lancer le calculateur',
+    to: '/pc-builder',
+    theme: 'dark',
+    icon: <Calculator className="h-6 w-6" />,
+  },
+  {
+    eyebrow: 'DELL Latitude',
+    title: 'Optimisez votre travail, redéfinissez votre jeu',
+    subtitle: 'Portables pro & gaming avec écrans haute fréquence et processeurs Intel Core Ultra.',
+    cta: 'Explorer DELL',
+    to: '/products?brands=dell',
+    theme: 'blue',
+    icon: <Monitor className="h-6 w-6" />,
+  },
+  {
+    eyebrow: 'GIGABYTE AORUS',
+    title: 'Un simple changement pour une performance supérieure',
+    subtitle: 'Cartes mères Z790 et X670E AORUS — connectivité Wi-Fi 7 et PCIe 5.0.',
+    cta: 'Voir les cartes mères',
+    to: '/category/components-storage',
+    theme: 'purple',
+    icon: <Cpu className="h-6 w-6" />,
+  },
+  {
+    eyebrow: 'ABS Gaming PC',
+    title: 'No Limit. No Rules. No Mercy.',
+    subtitle: 'Configurations gaming assemblées au Maroc — RTX 40 Series & refroidissement liquide.',
+    cta: 'Configurer mon PC',
+    to: '/pc-builder',
+    theme: 'orange',
+    icon: <Flame className="h-6 w-6" />,
+  },
+]
+
+const THEME_CLASSES: Record<PromoBannerData['theme'], { bg: string; accent: string }> = {
+  dark: { bg: 'bg-gradient-to-r from-secondary-deep via-secondary to-secondary-light', accent: 'text-accent' },
+  orange: { bg: 'bg-gradient-to-r from-[#F26826] via-[#D9561C] to-[#A93F0C]', accent: 'text-white' },
+  blue: { bg: 'bg-gradient-to-r from-[#1F4070] via-[#2A5A8C] to-[#1B3758]', accent: 'text-accent' },
+  purple: { bg: 'bg-gradient-to-r from-[#3A2A5C] via-[#5B3B8C] to-[#2E1F4D]', accent: 'text-accent' },
+}
+
+function PromoBanner({ banner }: { banner: PromoBannerData }) {
+  const theme = THEME_CLASSES[banner.theme]
+  return (
+    <Link
+      to={banner.to}
+      className={`group relative flex min-h-[140px] flex-col justify-center gap-3 overflow-hidden rounded-md p-6 text-white shadow-sm transition-all hover:shadow-md md:min-h-[180px] md:flex-row md:items-center md:justify-between md:p-10 ${theme.bg}`}
+    >
+      <div className="flex max-w-2xl items-start gap-4">
+        <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm md:flex">
+          {banner.icon}
+        </span>
+        <div>
+          <span className={`text-[11px] font-bold uppercase tracking-widest ${theme.accent}`}>
+            {banner.eyebrow}
+          </span>
+          <h3 className="mt-1 text-lg font-black leading-tight md:text-2xl">{banner.title}</h3>
+          <p className="mt-1 max-w-lg text-[13px] text-white/85">{banner.subtitle}</p>
+        </div>
+      </div>
+      <span className="inline-flex h-10 shrink-0 items-center gap-2 self-start rounded-md bg-white px-4 text-[13px] font-bold text-secondary transition-transform group-hover:translate-x-1 md:self-auto">
+        {banner.cta} <ArrowRight className="h-4 w-4" />
+      </span>
+    </Link>
+  )
+}
+
+// ================= Category Carousels (Newegg "Gamer Paradise", "Monitors"...) =================
+
+interface CategoryCarouselConfig {
+  title: string
+  eyebrow: string
+  description: string
+  linkTo: string
+  slice: [number, number]
+}
+
+const CATEGORY_CAROUSELS: CategoryCarouselConfig[] = [
+  {
+    eyebrow: 'Gamer Paradise',
+    title: 'Tout pour la performance gaming',
+    description: 'Portables, GPU, périphériques et setup complet.',
+    linkTo: '/category/gaming-vr',
+    slice: [0, 8],
+  },
+  {
+    eyebrow: 'Écrans & Affichages',
+    title: 'Moniteurs haute fréquence et ultra-wide',
+    description: 'De 144Hz à 360Hz, QHD, 4K et UltraWide.',
+    linkTo: '/category/computer-peripherals',
+    slice: [2, 10],
+  },
+  {
+    eyebrow: 'Cartes mères',
+    title: 'Motherboards nouvelle génération',
+    description: 'Z790, X670E, AM5 et LGA 1700 — Wi-Fi 7.',
+    linkTo: '/category/components-storage',
+    slice: [1, 9],
+  },
+  {
+    eyebrow: 'Casques audio',
+    title: 'Immersion sonore gaming et Hi-Fi',
+    description: 'Spatial Audio, ANC, drivers premium.',
+    linkTo: '/category/computer-peripherals',
+    slice: [0, 8],
+  },
+]
+
+function CategoryCarousel({
+  config,
+  products,
+  loading,
+}: {
+  config: CategoryCarouselConfig
+  products: Product[]
+  loading: boolean
+}) {
+  const [scrollRef, setScrollRef] = useState<HTMLDivElement | null>(null)
+  const items = products.slice(config.slice[0], config.slice[1])
+
+  function scroll(dir: 'left' | 'right') {
+    if (!scrollRef) return
+    const amount = scrollRef.clientWidth * 0.8
+    scrollRef.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
+  }
+
+  return (
+    <div>
+      <div className="mb-4 flex items-end justify-between gap-3">
+        <div>
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-primary">
+            <Tag className="h-3 w-3" />
+            {config.eyebrow}
+          </span>
+          <h2 className="mt-1 font-display text-xl font-black leading-tight text-text md:text-2xl">
+            {config.title}
+          </h2>
+          <p className="mt-0.5 text-sm text-text-muted">{config.description}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => scroll('left')}
+            aria-label="Défiler à gauche"
+            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scroll('right')}
+            aria-label="Défiler à droite"
+            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <Link
+            to={config.linkTo}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+          >
+            Voir plus <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="flex gap-3 overflow-hidden">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-64 w-48 shrink-0 rounded-md" />
+          ))}
+        </div>
+      ) : (
+        <div
+          ref={setScrollRef}
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-2 [&::-webkit-scrollbar]:hidden"
+        >
+          {items.map((p) => (
+            <Link
+              key={`${config.eyebrow}-${p.id}`}
+              to={`/products/${p.slug}`}
+              className="group flex w-48 shrink-0 snap-start flex-col overflow-hidden rounded-md border border-border bg-background transition-all hover:border-primary hover:shadow-md"
+            >
+              <div className="relative aspect-square bg-surface">
+                <img
+                  src={p.mainImage}
+                  alt={p.name}
+                  className="h-full w-full object-contain p-4 transition-transform group-hover:scale-105"
+                  loading="lazy"
+                />
+                {p.oldPrice && p.oldPrice > p.price && (
+                  <span className="absolute left-2 top-2 rounded-sm bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                    -{Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100)}%
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-1 flex-col gap-1 border-t border-border p-3">
+                <p className="line-clamp-2 text-[13px] font-medium text-text transition-colors group-hover:text-primary">
+                  {p.name}
+                </p>
+                <PriceDisplay price={p.price} oldPrice={p.oldPrice} size="sm" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ================= Today's Best Deals (Newegg Select — cartes enrichies) =================
+
+const PROMO_CODES = ['SSF5727', 'SSF5764', 'AMZ2024', 'TS1050', 'NEW2026', 'GAMER20']
+
+function TodayBestDeals({
+  products,
+  loading,
+}: {
+  products: Product[]
+  loading: boolean
+}) {
+  return (
+    <div>
+      <SectionHeader
+        eyebrow={
+          <span className="inline-flex items-center gap-1.5">
+            <TrendingDown className="h-3.5 w-3.5" />
+            TechSpace Select
+          </span>
+        }
+        title="Meilleurs deals du jour"
+        description="Sélection éditoriale avec codes promo et livraison offerte."
+        linkTo="/products?sort=promo"
+      />
+      {loading ? (
+        <ProductGridSkeleton count={6} />
+      ) : (
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+          {products.slice(0, 6).map((p, idx) => {
+            const discount =
+              p.oldPrice && p.oldPrice > p.price
+                ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100)
+                : 0
+            const rating = 3.5 + (idx % 3) * 0.5
+            const reviews = 124 + idx * 87
+            const promoCode = PROMO_CODES[idx % PROMO_CODES.length]
+            return (
+              <Link
+                key={p.id}
+                to={`/products/${p.slug}`}
+                className="group flex flex-col overflow-hidden rounded-md border border-border bg-background transition-all hover:border-primary hover:shadow-md"
+              >
+                <div className="relative aspect-square bg-surface">
+                  <img
+                    src={p.mainImage}
+                    alt={p.name}
+                    className="h-full w-full object-contain p-4 transition-transform group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {discount > 0 && (
+                    <span className="absolute left-2 top-2 rounded-sm bg-primary px-1.5 py-0.5 text-[10px] font-bold text-white">
+                      -{discount}%
+                    </span>
+                  )}
+                  <span className="absolute right-2 top-2 rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-text">
+                    TECHSPACE SELECT
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col gap-1.5 border-t border-border p-3">
+                  <p className="line-clamp-2 text-[12.5px] font-medium text-text transition-colors group-hover:text-primary">
+                    {p.name}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[11px]">
+                    <span className="flex items-center gap-0.5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-3 w-3 ${i < Math.round(rating) ? 'fill-accent text-accent' : 'text-border'}`}
+                        />
+                      ))}
+                    </span>
+                    <span className="text-text-muted">({reviews})</span>
+                  </div>
+                  <PriceDisplay price={p.price} oldPrice={p.oldPrice} size="sm" />
+                  <div className="mt-auto flex flex-col gap-0.5 border-t border-dashed border-border pt-1.5">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-success">
+                      <Truck className="h-3 w-3" /> Livraison gratuite
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
+                      <Tag className="h-3 w-3" />
+                      Code :{' '}
+                      <span className="rounded-sm bg-surface px-1 font-mono font-bold text-primary">
+                        {promoCode}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ================= Featurettes grid 2×3 (Newegg) =================
+
+interface Featurette {
+  title: string
+  subtitle: string
+  cta: string
+  to: string
+  gradient: string
+  size: 'small' | 'tall'
+  icon: React.ReactNode
+}
+
+const FEATURETTES: Featurette[] = [
+  {
+    title: 'AI PC Store',
+    subtitle: 'Configurations IA : Copilot+, NPU et Neural Engine dédiés.',
+    cta: 'Découvrir AI PC',
+    to: '/category/computer-systems',
+    gradient: 'from-[#5B3B8C] to-[#2E1F4D]',
+    size: 'tall',
+    icon: <Sparkles className="h-5 w-5" />,
+  },
+  {
+    title: 'Prix le plus bas sur 30 jours',
+    subtitle: 'Garantie tarifaire : le meilleur prix des 30 derniers jours.',
+    cta: 'Voir les baisses',
+    to: '/products?sort=lowest-price',
+    gradient: 'from-[#13A971] to-[#0E8A5B]',
+    size: 'small',
+    icon: <TrendingDown className="h-5 w-5" />,
+  },
+  {
+    title: 'Best Sellers',
+    subtitle: 'Les produits les plus achetés par la communauté.',
+    cta: 'Voir le classement',
+    to: '/products?sort=best-sellers',
+    gradient: 'from-[#F26826] to-[#D9561C]',
+    size: 'small',
+    icon: <Flame className="h-5 w-5" />,
+  },
+  {
+    title: 'Espace Étudiant',
+    subtitle: 'Tarifs réduits et financement 3× pour étudiants vérifiés.',
+    cta: 'Activer mon pack',
+    to: '/membership',
+    gradient: 'from-[#1F4070] to-[#1B3758]',
+    size: 'tall',
+    icon: <GraduationCap className="h-5 w-5" />,
+  },
+  {
+    title: 'TechSpace Refreshed',
+    subtitle: 'Produits reconditionnés certifiés, garantie 12 mois.',
+    cta: 'Voir les reconditionnés',
+    to: '/products?sort=refreshed',
+    gradient: 'from-[#2A5A8C] to-[#1F4070]',
+    size: 'small',
+    icon: <Rocket className="h-5 w-5" />,
+  },
+  {
+    title: 'Newegg Select',
+    subtitle: 'Curation experts : tops hardware selon benchmarks 2026.',
+    cta: 'Consulter les picks',
+    to: '/products?sort=editor',
+    gradient: 'from-[#A93F0C] to-[#7A2D08]',
+    size: 'small',
+    icon: <Star className="h-5 w-5" />,
+  },
+]
+
+function FeaturettesGrid() {
+  return (
+    <div>
+      <SectionHeader
+        eyebrow="TechSpace Experiences"
+        title="Explorez nos univers"
+        description="Des espaces pensés pour chaque usage : IA, étudiant, reconditionné, gaming."
+      />
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-4">
+        {FEATURETTES.map((f) => (
+          <Link
+            key={f.title}
+            to={f.to}
+            className={`group relative flex flex-col justify-between overflow-hidden rounded-md bg-gradient-to-br ${f.gradient} p-5 text-white shadow-sm transition-all hover:shadow-md ${f.size === 'tall' ? 'row-span-2 min-h-[320px]' : 'min-h-[150px]'}`}
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
+              {f.icon}
+            </span>
+            <div>
+              <h3 className="text-base font-black leading-tight md:text-lg">{f.title}</h3>
+              <p className="mt-1 text-[11.5px] text-white/85">{f.subtitle}</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-[11.5px] font-semibold text-accent transition-transform group-hover:translate-x-1">
+                {f.cta} <ArrowRight className="h-3 w-3" />
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ================= SEO descriptive section (bas de page) =================
+
+function SeoSection() {
+  return (
+    <section className="border-t border-border bg-surface">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto]">
+          <div className="max-w-3xl text-sm leading-relaxed text-text-muted">
+            <h2 className="text-base font-bold text-text">TechSpace — votre marketplace tech au Maroc</h2>
+            <p className="mt-2">
+              Depuis 2024, TechSpace est la référence pour l'achat en ligne de matériel
+              informatique au Maroc. Plus de <strong className="text-text">10 000 produits</strong>{' '}
+              en stock : PC gamer, composants, portables, écrans, consoles, smart home, électroménager.
+              Livraison partout au royaume en 2 à 4 jours, paiement à la livraison sans carte bancaire.
+            </p>
+            <p className="mt-2">
+              Nos outils vous accompagnent : <Link to="/pc-builder" className="text-primary hover:underline">PC Builder</Link>{' '}
+              pour configurer votre config, <Link to="/pc-builder" className="text-primary hover:underline">Calculateur d'alimentation</Link>,{' '}
+              <Link to="/products?sort=best-sellers" className="text-primary hover:underline">Best Sellers</Link>,{' '}
+              <Link to="/category/gaming-vr" className="text-primary hover:underline">Gaming Zone</Link>. Rejoignez notre communauté
+              de <strong className="text-text">50 000+ passionnés</strong> tech et bénéficiez de tests hardware, deals exclusifs et support SAV 7j/7.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 lg:flex-col">
+            <Link to="/pc-builder" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-text transition-colors hover:border-primary hover:text-primary">
+              <Cpu className="h-3.5 w-3.5" /> PC Builder
+            </Link>
+            <Link to="/products?sort=promo" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-text transition-colors hover:border-primary hover:text-primary">
+              <Zap className="h-3.5 w-3.5" /> Shell Shocker
+            </Link>
+            <Link to="/category/gaming-vr" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-text transition-colors hover:border-primary hover:text-primary">
+              <Gamepad2 className="h-3.5 w-3.5" /> Gaming Finder
+            </Link>
+            <Link to="/faq" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-text transition-colors hover:border-primary hover:text-primary">
+              <Calculator className="h-3.5 w-3.5" /> Calculateur PSU
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }

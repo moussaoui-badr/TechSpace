@@ -1,42 +1,60 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Bell,
+  Blocks,
+  Briefcase,
   ChevronDown,
   ChevronRight,
   Cpu,
+  Disc,
+  Dumbbell,
   Gamepad2,
-  Globe,
+  Gift,
   Headphones,
   Heart,
   HelpCircle,
   LayoutGrid,
-  Laptop,
-  MapPin,
   Menu,
   Monitor,
   Moon,
   Mouse,
   Package,
+  Plug,
   Search,
+  Server,
+  Shield,
   ShoppingCart,
   Store,
   Sun,
+  Trees,
+  Truck,
+  Tv,
   User,
+  Wifi,
+  Wrench,
   X,
+  Zap,
 } from 'lucide-react'
 
 const SLUG_ICONS: Record<string, React.ReactNode> = {
-  'pc-gamer': <Monitor className="h-4 w-4" />,
-  'composants': <Cpu className="h-4 w-4" />,
-  'pc-portables': <Laptop className="h-4 w-4" />,
-  'ecrans': <Monitor className="h-4 w-4" />,
-  'peripheriques': <Mouse className="h-4 w-4" />,
-  'consoles': <Gamepad2 className="h-4 w-4" />,
-  'chaises-bureaux': <LayoutGrid className="h-4 w-4" />,
+  'components-storage': <Cpu className="h-4 w-4" />,
+  'computer-systems': <Monitor className="h-4 w-4" />,
+  'computer-peripherals': <Mouse className="h-4 w-4" />,
+  'server-components': <Server className="h-4 w-4" />,
+  'appliances': <Plug className="h-4 w-4" />,
+  'electronics': <Tv className="h-4 w-4" />,
+  'gaming-vr': <Gamepad2 className="h-4 w-4" />,
+  'networking': <Wifi className="h-4 w-4" />,
+  'smart-home-security': <Shield className="h-4 w-4" />,
+  'office-solutions': <Briefcase className="h-4 w-4" />,
+  'software-services': <Disc className="h-4 w-4" />,
+  'automotive-tools': <Wrench className="h-4 w-4" />,
+  'home-outdoors': <Trees className="h-4 w-4" />,
+  'health-sports': <Dumbbell className="h-4 w-4" />,
+  'toys-drones-maker': <Blocks className="h-4 w-4" />,
 }
 import { Logo } from '@/components/layout/Logo'
-import { MegaMenu } from '@/components/layout/MegaMenu'
 import { NAV_CATEGORIES } from '@/components/layout/navigationData'
 import { useCartStore, cartTotalItems } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
@@ -49,7 +67,7 @@ const QUICK_LINKS: { to: string; label: string; highlight?: boolean; business?: 
   { to: '/products?sort=best-sellers', label: 'Best Sellers' },
   { to: '/products?sort=clearance', label: 'Clearance' },
   { to: '/membership', label: 'TechSpace Card' },
-  { to: '/category/pc-gamer', label: 'Gamer Community' },
+  { to: '/category/gaming-vr', label: 'Gamer Community' },
   { to: '/gifts', label: 'Cadeau offert' },
   { to: '/business', label: 'TECHSPACE BUSINESS', business: true },
 ]
@@ -58,14 +76,11 @@ export function Header() {
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
-  const [openCategory, setOpenCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
 
   const cartItems = useCartStore((s) => s.items)
   const wishlistCount = useWishlistStore((s) => s.productIds.length)
   const cartCount = cartTotalItems(cartItems)
-
-  const activeCategory = NAV_CATEGORIES.find((c) => c.slug === openCategory)
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -76,6 +91,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border">
+      <TopPromoBar />
       {/* ===================== Tier 1 : Dark bar (logo + deliver + search + user) ===================== */}
       <div className="bg-secondary text-white">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2.5 sm:gap-4 sm:px-6 lg:gap-6">
@@ -94,10 +110,9 @@ export function Header() {
             to="/account/addresses"
             className="hidden items-center gap-2 rounded-md px-2 py-1.5 text-[13px] text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
           >
-            <MapPin className="h-4 w-4 text-accent" />
             <span className="flex flex-col leading-tight">
               <span className="text-[10px] uppercase tracking-wider text-white/60">
-                Livrer a
+                Livrer à
               </span>
               <span className="text-[13px] font-semibold">Maroc</span>
             </span>
@@ -122,8 +137,8 @@ export function Header() {
             </div>
           </form>
 
-          {/* Icônes utilitaires */}
-          <div className="hidden items-center gap-1 lg:flex">
+          {/* Icônes utilitaires : notifications + toggle slide + flag pill */}
+          <div className="hidden items-center gap-2 lg:flex">
             <button
               type="button"
               aria-label="Notifications"
@@ -131,21 +146,39 @@ export function Header() {
             >
               <Bell className="h-5 w-5" />
             </button>
-            <button
-              type="button"
-              aria-label="Langue"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-            >
-              <Globe className="h-5 w-5" />
-            </button>
+
             <button
               type="button"
               aria-label={darkMode ? 'Mode clair' : 'Mode sombre'}
               onClick={() => setDarkMode((d) => !d)}
-              className="flex h-9 w-[52px] items-center justify-between rounded-full border border-white/20 bg-white/10 px-1.5 transition-colors hover:bg-white/20"
+              className="relative flex h-7 w-14 items-center rounded-full bg-white/10 ring-1 ring-white/20 transition-colors hover:bg-white/20"
             >
-              <Sun className={`h-3.5 w-3.5 transition-colors ${darkMode ? 'text-white/40' : 'text-accent'}`} />
-              <Moon className={`h-3.5 w-3.5 transition-colors ${darkMode ? 'text-accent' : 'text-white/40'}`} />
+              <span
+                className={cn(
+                  'absolute top-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-accent shadow-md transition-transform duration-200',
+                  darkMode ? 'translate-x-7' : 'translate-x-0.5',
+                )}
+              >
+                {darkMode ? (
+                  <Moon className="h-3.5 w-3.5 text-secondary" />
+                ) : (
+                  <Sun className="h-3.5 w-3.5 text-secondary" />
+                )}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              aria-label="Changer la langue"
+              className="flex h-9 items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              <span
+                aria-hidden
+                className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[11px] leading-none"
+              >
+                🇲🇦
+              </span>
+              MA
             </button>
           </div>
 
@@ -187,11 +220,8 @@ export function Header() {
         </div>
       </div>
 
-      {/* ===================== Tier 2 : Category bar ===================== */}
-      <nav
-        onMouseLeave={() => setOpenCategory(null)}
-        className="relative hidden border-t border-border bg-background lg:block"
-      >
+      {/* ===================== Tier 2 : Quick links bar ===================== */}
+      <nav className="hidden border-t border-border bg-background lg:block">
         <div className="mx-auto flex max-w-7xl items-center gap-1 px-4 sm:px-6">
           <button
             type="button"
@@ -210,7 +240,11 @@ export function Header() {
                 to={link.to}
                 className={cn(
                   'flex h-10 items-center whitespace-nowrap px-3 text-[12.5px] font-medium transition-colors hover:text-primary',
-                  link.highlight ? 'font-bold text-primary' : link.business ? 'font-bold text-info' : 'text-text',
+                  link.highlight
+                    ? 'font-bold text-primary'
+                    : link.business
+                      ? 'font-bold text-info'
+                      : 'text-text',
                 )}
               >
                 {link.label}
@@ -233,34 +267,6 @@ export function Header() {
             </Link>
           </div>
         </div>
-
-        {/* Sous-nav : categories principales (hover = mega menu) */}
-        <div className="border-t border-border bg-surface">
-          <div className="mx-auto flex max-w-7xl items-center gap-0 px-4 sm:px-6">
-            {NAV_CATEGORIES.map((cat) => (
-              <button
-                key={cat.slug}
-                type="button"
-                onMouseEnter={() => setOpenCategory(cat.slug)}
-                onClick={() => {
-                  setOpenCategory(null)
-                  navigate(`/category/${cat.slug}`)
-                }}
-                className={cn(
-                  'relative flex h-10 items-center whitespace-nowrap px-3 text-[12.5px] font-medium text-text transition-colors hover:text-primary',
-                  openCategory === cat.slug && 'text-primary',
-                )}
-              >
-                <span>{cat.label}</span>
-                {openCategory === cat.slug && (
-                  <span className="absolute inset-x-3 -bottom-px h-0.5 bg-primary" />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {activeCategory && <MegaMenu category={activeCategory} />}
       </nav>
 
       {/* ===================== Menu mobile ===================== */}
@@ -356,6 +362,54 @@ interface UserLinkProps {
   label: string
   sub: string
   icon: React.ReactNode
+}
+
+function useCountdown(totalSeconds: number) {
+  const [remaining, setRemaining] = useState(totalSeconds)
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setRemaining((r) => (r > 0 ? r - 1 : totalSeconds))
+    }, 1000)
+    return () => window.clearInterval(id)
+  }, [totalSeconds])
+  const h = Math.floor(remaining / 3600)
+  const m = Math.floor((remaining % 3600) / 60)
+  const s = remaining % 60
+  return { h, m, s }
+}
+
+function TopPromoBar() {
+  const { h, m, s } = useCountdown(6 * 3600)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return (
+    <div className="bg-gradient-to-r from-primary via-primary-hover to-primary text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-1.5 text-[11.5px] font-semibold sm:px-6">
+        <div className="flex items-center gap-2">
+          <Zap className="h-3.5 w-3.5 text-accent" />
+          <span className="hidden sm:inline">Shell Shocker actif —</span>
+          <span>Deals éclairs se terminent dans</span>
+          <span className="flex items-center gap-0.5 rounded-sm bg-black/20 px-1.5 py-0.5 font-mono tracking-tight">
+            <span>{pad(h)}</span>
+            <span>:</span>
+            <span>{pad(m)}</span>
+            <span>:</span>
+            <span>{pad(s)}</span>
+          </span>
+        </div>
+        <div className="hidden items-center gap-4 md:flex">
+          <Link to="/gifts" className="inline-flex items-center gap-1.5 transition-opacity hover:opacity-80">
+            <Gift className="h-3.5 w-3.5" /> Cadeau AMD offert
+          </Link>
+          <Link to="/shipping" className="inline-flex items-center gap-1.5 transition-opacity hover:opacity-80">
+            <Truck className="h-3.5 w-3.5" /> Livraison gratuite dès 500 DH
+          </Link>
+          <Link to="/business" className="hidden rounded-sm bg-white/15 px-2 py-0.5 text-white transition-colors hover:bg-white/25 lg:inline-flex">
+            TECHSPACE BUSINESS
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function UserLink({ to, label, sub, icon }: UserLinkProps) {

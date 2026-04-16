@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { CompareBar } from '@/components/layout/CompareBar'
+import { CookieConsent } from '@/components/layout/CookieConsent'
 
 export function MainLayout() {
   return (
@@ -10,6 +12,8 @@ export function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      <CompareBar />
+      <CookieConsent />
     </div>
   )
 }
