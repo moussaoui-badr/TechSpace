@@ -4,11 +4,17 @@ import {
   ArrowRight,
   ChevronRight,
   Clock,
+  Cpu,
   Download,
   Flame,
+  Gamepad2,
   Gift,
   Headphones,
+  LayoutGrid,
+  Laptop,
   Mail,
+  Monitor,
+  Mouse,
   Shield,
   Sparkles,
   Star,
@@ -16,6 +22,16 @@ import {
   Wallet,
   Zap,
 } from 'lucide-react'
+
+const SIDEBAR_ICONS: Record<string, React.ReactNode> = {
+  'pc-gamer': <Monitor className="h-[18px] w-[18px]" />,
+  'composants': <Cpu className="h-[18px] w-[18px]" />,
+  'pc-portables': <Laptop className="h-[18px] w-[18px]" />,
+  'ecrans': <Monitor className="h-[18px] w-[18px]" />,
+  'peripheriques': <Mouse className="h-[18px] w-[18px]" />,
+  'consoles': <Gamepad2 className="h-[18px] w-[18px]" />,
+  'chaises-bureaux': <LayoutGrid className="h-[18px] w-[18px]" />,
+}
 import type { Banner, Brand, Product } from '@/types'
 import { HeroSlider } from '@/components/ui/HeroSlider'
 import { ProductCard } from '@/components/ui/ProductCard'
@@ -158,23 +174,25 @@ export function HomePage() {
       {/* ============ Hero row : sidebar + banner ============ */}
       <section className="mx-auto max-w-7xl px-3 pt-4 sm:px-4">
         <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)]">
-          {/* Sidebar categories — style Newegg (fond bleu fonce, texte blanc) */}
-          <aside className="hidden overflow-hidden rounded-md bg-secondary shadow-sm lg:block">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 text-white">
-              <span className="text-[13px] font-bold uppercase tracking-wide">Categories</span>
+          {/* Sidebar categories — style Newegg (fond bleu fonce, texte blanc, icones SVG) */}
+          <aside className="hidden overflow-hidden rounded-md bg-secondary shadow-card lg:block">
+            <div className="flex items-center justify-between border-b border-white/15 bg-secondary-deep px-4 py-3 text-white">
+              <span className="text-[12px] font-bold uppercase tracking-widest text-white/90">Catégories</span>
             </div>
             <ul>
               {NAV_CATEGORIES.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     to={`/category/${cat.slug}`}
-                    className="group flex items-center justify-between border-b border-white/5 px-4 py-2.5 text-[13px] text-white/90 transition-colors hover:bg-white/10 hover:text-accent last:border-b-0"
+                    className="group flex items-center justify-between border-b border-white/10 px-4 py-3 transition-colors hover:bg-white/10 last:border-b-0"
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span aria-hidden className="text-base">{cat.icon}</span>
+                    <span className="flex items-center gap-3 text-[13px] text-white/90 transition-colors group-hover:text-accent">
+                      <span aria-hidden className="shrink-0 text-white/60 transition-colors group-hover:text-accent">
+                        {SIDEBAR_ICONS[cat.slug] ?? <LayoutGrid className="h-[18px] w-[18px]" />}
+                      </span>
                       {cat.label}
                     </span>
-                    <ChevronRight className="h-3.5 w-3.5 text-white/50 transition-colors group-hover:text-accent" />
+                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-white/35 transition-colors group-hover:text-accent" />
                   </Link>
                 </li>
               ))}
@@ -319,7 +337,7 @@ export function HomePage() {
       {/* ============ Bandeau promo paiement livraison ============ */}
       <section className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
         <div
-          className="relative overflow-hidden rounded-md border-l-4 border-accent bg-secondary p-6 text-white md:p-10"
+          className="relative overflow-hidden rounded-md border-l-4 border-accent bg-gradient-to-br from-secondary-light to-secondary-deep p-6 text-white md:p-10"
         >
           <div className="relative z-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
@@ -572,43 +590,44 @@ function ComboUpSection() {
   const active = COMBO_GROUPS.find((g) => g.key === activeKey) ?? COMBO_GROUPS[0]
 
   return (
-    <div className="rounded-md border border-border bg-background shadow-sm">
-      {/* Header avec eyebrow + tabs */}
-      <div className="flex flex-col gap-3 border-b border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="overflow-hidden rounded-md border border-border bg-background shadow-sm">
+      {/* Header avec eyebrow + tabs — fond bleu foncé style Newegg */}
+      <div className="flex flex-col gap-2 bg-secondary px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
             <Gift className="h-3 w-3" />
-            Combo Up & Save
+            Combo Up
           </span>
           <div>
-            <p className="text-[13px] font-semibold text-text">
-              Combo up savings {active.savings.toLocaleString('fr-FR')} DH
+            <p className="text-[13px] font-bold text-white">
+              Combo up savings{' '}
+              <span className="text-accent">{active.savings.toLocaleString('fr-FR')} DH</span>
             </p>
-            <p className="text-[11px] text-text-muted">
-              Economisez en achetant plusieurs produits compatibles.
+            <p className="text-[11px] text-white/60">
+              Économisez en achetant plusieurs produits compatibles.
             </p>
           </div>
         </div>
         <Link
           to="/products?sort=combos"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
         >
           Plus d'options <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-border px-3 py-2">
+      <div className="flex gap-1 border-b border-border bg-surface px-3 py-2">
         {COMBO_GROUPS.map((g) => (
           <button
             key={g.key}
             type="button"
             onClick={() => setActiveKey(g.key)}
             className={cn(
-              'rounded-md px-3 py-1.5 text-[12.5px] font-semibold transition-colors',
+              'rounded-md px-3.5 py-1.5 text-[12.5px] font-semibold transition-colors',
               activeKey === g.key
-                ? 'bg-primary-soft text-primary'
-                : 'text-text-muted hover:text-text',
+                ? 'bg-secondary text-white'
+                : 'text-text-muted hover:bg-surface-hover hover:text-text',
             )}
           >
             {g.label}
@@ -666,7 +685,7 @@ function ComboUpSection() {
 
 function AppBlock() {
   return (
-    <div className="relative flex flex-col gap-4 overflow-hidden rounded-md bg-secondary p-6 text-white md:p-8">
+    <div className="relative flex flex-col gap-4 overflow-hidden rounded-md bg-gradient-to-br from-secondary-light to-secondary-deep p-6 text-white md:p-8">
       <span className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-text">
         <Download className="h-5 w-5" />
       </span>

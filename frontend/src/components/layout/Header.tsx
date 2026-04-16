@@ -1,19 +1,40 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
+  Bell,
   ChevronDown,
+  ChevronRight,
+  Cpu,
+  Gamepad2,
+  Globe,
   Headphones,
   Heart,
   HelpCircle,
+  LayoutGrid,
+  Laptop,
   MapPin,
   Menu,
+  Monitor,
+  Moon,
+  Mouse,
   Package,
   Search,
   ShoppingCart,
   Store,
+  Sun,
   User,
   X,
 } from 'lucide-react'
+
+const SLUG_ICONS: Record<string, React.ReactNode> = {
+  'pc-gamer': <Monitor className="h-4 w-4" />,
+  'composants': <Cpu className="h-4 w-4" />,
+  'pc-portables': <Laptop className="h-4 w-4" />,
+  'ecrans': <Monitor className="h-4 w-4" />,
+  'peripheriques': <Mouse className="h-4 w-4" />,
+  'consoles': <Gamepad2 className="h-4 w-4" />,
+  'chaises-bureaux': <LayoutGrid className="h-4 w-4" />,
+}
 import { Logo } from '@/components/layout/Logo'
 import { MegaMenu } from '@/components/layout/MegaMenu'
 import { NAV_CATEGORIES } from '@/components/layout/navigationData'
@@ -21,19 +42,22 @@ import { useCartStore, cartTotalItems } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { cn } from '@/utils/cn'
 
-const QUICK_LINKS: { to: string; label: string; highlight?: boolean }[] = [
+const QUICK_LINKS: { to: string; label: string; highlight?: boolean; business?: boolean }[] = [
   { to: '/products?sort=shell-shocker', label: 'Shell Shocker', highlight: true },
   { to: '/pc-builder', label: 'PC Builder' },
   { to: '/products?sort=promo', label: 'Promotions' },
   { to: '/products?sort=best-sellers', label: 'Best Sellers' },
   { to: '/products?sort=clearance', label: 'Clearance' },
+  { to: '/membership', label: 'TechSpace Card' },
   { to: '/category/pc-gamer', label: 'Gamer Community' },
   { to: '/gifts', label: 'Cadeau offert' },
+  { to: '/business', label: 'TECHSPACE BUSINESS', business: true },
 ]
 
 export function Header() {
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
   const [openCategory, setOpenCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -80,34 +104,50 @@ export function Header() {
           </Link>
 
           <form onSubmit={handleSearch} className="order-last w-full lg:order-none lg:flex-1">
-            <div className="flex h-10 overflow-hidden rounded-md bg-white ring-1 ring-transparent focus-within:ring-accent">
-              <select
-                aria-label="Categorie de recherche"
-                className="hidden h-full shrink-0 border-r border-border bg-surface px-3 text-[12px] font-medium text-text focus:outline-none sm:block"
-              >
-                <option value="">Toutes categories</option>
-                {NAV_CATEGORIES.map((cat) => (
-                  <option key={cat.slug} value={cat.slug}>
-                    {cat.label}
-                  </option>
-                ))}
-              </select>
+            <div className="flex h-10 overflow-hidden rounded-full bg-white/95 shadow-sm ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-accent/70">
               <input
                 type="search"
-                placeholder="Rechercher un produit, une marque, une reference..."
+                placeholder="Rechercher un produit, une marque, une référence..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-full w-full bg-transparent px-4 text-sm text-text placeholder:text-text-muted focus:outline-none"
+                className="h-full w-full bg-transparent pl-5 pr-2 text-sm text-text placeholder:text-text-muted focus:outline-none"
               />
               <button
                 type="submit"
                 aria-label="Rechercher"
-                className="flex h-full w-12 shrink-0 items-center justify-center bg-primary text-white transition-colors hover:bg-primary-hover sm:w-14"
+                className="flex h-full w-12 shrink-0 items-center justify-center rounded-r-full bg-primary text-white transition-colors hover:bg-primary-hover sm:w-14"
               >
                 <Search className="h-4 w-4" />
               </button>
             </div>
           </form>
+
+          {/* Icônes utilitaires */}
+          <div className="hidden items-center gap-1 lg:flex">
+            <button
+              type="button"
+              aria-label="Notifications"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <Bell className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Langue"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <Globe className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label={darkMode ? 'Mode clair' : 'Mode sombre'}
+              onClick={() => setDarkMode((d) => !d)}
+              className="flex h-9 w-[52px] items-center justify-between rounded-full border border-white/20 bg-white/10 px-1.5 transition-colors hover:bg-white/20"
+            >
+              <Sun className={`h-3.5 w-3.5 transition-colors ${darkMode ? 'text-white/40' : 'text-accent'}`} />
+              <Moon className={`h-3.5 w-3.5 transition-colors ${darkMode ? 'text-accent' : 'text-white/40'}`} />
+            </button>
+          </div>
 
           <nav className="hidden items-center gap-1 lg:flex">
             <UserLink to="/account" label="Bonjour" sub="Compte & listes" icon={<User className="h-4 w-4" />} />
@@ -170,7 +210,7 @@ export function Header() {
                 to={link.to}
                 className={cn(
                   'flex h-10 items-center whitespace-nowrap px-3 text-[12.5px] font-medium transition-colors hover:text-primary',
-                  link.highlight ? 'font-bold text-primary' : 'text-text',
+                  link.highlight ? 'font-bold text-primary' : link.business ? 'font-bold text-info' : 'text-text',
                 )}
               >
                 {link.label}
@@ -252,9 +292,12 @@ export function Header() {
                   className="flex items-center justify-between rounded-md px-3 py-3 text-sm font-medium text-text transition-colors hover:bg-surface-hover hover:text-primary"
                 >
                   <span className="flex items-center gap-3">
-                    <span aria-hidden>{cat.icon}</span>
+                    <span aria-hidden className="text-text-muted">
+                      {SLUG_ICONS[cat.slug] ?? <LayoutGrid className="h-4 w-4" />}
+                    </span>
                     {cat.label}
                   </span>
+                  <ChevronRight className="h-3.5 w-3.5 text-text-subtle" />
                 </Link>
               ))}
               <hr className="my-2 border-border" />
