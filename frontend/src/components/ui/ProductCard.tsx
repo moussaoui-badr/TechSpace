@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Heart, ShoppingCart, Truck, Scale } from 'lucide-react'
+import { Heart, ShoppingCart, Truck, Scale, TrendingDown } from 'lucide-react'
 import type { Product } from '@/types'
 import { Badge } from '@/components/ui/Badge'
 import { Rating } from '@/components/ui/Rating'
@@ -9,6 +9,7 @@ import { computeDiscountPercent } from '@/utils/formatPrice'
 import { useCompareStore } from '@/stores/compareStore'
 
 const FREE_SHIPPING_THRESHOLD = 500
+const LOWEST_PRICE_DISCOUNT_THRESHOLD = 15
 
 export interface ProductCardProps {
   product: Product
@@ -30,6 +31,8 @@ export function ProductCard({
     : 0
   const isOutOfStock = product.stock <= 0
   const hasFreeShipping = product.price >= FREE_SHIPPING_THRESHOLD
+  const isLowest30Days = discount >= LOWEST_PRICE_DISCOUNT_THRESHOLD
+  const savings = product.oldPrice ? product.oldPrice - product.price : 0
   const isInCompare = useCompareStore((s) => s.has(product.id))
   const toggleCompare = useCompareStore((s) => s.toggle)
 
@@ -131,6 +134,19 @@ export function ProductCard({
 
         <div className="mt-auto flex flex-col gap-1.5 pt-2">
           <PriceDisplay price={product.price} oldPrice={product.oldPrice} size="md" />
+
+          {savings > 0 && (
+            <span className="text-[11px] font-bold text-success-cta">
+              Économisez : {savings.toLocaleString('fr-FR')} DH
+            </span>
+          )}
+
+          {isLowest30Days && (
+            <span className="inline-flex w-fit items-center gap-1 rounded-sm bg-success-cta/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-success-cta">
+              <TrendingDown className="h-2.5 w-2.5" />
+              Prix le + bas 30 jours
+            </span>
+          )}
 
           {hasFreeShipping && (
             <span className="inline-flex items-center gap-1 text-[10.5px] font-semibold text-success">

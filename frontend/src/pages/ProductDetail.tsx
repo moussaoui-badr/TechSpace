@@ -25,6 +25,7 @@ import { getProductBySlug, getReviewsByProductId, getSimilarProducts } from '@/a
 import { flatCategories } from '@/data/categories'
 import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
+import { useHistoryStore } from '@/stores/historyStore'
 import { cn } from '@/utils/cn'
 
 type TabKey = 'description' | 'specs' | 'reviews' | 'qa'
@@ -95,6 +96,7 @@ export function ProductDetailPage() {
   const addToCart = useCartStore((s) => s.addItem)
   const toggleWishlist = useWishlistStore((s) => s.toggle)
   const wishlistIds = useWishlistStore((s) => s.productIds)
+  const trackHistory = useHistoryStore((s) => s.track)
 
   useEffect(() => {
     if (!slug) return
@@ -116,8 +118,9 @@ export function ProductDetailPage() {
       setSimilar(sim)
       setReviews(revs)
       setLoading(false)
+      trackHistory(p)
     })
-  }, [slug])
+  }, [slug, trackHistory])
 
   const specsByGroup = useMemo(() => {
     const map = new Map<string, ProductSpecification[]>()

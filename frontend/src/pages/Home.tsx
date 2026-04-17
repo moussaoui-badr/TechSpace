@@ -66,6 +66,7 @@ import { NAV_CATEGORIES } from '@/components/layout/navigationData'
 import { getBanners, getFeaturedProducts, getPromoProducts, getBrands } from '@/api'
 import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
+import { useHistoryStore } from '@/stores/historyStore'
 
 const trustItems = [
   { icon: Truck, title: 'Livraison rapide', description: 'Partout au Maroc en 2 a 4 jours.' },
@@ -562,6 +563,9 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ============ Récemment vus (historique) ============ */}
+      <RecentlyViewedSection />
 
       {/* ============ TechSpace Insider — éditorial / blog ============ */}
       <section className="bg-surface">
@@ -1306,6 +1310,65 @@ function FeaturettesGrid() {
         ))}
       </div>
     </div>
+  )
+}
+
+// ================= Récemment vus =================
+
+function RecentlyViewedSection() {
+  const entries = useHistoryStore((s) => s.entries)
+  const clear = useHistoryStore((s) => s.clear)
+
+  if (entries.length === 0) return null
+
+  return (
+    <section className="bg-background">
+      <div className="mx-auto max-w-7xl px-3 py-10 sm:px-4">
+        <div className="mb-5 flex items-end justify-between gap-3">
+          <div>
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+              <Clock className="h-3.5 w-3.5" />
+              Historique
+            </span>
+            <h2 className="mt-1 font-display text-xl font-black leading-tight text-text md:text-2xl">
+              Récemment vus
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={clear}
+            className="text-xs font-semibold text-text-muted transition-colors hover:text-primary"
+          >
+            Effacer l'historique
+          </button>
+        </div>
+        <div className="-mx-3 flex gap-3 overflow-x-auto px-3 pb-2 sm:-mx-4 sm:px-4">
+          {entries.map(({ product }) => (
+            <Link
+              key={product.id}
+              to={`/products/${product.slug}`}
+              className="group flex w-[160px] shrink-0 flex-col gap-2 rounded-md border border-border bg-background p-3 transition-all hover:border-primary hover:shadow-md sm:w-[180px]"
+            >
+              <div className="flex aspect-square items-center justify-center overflow-hidden rounded-md bg-surface">
+                <img
+                  src={product.mainImage}
+                  alt={product.name}
+                  loading="lazy"
+                  className="h-full w-full object-contain p-2 transition-transform group-hover:scale-105"
+                />
+              </div>
+              <h3 className="line-clamp-2 text-[12px] font-semibold leading-snug text-text transition-colors group-hover:text-primary">
+                {product.name}
+              </h3>
+              <p className="text-sm font-black text-primary">
+                {product.price.toLocaleString('fr-FR')}{' '}
+                <span className="text-[10px] font-semibold text-text-muted">DH</span>
+              </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
