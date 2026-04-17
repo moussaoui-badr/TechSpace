@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Blocks,
+  BookOpen,
   Briefcase,
   Calculator,
   ChevronRight,
@@ -559,6 +560,13 @@ export function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============ TechSpace Insider — éditorial / blog ============ */}
+      <section className="bg-surface">
+        <div className="mx-auto max-w-7xl px-3 py-10 sm:px-4">
+          <InsiderSection />
         </div>
       </section>
 
@@ -1293,6 +1301,111 @@ function FeaturettesGrid() {
               <span className="mt-3 inline-flex items-center gap-1 text-[11.5px] font-semibold text-accent transition-transform group-hover:translate-x-1">
                 {f.cta} <ArrowRight className="h-3 w-3" />
               </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ================= TechSpace Insider — éditorial / blog =================
+
+interface InsiderArticle {
+  id: string
+  category: string
+  title: string
+  excerpt: string
+  imageUrl: string
+  readMinutes: number
+  href: string
+}
+
+const INSIDER_ARTICLES: InsiderArticle[] = [
+  {
+    id: 'rtx-5090-vs-rtx-4090',
+    category: 'Hardware',
+    title: 'RTX 5090 vs RTX 4090 : la nouvelle génération en vaut-elle le coût ?',
+    excerpt:
+      'Notre banc d\'essai complet sur 12 jeux AAA, benchmarks 4K et ray tracing — verdict sans concession.',
+    imageUrl: 'https://placehold.co/640x360/1E3A5F/FBD32C?text=RTX+5090',
+    readMinutes: 8,
+    href: '/category/cartes-graphiques',
+  },
+  {
+    id: 'guide-config-pc-gamer-2026',
+    category: 'Guide',
+    title: 'Guide config PC Gamer 2026 — 3 budgets, 3 builds optimisés',
+    excerpt:
+      'De 8 000 à 30 000 DH : nos configurations recommandées avec calcul de consommation et compatibilité.',
+    imageUrl: 'https://placehold.co/640x360/1E3A5F/F26826?text=PC+Builder',
+    readMinutes: 12,
+    href: '/pc-builder',
+  },
+  {
+    id: 'meilleurs-ssd-nvme',
+    category: 'Comparatif',
+    title: 'Top 5 SSD NVMe Gen 5 — vitesses réelles vs annoncées',
+    excerpt:
+      'On a mesuré l\'écart entre les promesses constructeurs et les performances réelles sous CrystalDiskMark.',
+    imageUrl: 'https://placehold.co/640x360/0D1B2A/13A971?text=SSD+NVMe',
+    readMinutes: 6,
+    href: '/category/ssd',
+  },
+  {
+    id: 'casques-vr-2026',
+    category: 'Test',
+    title: 'Meta Quest 3 vs PSVR 2 : quel casque VR choisir cette année ?',
+    excerpt:
+      'Confort, résolution, écosystème de jeux : notre comparatif détaillé après 40 heures d\'usage.',
+    imageUrl: 'https://placehold.co/640x360/1E3A5F/FFFFFF?text=VR',
+    readMinutes: 10,
+    href: '/category/casques-vr',
+  },
+]
+
+function InsiderSection() {
+  return (
+    <div>
+      <SectionHeader
+        eyebrow={
+          <span className="inline-flex items-center gap-1.5">
+            <BookOpen className="h-3.5 w-3.5" />
+            TechSpace Insider
+          </span>
+        }
+        title="Tests, guides et actualités tech"
+        description="Nos experts décortiquent le matériel pour vous aider à choisir."
+        linkTo="/insider"
+        linkLabel="Tous les articles"
+      />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {INSIDER_ARTICLES.map((article) => (
+          <Link
+            key={article.id}
+            to={article.href}
+            className="group flex flex-col overflow-hidden rounded-md border border-border bg-background shadow-card transition-all hover:border-primary hover:shadow-elevated"
+          >
+            <div className="relative aspect-[16/9] overflow-hidden bg-surface">
+              <img
+                src={article.imageUrl}
+                alt={article.title}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span className="absolute left-2 top-2 inline-flex items-center rounded-sm bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
+                {article.category}
+              </span>
+            </div>
+            <div className="flex flex-1 flex-col gap-2 p-4">
+              <h3 className="line-clamp-2 text-sm font-bold leading-snug text-text transition-colors group-hover:text-primary">
+                {article.title}
+              </h3>
+              <p className="line-clamp-2 text-xs text-text-muted">{article.excerpt}</p>
+              <div className="mt-auto flex items-center gap-1.5 pt-2 text-[11px] font-semibold text-text-subtle">
+                <Clock className="h-3 w-3" />
+                {article.readMinutes} min de lecture
+              </div>
             </div>
           </Link>
         ))}

@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Check,
+  CheckCircle2,
   Headphones,
   Heart,
+  HelpCircle,
   Package,
   Shield,
   ShoppingCart,
@@ -25,7 +27,58 @@ import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { cn } from '@/utils/cn'
 
-type TabKey = 'description' | 'specs' | 'reviews'
+type TabKey = 'description' | 'specs' | 'reviews' | 'qa'
+
+interface ProductQA {
+  id: string
+  question: string
+  askedBy: string
+  askedAt: string
+  answer: string
+  answeredBy: string
+  answeredAt: string
+  helpfulCount: number
+  isVerified: boolean
+}
+
+const MOCK_QA: ProductQA[] = [
+  {
+    id: 'q1',
+    question: 'Compatible avec une carte mère B650 ou il faut absolument une X670 ?',
+    askedBy: 'Yassine R.',
+    askedAt: '2026-03-12',
+    answer:
+      'Oui, totalement compatible avec une B650 — un BIOS récent (AGESA 1.2.0.1+) suffit. Vérifiez juste la liste QVL de votre carte mère pour la RAM.',
+    answeredBy: 'Équipe TechSpace',
+    answeredAt: '2026-03-13',
+    helpfulCount: 24,
+    isVerified: true,
+  },
+  {
+    id: 'q2',
+    question: 'La livraison sur Marrakech prend combien de jours en moyenne ?',
+    askedBy: 'Soukaina M.',
+    askedAt: '2026-03-08',
+    answer:
+      'Comptez 2 à 3 jours ouvrés sur Marrakech via notre transporteur partenaire, paiement à la livraison disponible.',
+    answeredBy: 'Équipe TechSpace',
+    answeredAt: '2026-03-09',
+    helpfulCount: 18,
+    isVerified: true,
+  },
+  {
+    id: 'q3',
+    question: "Garantie internationale ou uniquement valable au Maroc ?",
+    askedBy: 'Karim B.',
+    askedAt: '2026-02-28',
+    answer:
+      'Garantie constructeur officielle 2 ans valable mondialement. Le SAV TechSpace gère la prise en charge depuis le Maroc.',
+    answeredBy: 'Équipe TechSpace',
+    answeredAt: '2026-03-01',
+    helpfulCount: 11,
+    isVerified: true,
+  },
+]
 
 export function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -295,6 +348,9 @@ export function ProductDetailPage() {
           <TabButton active={activeTab === 'reviews'} onClick={() => setActiveTab('reviews')}>
             Avis ({reviews.length})
           </TabButton>
+          <TabButton active={activeTab === 'qa'} onClick={() => setActiveTab('qa')}>
+            Questions ({MOCK_QA.length})
+          </TabButton>
         </div>
 
         <div className="mt-6">
@@ -367,6 +423,79 @@ export function ProductDetailPage() {
                   </article>
                 ))
               )}
+            </div>
+          )}
+
+          {activeTab === 'qa' && (
+            <div className="space-y-4">
+              <div className="flex flex-col gap-3 rounded-lg border border-border bg-primary-soft p-5 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                    <HelpCircle className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-text">Une question sur ce produit ?</p>
+                    <p className="text-xs text-text-muted">
+                      Notre équipe répond généralement sous 24h ouvrées.
+                    </p>
+                  </div>
+                </div>
+                <Button size="sm">Poser une question</Button>
+              </div>
+
+              {MOCK_QA.map((qa) => (
+                <article
+                  key={qa.id}
+                  className="rounded-lg border border-border bg-surface p-5"
+                  style={{ boxShadow: 'var(--shadow-card)' }}
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      Q
+                    </span>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-text">{qa.question}</p>
+                      <p className="mt-0.5 text-[11px] text-text-subtle">
+                        Posée par {qa.askedBy} —{' '}
+                        {new Date(qa.askedAt).toLocaleDateString('fr-MA', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-start gap-3 border-t border-border pt-4">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-success/15 text-xs font-bold text-success">
+                      R
+                    </span>
+                    <div className="flex-1">
+                      <p className="text-sm text-text-muted">{qa.answer}</p>
+                      <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-text-subtle">
+                        <span className="inline-flex items-center gap-1 font-semibold text-text">
+                          {qa.answeredBy}
+                          {qa.isVerified && (
+                            <CheckCircle2 className="h-3 w-3 text-success" aria-label="Réponse vérifiée" />
+                          )}
+                        </span>
+                        <span>
+                          {new Date(qa.answeredAt).toLocaleDateString('fr-MA', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </span>
+                        <button
+                          type="button"
+                          className="ml-auto inline-flex items-center gap-1 rounded-md border border-border bg-background px-2 py-1 font-semibold text-text-muted transition-colors hover:border-primary hover:text-primary"
+                        >
+                          Utile ({qa.helpfulCount})
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           )}
         </div>
