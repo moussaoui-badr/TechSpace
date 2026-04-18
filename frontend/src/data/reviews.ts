@@ -107,6 +107,32 @@ export const reviews: Review[] = [
     createdAt: '2026-03-05T11:00:00Z',
   },
 
+  // TechSpace Ultimate Intel i9 + RTX 4080 SUPER (23)
+  {
+    id: 21,
+    productId: 23,
+    userName: 'Reda M.',
+    rating: 5,
+    comment: 'Station de reve : 4K path-tracing fluide, watercooling LCD magnifique. Livraison Casa en 48h, zero rayure.',
+    createdAt: '2026-04-02T10:15:00Z',
+  },
+  {
+    id: 22,
+    productId: 23,
+    userName: 'Sofia T.',
+    rating: 5,
+    comment: 'Montage impeccable, cable management soigne. Le boitier verre trempe fait son effet sur le bureau.',
+    createdAt: '2026-03-25T17:40:00Z',
+  },
+  {
+    id: 23,
+    productId: 23,
+    userName: 'Hassan O.',
+    rating: 4,
+    comment: 'Perf au rendez-vous, mais la config est bruyante en charge maximale. Rien de dramatique, le LCD compense.',
+    createdAt: '2026-03-18T14:20:00Z',
+  },
+
   // ASUS ROG Strix G16 (25)
   {
     id: 13,

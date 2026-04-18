@@ -10,6 +10,7 @@
   /* Couleurs principales (orange Newegg) */
   --color-primary: #F26826;
   --color-primary-hover: #D9561C;
+  --color-primary-deep: #A93F0C;
   --color-primary-soft: rgba(242, 104, 38, 0.08);
 
   /* Fond et surfaces (theme clair marketplace) */
@@ -47,7 +48,7 @@
 
   /* Typographie */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", system-ui, sans-serif;
+  --font-display: "Outfit", "Inter", system-ui, sans-serif;
 
   /* Radius (Newegg utilise des radius modestes) */
   --radius-sm: 0.25rem;
@@ -58,7 +59,10 @@
   /* Shadows subtiles light theme */
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.10);
   --shadow-focus: 0 0 0 3px rgba(242, 104, 38, 0.2);
+  --shadow-cta-primary: 0 4px 14px -4px rgba(242, 104, 38, 0.45);
+  --shadow-cta-success: 0 4px 14px -4px rgba(19, 169, 113, 0.45);
 
   /* Animations */
   --animate-shimmer: shimmer 1.8s linear infinite;
@@ -85,7 +89,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+
+  h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.01em;

@@ -29,7 +29,7 @@ export function PriceDisplay({
     <div className={cn('inline-flex flex-wrap items-baseline gap-2', className)}>
       <span
         className={cn(
-          'font-semibold',
+          'font-display font-black tracking-tight',
           hasPromo ? 'text-primary' : 'text-text',
           sizeStyles[size].current,
         )}

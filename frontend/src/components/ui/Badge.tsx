@@ -16,7 +16,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   success: 'bg-success text-white',
   danger: 'bg-danger text-white',
   warning: 'bg-warning text-background',
-  accent: 'bg-accent text-background',
+  accent: 'bg-accent text-secondary',
   outline: 'border border-border text-text bg-transparent',
 }
 

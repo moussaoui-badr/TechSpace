@@ -410,7 +410,7 @@ export function HomePage() {
         >
           <div className="relative z-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-sm bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-text">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-sm bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
                 <Flame className="h-3.5 w-3.5" />
                 Offres du moment
               </div>
@@ -540,10 +540,10 @@ export function HomePage() {
                 <Zap className="h-3.5 w-3.5" />
                 Service TechSpace
               </span>
-              <h2 className="mt-3 text-2xl font-black leading-tight text-text md:text-3xl">
+              <h2 className="mt-3 text-2xl font-black leading-tight text-secondary md:text-3xl">
                 On assemble votre PC Gamer. Vous jouez des la livraison.
               </h2>
-              <p className="mt-3 max-w-xl text-sm text-text/80">
+              <p className="mt-3 max-w-xl text-sm text-secondary/70">
                 Nos techniciens montent, testent et garantissent votre configuration. Livraison
                 et installation disponibles a Casablanca, Rabat, Marrakech et plus.
               </p>
@@ -555,7 +555,7 @@ export function HomePage() {
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-text text-text hover:bg-text hover:text-accent">
+                <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-accent">
                   Nous contacter
                 </Button>
               </Link>
@@ -741,7 +741,7 @@ function PromoTilesGrid() {
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
               {tile.icon}
             </span>
-            <span className="rounded-sm bg-accent px-2 py-0.5 text-[10px] font-bold text-text">
+            <span className="rounded-sm bg-accent px-2 py-0.5 text-[10px] font-bold text-secondary">
               {tile.emphasis}
             </span>
           </div>
@@ -835,7 +835,7 @@ function ComboBlock({ group }: { group: ComboGroup }) {
                   </p>
                 </div>
                 {discount > 0 && (
-                  <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-text">
+                  <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-secondary">
                     -{discount}%
                   </span>
                 )}
@@ -866,7 +866,7 @@ function ComboBlock({ group }: { group: ComboGroup }) {
 function AppBlock() {
   return (
     <div className="relative flex flex-col gap-4 overflow-hidden rounded-md bg-gradient-to-br from-secondary-light to-secondary-deep p-6 text-white md:p-8">
-      <span className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-text">
+      <span className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-secondary">
         <Download className="h-5 w-5" />
       </span>
       <div>
@@ -1170,7 +1170,7 @@ function TodayBestDeals({
                       -{discount}%
                     </span>
                   )}
-                  <span className="absolute right-2 top-2 rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-text">
+                  <span className="absolute right-2 top-2 rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-bold text-secondary">
                     TECHSPACE SELECT
                   </span>
                 </div>

@@ -126,9 +126,19 @@ export function CartPage() {
                 )}
               </div>
               {shipping > 0 && (
-                <p className="text-xs text-text-subtle">
-                  Livraison gratuite à partir de {formatPrice(SHIPPING_THRESHOLD)}
-                </p>
+                <div className="mt-1 rounded-md border border-primary/20 bg-primary/5 p-3">
+                  <p className="text-xs font-medium text-text">
+                    Plus que{' '}
+                    <span className="text-primary">{formatPrice(SHIPPING_THRESHOLD - subtotal)}</span>{' '}
+                    pour la livraison gratuite
+                  </p>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface">
+                    <div
+                      className="h-full bg-primary transition-all duration-300"
+                      style={{ width: `${Math.min(100, (subtotal / SHIPPING_THRESHOLD) * 100)}%` }}
+                    />
+                  </div>
+                </div>
               )}
             </div>
 
