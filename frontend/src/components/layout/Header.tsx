@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Bell,
@@ -56,9 +56,19 @@ const SLUG_ICONS: Record<string, React.ReactNode> = {
 }
 import { Logo } from '@/components/layout/Logo'
 import { NAV_CATEGORIES } from '@/components/layout/navigationData'
+import { SearchAutocomplete } from '@/components/layout/SearchAutocomplete'
+import { useClickOutside } from '@/hooks/useClickOutside'
 import { useCartStore, cartTotalItems } from '@/stores/cartStore'
+import { useSearchHistoryStore } from '@/stores/searchHistoryStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { cn } from '@/utils/cn'
+import { computeCategoryHits, filterProducts } from '@/utils/searchSuggestions'
+
+type NavigableItem =
+  | { type: 'recent'; value: string }
+  | { type: 'category'; slug: string }
+  | { type: 'product'; slug: string }
+  | { type: 'submit' }
 
 const QUICK_LINKS: { to: string; label: string; highlight?: boolean; business?: boolean }[] = [
   { to: '/products?sort=shell-shocker', label: 'Shell Shocker', highlight: true },
@@ -77,16 +87,93 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const searchWrapperRef = useRef<HTMLDivElement>(null)
 
   const cartItems = useCartStore((s) => s.items)
   const wishlistCount = useWishlistStore((s) => s.productIds.length)
   const cartCount = cartTotalItems(cartItems)
+  const recents = useSearchHistoryStore((s) => s.queries)
+  const addRecent = useSearchHistoryStore((s) => s.add)
+  const removeRecent = useSearchHistoryStore((s) => s.remove)
+  const clearRecents = useSearchHistoryStore((s) => s.clear)
+
+  const { matchedCategories, matchedProducts, navigableItems } = useMemo(() => {
+    const trimmed = searchQuery.trim()
+    const cats = computeCategoryHits(trimmed)
+    const prods = filterProducts(trimmed)
+    const items: NavigableItem[] = []
+    if (trimmed.length === 0) {
+      recents.forEach((r) => items.push({ type: 'recent', value: r }))
+    } else {
+      cats.forEach((c) => items.push({ type: 'category', slug: c.slug }))
+      prods.forEach((p) => items.push({ type: 'product', slug: p.slug }))
+      items.push({ type: 'submit' })
+    }
+    return { matchedCategories: cats, matchedProducts: prods, navigableItems: items }
+  }, [searchQuery, recents])
+
+  useClickOutside(searchWrapperRef, () => {
+    setIsSearchOpen(false)
+    setActiveIndex(-1)
+  })
+
+  function closeSearch() {
+    setIsSearchOpen(false)
+    setActiveIndex(-1)
+  }
+
+  function submitSearch(query: string) {
+    const trimmed = query.trim()
+    if (!trimmed) return
+    addRecent(trimmed)
+    closeSearch()
+    navigate(`/products?search=${encodeURIComponent(trimmed)}`)
+  }
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
-    const trimmed = searchQuery.trim()
-    if (!trimmed) return
-    navigate(`/products?search=${encodeURIComponent(trimmed)}`)
+    if (activeIndex >= 0 && activeIndex < navigableItems.length) {
+      executeItem(navigableItems[activeIndex])
+      return
+    }
+    submitSearch(searchQuery)
+  }
+
+  function executeItem(item: NavigableItem) {
+    if (item.type === 'recent') {
+      setSearchQuery(item.value)
+      closeSearch()
+      navigate(`/products?search=${encodeURIComponent(item.value)}`)
+      return
+    }
+    if (item.type === 'category') {
+      closeSearch()
+      navigate(`/category/${item.slug}`)
+      return
+    }
+    if (item.type === 'product') {
+      addRecent(searchQuery)
+      closeSearch()
+      navigate(`/products/${item.slug}`)
+      return
+    }
+    submitSearch(searchQuery)
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
+    if (!isSearchOpen || navigableItems.length === 0) return
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveIndex((i) => Math.min(i + 1, navigableItems.length - 1))
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveIndex((i) => Math.max(i - 1, -1))
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      closeSearch()
+    }
   }
 
   return (
@@ -118,24 +205,73 @@ export function Header() {
             </span>
           </Link>
 
-          <form onSubmit={handleSearch} className="order-last w-full lg:order-none lg:flex-1">
-            <div className="flex h-10 overflow-hidden rounded-full bg-white/95 shadow-sm ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-accent/70">
-              <input
-                type="search"
-                placeholder="Rechercher un produit, une marque, une référence..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-full w-full bg-transparent pl-5 pr-2 text-sm text-text placeholder:text-text-muted focus:outline-none"
+          <div
+            ref={searchWrapperRef}
+            className="relative order-last w-full lg:order-none lg:flex-1"
+          >
+            <form onSubmit={handleSearch} onKeyDown={handleKeyDown}>
+              <div className="flex h-10 overflow-hidden rounded-full bg-white/95 shadow-sm ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-accent/70">
+                <input
+                  type="search"
+                  placeholder="Rechercher un produit, une marque, une référence..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value)
+                    setIsSearchOpen(true)
+                    setActiveIndex(-1)
+                  }}
+                  onFocus={() => {
+                    if (recents.length > 0 || searchQuery.trim().length > 0) {
+                      setIsSearchOpen(true)
+                    }
+                  }}
+                  role="combobox"
+                  aria-expanded={isSearchOpen}
+                  aria-controls="search-suggestions"
+                  aria-autocomplete="list"
+                  aria-activedescendant={
+                    activeIndex >= 0 ? `sa-item-${activeIndex}` : undefined
+                  }
+                  autoComplete="off"
+                  className="h-full w-full bg-transparent pl-5 pr-2 text-sm text-text placeholder:text-text-muted focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  aria-label="Rechercher"
+                  className="flex h-full w-12 shrink-0 items-center justify-center rounded-r-full bg-primary text-white transition-colors hover:bg-primary-hover sm:w-14"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
+              </div>
+            </form>
+            {isSearchOpen && (
+              <SearchAutocomplete
+                id="search-suggestions"
+                query={searchQuery}
+                activeIndex={activeIndex}
+                matchedCategories={matchedCategories}
+                matchedProducts={matchedProducts}
+                recents={recents}
+                onSelectProduct={(slug) => {
+                  addRecent(searchQuery)
+                  closeSearch()
+                  navigate(`/products/${slug}`)
+                }}
+                onSelectCategory={(slug) => {
+                  closeSearch()
+                  navigate(`/category/${slug}`)
+                }}
+                onSelectRecent={(q) => {
+                  setSearchQuery(q)
+                  closeSearch()
+                  navigate(`/products?search=${encodeURIComponent(q)}`)
+                }}
+                onSubmitAll={() => submitSearch(searchQuery)}
+                onRemoveRecent={removeRecent}
+                onClearRecents={clearRecents}
               />
-              <button
-                type="submit"
-                aria-label="Rechercher"
-                className="flex h-full w-12 shrink-0 items-center justify-center rounded-r-full bg-primary text-white transition-colors hover:bg-primary-hover sm:w-14"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </div>
-          </form>
+            )}
+          </div>
 
           {/* Icônes utilitaires : notifications + toggle slide + flag pill */}
           <div className="hidden items-center gap-2 lg:flex">
@@ -211,7 +347,7 @@ export function Header() {
             <span className="relative">
               <Heart className="h-5 w-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-text">
+                <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-secondary">
                   {wishlistCount}
                 </span>
               )}
