@@ -689,6 +689,8 @@ export const products: Product[] = [
     images: imgPcIntelM.all,
     categoryId: 11,
     categoryName: 'PC Gamer Intel',
+    brandId: 13,
+    brandName: 'TechSpace',
     specifications: [
       { group: 'Configuration', key: 'CPU', value: 'Intel Core i7-14700K' },
       { group: 'Configuration', key: 'GPU', value: 'RTX 4070 Ti SUPER 16 Go' },
@@ -717,6 +719,8 @@ export const products: Product[] = [
     images: imgPcUltim.all,
     categoryId: 11,
     categoryName: 'PC Gamer Intel',
+    brandId: 13,
+    brandName: 'TechSpace',
     specifications: [
       { group: 'Configuration', key: 'CPU', value: 'Intel Core i9-14900K' },
       { group: 'Configuration', key: 'GPU', value: 'RTX 4080 SUPER 16 Go' },
@@ -744,6 +748,8 @@ export const products: Product[] = [
     images: imgPcAmd.all,
     categoryId: 12,
     categoryName: 'PC Gamer AMD',
+    brandId: 13,
+    brandName: 'TechSpace',
     specifications: [
       { group: 'Configuration', key: 'CPU', value: 'AMD Ryzen 7 7800X3D' },
       { group: 'Configuration', key: 'GPU', value: 'AMD RX 7800 XT 16 Go' },

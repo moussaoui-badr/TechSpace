@@ -13,6 +13,7 @@ export const brands: Brand[] = [
   { id: 10, name: 'Western Digital', slug: 'western-digital', logoUrl: 'https://placehold.co/200x80/FFFFFF/1E3A5F?text=WD' },
   { id: 11, name: 'Sony', slug: 'sony', logoUrl: 'https://placehold.co/200x80/FFFFFF/1E3A5F?text=SONY' },
   { id: 12, name: 'Microsoft', slug: 'microsoft', logoUrl: 'https://placehold.co/200x80/FFFFFF/1E3A5F?text=Microsoft' },
+  { id: 13, name: 'TechSpace', slug: 'techspace', logoUrl: 'https://placehold.co/200x80/FFFFFF/1E3A5F?text=TechSpace' },
 ]
 
 export function findBrandBySlug(slug: string): Brand | undefined {
