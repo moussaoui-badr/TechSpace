@@ -12,7 +12,7 @@ import { ProductCard } from '@/components/ui/ProductCard'
 import { Select } from '@/components/ui/Select'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { getBrands, getProducts } from '@/api'
-import { findCategoryBySlug, flatCategories } from '@/data/categories'
+import { useCatalogStore } from '@/stores/catalogStore'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
@@ -51,6 +51,8 @@ export function CatalogPage() {
   const [searchInput, setSearchInput] = useState(searchTerm)
   const debouncedSearch = useDebounce(searchInput, 350)
 
+  const findCategoryBySlug = useCatalogStore((s) => s.findCategoryBySlug)
+  const findCategoryById = useCatalogStore((s) => s.findCategoryById)
   const currentCategory: Category | undefined = currentCategorySlug
     ? findCategoryBySlug(currentCategorySlug)
     : undefined
@@ -126,7 +128,7 @@ export function CatalogPage() {
     const items: { label: string; to?: string }[] = []
     items.push({ label: 'Catalogue', to: currentCategorySlug ? '/products' : undefined })
     if (currentCategory?.parentId) {
-      const parent = flatCategories.find((c) => c.id === currentCategory.parentId)
+      const parent = findCategoryById(currentCategory.parentId)
       if (parent) items.push({ label: parent.name, to: `/category/${parent.slug}` })
     }
     if (currentCategory) items.push({ label: currentCategory.name })

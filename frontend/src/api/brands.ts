@@ -1,7 +1,7 @@
 import type { Brand } from '@/types'
-import { brands } from '@/data/brands'
-import { delay } from './delay'
+import { http } from './http'
 
 export async function getBrands(): Promise<Brand[]> {
-  return delay(brands)
+  const { data } = await http.get<Brand[]>('/brands')
+  return data
 }

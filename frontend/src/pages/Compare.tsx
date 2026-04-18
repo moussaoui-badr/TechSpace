@@ -1,19 +1,37 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Scale, Trash2, X } from 'lucide-react'
+import type { Product } from '@/types'
 import { useCompareStore } from '@/stores/compareStore'
 import { useCartStore } from '@/stores/cartStore'
 import { Button } from '@/components/ui/Button'
 import { Rating } from '@/components/ui/Rating'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
+import { getProductBySlug } from '@/api'
 
 export function ComparePage() {
-  const items = useCompareStore((s) => s.items)
+  const storedItems = useCompareStore((s) => s.items)
   const remove = useCompareStore((s) => s.remove)
   const clear = useCompareStore((s) => s.clear)
   const addToCart = useCartStore((s) => s.addItem)
+  const [details, setDetails] = useState<Record<number, Product>>({})
 
-  if (items.length === 0) {
+  useEffect(() => {
+    let cancelled = false
+    Promise.all(storedItems.map((p) => getProductBySlug(p.slug))).then((results) => {
+      if (cancelled) return
+      const map: Record<number, Product> = {}
+      for (const p of results) if (p) map[p.id] = p
+      setDetails(map)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [storedItems])
+
+  const items = storedItems.map((p) => details[p.id] ?? p)
+
+  if (storedItems.length === 0) {
     return (
       <section className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-4 py-20 text-center">
         <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-soft text-primary">

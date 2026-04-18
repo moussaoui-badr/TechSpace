@@ -1,6 +1,5 @@
 import type { Product } from '@/types'
 import { NAV_CATEGORIES } from '@/components/layout/navigationData'
-import { products } from '@/data/products'
 
 export interface CategoryHit {
   slug: string
@@ -29,7 +28,7 @@ export function computeCategoryHits(query: string): CategoryHit[] {
   return hits.slice(0, MAX_CATEGORIES)
 }
 
-export function filterProducts(query: string): Product[] {
+export function filterProducts(query: string, products: Product[]): Product[] {
   const q = query.trim().toLowerCase()
   if (q.length === 0) return []
   const matches = products.filter(

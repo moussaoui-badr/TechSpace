@@ -22,7 +22,7 @@ import { QuantitySelector } from '@/components/ui/QuantitySelector'
 import { Rating } from '@/components/ui/Rating'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { getProductBySlug, getReviewsByProductId, getSimilarProducts } from '@/api'
-import { flatCategories } from '@/data/categories'
+import { useCatalogStore } from '@/stores/catalogStore'
 import { useCartStore } from '@/stores/cartStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { useHistoryStore } from '@/stores/historyStore'
@@ -151,10 +151,9 @@ export function ProductDetailPage() {
     )
   }
 
-  const category = flatCategories.find((c) => c.id === product.categoryId)
-  const parentCategory = category?.parentId
-    ? flatCategories.find((c) => c.id === category.parentId)
-    : undefined
+  const findCategoryById = useCatalogStore((s) => s.findCategoryById)
+  const category = findCategoryById(product.categoryId)
+  const parentCategory = category?.parentId ? findCategoryById(category.parentId) : undefined
 
   const crumbs: { label: string; to?: string }[] = [{ label: 'Catalogue', to: '/products' }]
   if (parentCategory) crumbs.push({ label: parentCategory.name, to: `/category/${parentCategory.slug}` })

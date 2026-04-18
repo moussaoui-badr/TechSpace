@@ -1,38 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Edit2, Plus, Search, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
+import { Skeleton } from '@/components/ui/Skeleton'
 import { formatPrice } from '@/utils/formatPrice'
+import { getProducts } from '@/api'
+import type { Product } from '@/types'
 
-interface AdminProduct {
-  id: number
-  name: string
-  category: string
-  price: number
-  stock: number
-  isActive: boolean
-  sku: string
-}
-
-const INIT_PRODUCTS: AdminProduct[] = [
-  { id: 1, name: 'AMD Ryzen 7 7800X3D', category: 'Processeurs', price: 3490, stock: 12, isActive: true, sku: 'CPU-R7-7800X3D' },
-  { id: 2, name: 'Intel Core i9-14900K', category: 'Processeurs', price: 5090, stock: 5, isActive: true, sku: 'CPU-I9-14900K' },
-  { id: 3, name: 'RTX 4080 Super 16GB MSI', category: 'Cartes graphiques', price: 11990, stock: 3, isActive: true, sku: 'GPU-RTX4080S' },
-  { id: 4, name: 'RTX 4060 8GB ASUS', category: 'Cartes graphiques', price: 3290, stock: 0, isActive: false, sku: 'GPU-RTX4060' },
-  { id: 5, name: 'Corsair Vengeance DDR5 32GB', category: 'Mémoire RAM', price: 1490, stock: 20, isActive: true, sku: 'RAM-CV-DDR5-32' },
-  { id: 6, name: 'Samsung 990 Pro 2To', category: 'Stockage', price: 1890, stock: 8, isActive: true, sku: 'SSD-990P-2TB' },
-  { id: 7, name: 'ASUS ROG Strix X670E-E', category: 'Cartes mères', price: 3990, stock: 4, isActive: true, sku: 'MB-ROGX670E' },
-  { id: 8, name: 'Corsair RM850x 850W', category: 'Alimentations', price: 1390, stock: 15, isActive: true, sku: 'PSU-RM850X' },
-]
+type AdminProductRow = Pick<Product, 'id' | 'name' | 'categoryName' | 'price' | 'stock' | 'isActive' | 'sku'>
 
 export function AdminProductsPage() {
-  const [products, setProducts] = useState<AdminProduct[]>(INIT_PRODUCTS)
+  const [products, setProducts] = useState<AdminProductRow[]>([])
+  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    getProducts({ pageSize: 100 }).then((page) => {
+      setProducts(
+        page.items.map((p) => ({
+          id: p.id,
+          name: p.name,
+          categoryName: p.categoryName,
+          price: p.price,
+          stock: p.stock,
+          isActive: p.isActive,
+          sku: p.sku,
+        })),
+      )
+      setLoading(false)
+    })
+  }, [])
 
   const filtered = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.category.toLowerCase().includes(search.toLowerCase()) ||
+      p.categoryName.toLowerCase().includes(search.toLowerCase()) ||
       p.sku.toLowerCase().includes(search.toLowerCase()),
   )
 
@@ -43,6 +45,7 @@ export function AdminProductsPage() {
   }
 
   function deleteProduct(id: number) {
+    if (!window.confirm('Supprimer ce produit ? Cette action est irréversible.')) return
     setProducts((prev) => prev.filter((p) => p.id !== id))
   }
 
@@ -83,10 +86,17 @@ export function AdminProductsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {filtered.map((product) => (
+            {loading && (
+              <tr>
+                <td colSpan={7} className="px-4 py-3">
+                  <Skeleton className="h-6 w-full" />
+                </td>
+              </tr>
+            )}
+            {!loading && filtered.map((product) => (
               <tr key={product.id} className="hover:bg-surface">
                 <td className="px-4 py-3 font-medium text-text">{product.name}</td>
-                <td className="px-4 py-3 text-text-muted">{product.category}</td>
+                <td className="px-4 py-3 text-text-muted">{product.categoryName}</td>
                 <td className="px-4 py-3 font-mono text-xs text-text-subtle">{product.sku}</td>
                 <td className="px-4 py-3 font-medium text-primary">{formatPrice(product.price)}</td>
                 <td className="px-4 py-3">
@@ -126,7 +136,7 @@ export function AdminProductsPage() {
                 </td>
               </tr>
             ))}
-            {filtered.length === 0 && (
+            {!loading && filtered.length === 0 && (
               <tr>
                 <td colSpan={7} className="px-4 py-8 text-center text-text-muted">
                   Aucun produit trouvé.

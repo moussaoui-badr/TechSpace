@@ -44,6 +44,7 @@ export interface Product {
   images: string[]
   categoryId: number
   categoryName: string
+  categorySlug?: string
   brandId?: number
   brandName?: string
   specifications: ProductSpecification[]
@@ -139,6 +140,7 @@ export interface ProductsQuery {
   minPrice?: number
   maxPrice?: number
   inStock?: boolean
+  featured?: boolean
   sortBy?: ProductSort
 }
 

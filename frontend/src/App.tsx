@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useCatalogStore } from '@/stores/catalogStore'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { AdminLayout } from '@/components/layout/AdminLayout'
 import { HomePage } from '@/pages/Home'
@@ -20,6 +22,10 @@ import { AdminOrdersPage } from '@/pages/admin/AdminOrders'
 import { AdminCategoriesPage } from '@/pages/admin/AdminCategories'
 
 export function App() {
+  const hydrate = useCatalogStore((s) => s.hydrate)
+  useEffect(() => {
+    void hydrate()
+  }, [hydrate])
   return (
     <Routes>
       {/* Site public */}

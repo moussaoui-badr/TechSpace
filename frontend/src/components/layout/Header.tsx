@@ -60,6 +60,7 @@ import { SearchAutocomplete } from '@/components/layout/SearchAutocomplete'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { useCartStore, cartTotalItems } from '@/stores/cartStore'
 import { useSearchHistoryStore } from '@/stores/searchHistoryStore'
+import { useCatalogStore } from '@/stores/catalogStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { cn } from '@/utils/cn'
 import { computeCategoryHits, filterProducts } from '@/utils/searchSuggestions'
@@ -99,10 +100,12 @@ export function Header() {
   const removeRecent = useSearchHistoryStore((s) => s.remove)
   const clearRecents = useSearchHistoryStore((s) => s.clear)
 
+  const productsIndex = useCatalogStore((s) => s.productsIndex)
+
   const { matchedCategories, matchedProducts, navigableItems } = useMemo(() => {
     const trimmed = searchQuery.trim()
     const cats = computeCategoryHits(trimmed)
-    const prods = filterProducts(trimmed)
+    const prods = filterProducts(trimmed, productsIndex)
     const items: NavigableItem[] = []
     if (trimmed.length === 0) {
       recents.forEach((r) => items.push({ type: 'recent', value: r }))
@@ -112,7 +115,7 @@ export function Header() {
       items.push({ type: 'submit' })
     }
     return { matchedCategories: cats, matchedProducts: prods, navigableItems: items }
-  }, [searchQuery, recents])
+  }, [searchQuery, recents, productsIndex])
 
   useClickOutside(searchWrapperRef, () => {
     setIsSearchOpen(false)

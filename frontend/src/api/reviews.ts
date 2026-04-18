@@ -1,7 +1,7 @@
 import type { Review } from '@/types'
-import { findReviewsByProductId } from '@/data/reviews'
-import { delay } from './delay'
+import { http } from './http'
 
 export async function getReviewsByProductId(productId: number): Promise<Review[]> {
-  return delay(findReviewsByProductId(productId))
+  const { data } = await http.get<Review[]>(`/products/${productId}/reviews`)
+  return data
 }
