@@ -1,0 +1,1910 @@
+[
+  {
+    "id": 1,
+    "name": "AMD Ryzen 7 7800X3D",
+    "slug": "amd-ryzen-7-7800x3d",
+    "shortDescription": "Le CPU gaming ultime avec 96 Mo de cache 3D V-Cache.",
+    "description": "Le Ryzen 7 7800X3D est concu pour les gamers les plus exigeants. Avec 8 coeurs, 16 threads et 96 Mo de cache 3D V-Cache, il offre des performances en jeu inegalees, souvent superieures aux CPUs haut de gamme concurrents tout en consommant moins.",
+    "sku": "TS-CPU-7800X3D",
+    "price": 4800,
+    "oldPrice": 5200,
+    "stock": 12,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Ryzen%2B7%2B7800X3D",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Ryzen%2B7%2B7800X3D",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Ryzen%2B7%2B7800X3D+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Ryzen%2B7%2B7800X3D+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Ryzen%2B7%2B7800X3D+Detail"
+    ],
+    "categoryId": 21,
+    "categoryName": "Processeurs",
+    "brandId": 4,
+    "brandName": "AMD",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Coeurs / Threads",
+        "value": "8 / 16"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence base / boost",
+        "value": "4.2 GHz / 5.0 GHz"
+      },
+      {
+        "group": "Performance",
+        "key": "Cache L3 (3D V-Cache)",
+        "value": "96 Mo"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "AM5"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "TDP",
+        "value": "120 W"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Graphiques integres",
+        "value": "Radeon Graphics"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 42,
+    "createdAt": "2026-02-10T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "name": "AMD Ryzen 9 7900X",
+    "slug": "amd-ryzen-9-7900x",
+    "shortDescription": "12 coeurs pour gaming et creation intensive.",
+    "description": "Le Ryzen 9 7900X combine 12 coeurs Zen 4 et une frequence boost jusqu'a 5.6 GHz pour dominer aussi bien le gaming que les charges de travail creatives lourdes (montage, 3D, streaming).",
+    "sku": "TS-CPU-7900X",
+    "price": 5500,
+    "stock": 8,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Ryzen%2B9%2B7900X",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Ryzen%2B9%2B7900X",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Ryzen%2B9%2B7900X+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Ryzen%2B9%2B7900X+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Ryzen%2B9%2B7900X+Detail"
+    ],
+    "categoryId": 21,
+    "categoryName": "Processeurs",
+    "brandId": 4,
+    "brandName": "AMD",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Coeurs / Threads",
+        "value": "12 / 24"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence base / boost",
+        "value": "4.7 GHz / 5.6 GHz"
+      },
+      {
+        "group": "Performance",
+        "key": "Cache L3",
+        "value": "64 Mo"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "AM5"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "TDP",
+        "value": "170 W"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 28,
+    "createdAt": "2026-01-15T10:00:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Intel Core i7-14700K",
+    "slug": "intel-core-i7-14700k",
+    "shortDescription": "20 coeurs hybrides pour gaming et productivite.",
+    "description": "Avec 8 P-cores + 12 E-cores et un boost a 5.6 GHz, le Core i7-14700K gere tout : jeux AAA, streaming et rendering. Compatible socket LGA1700.",
+    "sku": "TS-CPU-14700K",
+    "price": 4200,
+    "stock": 15,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Core%2Bi7-14700K",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Core%2Bi7-14700K",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Core%2Bi7-14700K+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Core%2Bi7-14700K+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Core%2Bi7-14700K+Detail"
+    ],
+    "categoryId": 21,
+    "categoryName": "Processeurs",
+    "brandId": 6,
+    "brandName": "Intel",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Coeurs (P+E)",
+        "value": "8 + 12"
+      },
+      {
+        "group": "Performance",
+        "key": "Threads",
+        "value": "28"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence boost",
+        "value": "Jusqu a 5.6 GHz"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "LGA1700"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "TDP (PL2)",
+        "value": "253 W"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 19,
+    "createdAt": "2026-02-01T10:00:00Z"
+  },
+  {
+    "id": 4,
+    "name": "Intel Core i9-14900K",
+    "slug": "intel-core-i9-14900k",
+    "shortDescription": "Le flagship Intel : 24 coeurs, 6 GHz.",
+    "description": "Le Core i9-14900K est le CPU desktop le plus rapide d'Intel. 24 coeurs (8 P + 16 E), 32 threads et un boost jusqu'a 6.0 GHz. Ideal pour les creatifs et streamers extremes.",
+    "sku": "TS-CPU-14900K",
+    "price": 6800,
+    "stock": 6,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Core%2Bi9-14900K",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Core%2Bi9-14900K",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Core%2Bi9-14900K+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Core%2Bi9-14900K+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Core%2Bi9-14900K+Detail"
+    ],
+    "categoryId": 21,
+    "categoryName": "Processeurs",
+    "brandId": 6,
+    "brandName": "Intel",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Coeurs (P+E)",
+        "value": "8 + 16"
+      },
+      {
+        "group": "Performance",
+        "key": "Threads",
+        "value": "32"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence boost",
+        "value": "Jusqu a 6.0 GHz"
+      },
+      {
+        "group": "Performance",
+        "key": "Cache L3",
+        "value": "36 Mo"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "LGA1700"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 24,
+    "createdAt": "2026-03-01T10:00:00Z"
+  },
+  {
+    "id": 5,
+    "name": "ASUS TUF Gaming GeForce RTX 4070 Ti SUPER 16GB",
+    "slug": "asus-tuf-rtx-4070-ti-super-16gb",
+    "shortDescription": "Performance 1440p Ultra et 4K Haut, refroidissement militaire.",
+    "description": "La RTX 4070 Ti SUPER ecrase le 1440p en Ultra et attaque le 4K confortablement. Le design TUF Gaming d'ASUS y ajoute un cooling triple ventilateur, un backplate en metal et une robustesse testee 'military-grade'.",
+    "sku": "TS-GPU-4070TIS",
+    "price": 9500,
+    "oldPrice": 10800,
+    "stock": 5,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4070%2BTi%2BSUPER",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4070%2BTi%2BSUPER",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4070%2BTi%2BSUPER+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4070%2BTi%2BSUPER+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=RTX%2B4070%2BTi%2BSUPER+Detail"
+    ],
+    "categoryId": 22,
+    "categoryName": "Cartes graphiques",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA GeForce RTX 4070 Ti SUPER"
+      },
+      {
+        "group": "Performance",
+        "key": "Memoire",
+        "value": "16 Go GDDR6X"
+      },
+      {
+        "group": "Performance",
+        "key": "Bus memoire",
+        "value": "256-bit"
+      },
+      {
+        "group": "Connectivite",
+        "key": "Sorties",
+        "value": "3x DisplayPort 1.4a, 1x HDMI 2.1"
+      },
+      {
+        "group": "Alimentation",
+        "key": "Connecteur",
+        "value": "16-pin (PCIe 5.0)"
+      },
+      {
+        "group": "Alimentation",
+        "key": "Alimentation recommandee",
+        "value": "700 W"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 56,
+    "createdAt": "2026-02-20T10:00:00Z"
+  },
+  {
+    "id": 6,
+    "name": "MSI GeForce RTX 4080 SUPER 16G Gaming X Slim",
+    "slug": "msi-rtx-4080-super-gaming-x-slim",
+    "shortDescription": "4K maximum, ray tracing sans compromis.",
+    "description": "La RTX 4080 SUPER vise le 4K en Ultra path-traced. La version MSI Gaming X Slim conserve une epaisseur de 2.5 slots tout en refroidissant silencieusement 320 W.",
+    "sku": "TS-GPU-4080S",
+    "price": 14500,
+    "stock": 3,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4080%2BSUPER",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4080%2BSUPER",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4080%2BSUPER+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4080%2BSUPER+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=RTX%2B4080%2BSUPER+Detail"
+    ],
+    "categoryId": 22,
+    "categoryName": "Cartes graphiques",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA GeForce RTX 4080 SUPER"
+      },
+      {
+        "group": "Performance",
+        "key": "Memoire",
+        "value": "16 Go GDDR6X"
+      },
+      {
+        "group": "Performance",
+        "key": "Bus memoire",
+        "value": "256-bit"
+      },
+      {
+        "group": "Connectivite",
+        "key": "Sorties",
+        "value": "3x DisplayPort 1.4a, 1x HDMI 2.1"
+      },
+      {
+        "group": "Alimentation",
+        "key": "Alimentation recommandee",
+        "value": "850 W"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 33,
+    "createdAt": "2026-03-05T10:00:00Z"
+  },
+  {
+    "id": 7,
+    "name": "MSI GeForce RTX 4060 Ventus 2X 8GB",
+    "slug": "msi-rtx-4060-ventus-2x-8gb",
+    "shortDescription": "Le bon plan 1080p Ultra et 1440p.",
+    "description": "La RTX 4060 reste la carte graphique la plus vendue dans sa gamme de prix. Parfaite pour le 1080p en Ultra a 144 Hz, avec DLSS 3 pour pousser le 1440p quand il le faut.",
+    "sku": "TS-GPU-4060",
+    "price": 4200,
+    "stock": 11,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4060",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RTX%2B4060",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4060+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RTX%2B4060+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=RTX%2B4060+Detail"
+    ],
+    "categoryId": 22,
+    "categoryName": "Cartes graphiques",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA GeForce RTX 4060"
+      },
+      {
+        "group": "Performance",
+        "key": "Memoire",
+        "value": "8 Go GDDR6"
+      },
+      {
+        "group": "Performance",
+        "key": "Bus memoire",
+        "value": "128-bit"
+      },
+      {
+        "group": "Connectivite",
+        "key": "Sorties",
+        "value": "3x DisplayPort, 1x HDMI"
+      },
+      {
+        "group": "Alimentation",
+        "key": "Alimentation recommandee",
+        "value": "550 W"
+      }
+    ],
+    "rating": 4.5,
+    "reviewCount": 87,
+    "createdAt": "2026-01-20T10:00:00Z"
+  },
+  {
+    "id": 8,
+    "name": "ASUS TUF Gaming Radeon RX 7800 XT 16GB",
+    "slug": "asus-tuf-rx-7800-xt-16gb",
+    "shortDescription": "Alternative AMD solide en 1440p.",
+    "description": "La RX 7800 XT offre 16 Go de VRAM et d'excellentes performances en 1440p pour un tarif contenu. Version TUF Gaming robuste avec triple ventilateur.",
+    "sku": "TS-GPU-7800XT",
+    "price": 6500,
+    "stock": 7,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RX%2B7800%2BXT",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RX%2B7800%2BXT",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RX%2B7800%2BXT+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RX%2B7800%2BXT+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=RX%2B7800%2BXT+Detail"
+    ],
+    "categoryId": 22,
+    "categoryName": "Cartes graphiques",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "AMD Radeon RX 7800 XT"
+      },
+      {
+        "group": "Performance",
+        "key": "Memoire",
+        "value": "16 Go GDDR6"
+      },
+      {
+        "group": "Performance",
+        "key": "Bus memoire",
+        "value": "256-bit"
+      },
+      {
+        "group": "Alimentation",
+        "key": "Alimentation recommandee",
+        "value": "700 W"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 41,
+    "createdAt": "2026-02-12T10:00:00Z"
+  },
+  {
+    "id": 9,
+    "name": "Corsair Vengeance DDR5 32GB (2x16) 6000 MHz",
+    "slug": "corsair-vengeance-ddr5-32gb-6000",
+    "shortDescription": "Kit DDR5 32 Go optimise AMD EXPO & Intel XMP.",
+    "description": "Kit 2x16 Go DDR5 cadence a 6000 MHz, CL30. Profil EXPO (AMD) et XMP 3.0 (Intel). Le sweet spot pour un AM5 ou un LGA1700 moderne.",
+    "sku": "TS-RAM-VENG-32G",
+    "price": 1650,
+    "stock": 25,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Vengeance%2BDDR5%2B32GB",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Vengeance%2BDDR5%2B32GB",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Vengeance%2BDDR5%2B32GB+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Vengeance%2BDDR5%2B32GB+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Vengeance%2BDDR5%2B32GB+Detail"
+    ],
+    "categoryId": 23,
+    "categoryName": "Memoire RAM",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Capacite",
+        "value": "32 Go (2x 16 Go)"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence",
+        "value": "6000 MT/s"
+      },
+      {
+        "group": "Performance",
+        "key": "Latence",
+        "value": "CL30"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Tension",
+        "value": "1.35 V"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Profils",
+        "value": "AMD EXPO + Intel XMP 3.0"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 102,
+    "createdAt": "2026-01-10T10:00:00Z"
+  },
+  {
+    "id": 10,
+    "name": "Corsair Dominator DDR5 64GB (2x32) 6400 MHz",
+    "slug": "corsair-dominator-ddr5-64gb-6400",
+    "shortDescription": "Kit 64 Go haut de gamme pour workstations.",
+    "description": "64 Go de DDR5 6400 MHz pour les stations de travail exigeantes : 3D, montage 4K/8K, VMs. Dissipateur Dominator premium avec eclairage RGB Capellix.",
+    "sku": "TS-RAM-DOM-64G",
+    "price": 3200,
+    "stock": 10,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Dominator%2BDDR5%2B64GB",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Dominator%2BDDR5%2B64GB",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Dominator%2BDDR5%2B64GB+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Dominator%2BDDR5%2B64GB+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Dominator%2BDDR5%2B64GB+Detail"
+    ],
+    "categoryId": 23,
+    "categoryName": "Memoire RAM",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Capacite",
+        "value": "64 Go (2x 32 Go)"
+      },
+      {
+        "group": "Performance",
+        "key": "Frequence",
+        "value": "6400 MT/s"
+      },
+      {
+        "group": "Performance",
+        "key": "Latence",
+        "value": "CL32"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "RGB",
+        "value": "iCUE Capellix"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 18,
+    "createdAt": "2026-02-18T10:00:00Z"
+  },
+  {
+    "id": 11,
+    "name": "Samsung 990 Pro 2TB NVMe PCIe 4.0",
+    "slug": "samsung-990-pro-2tb",
+    "shortDescription": "SSD PCIe 4.0 jusqu'a 7 450 Mo/s en lecture.",
+    "description": "Le Samsung 990 Pro est la reference des SSD PCIe Gen 4 : 7 450 Mo/s en lecture, 6 900 Mo/s en ecriture, endurance 1 200 TBW. Ideal pour gaming, creation et bureautique exigeante.",
+    "sku": "TS-SSD-990P-2T",
+    "price": 2100,
+    "stock": 20,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=990%2BPro%2B2TB",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=990%2BPro%2B2TB",
+      "https://placehold.co/600x600/F5F5F5/666666?text=990%2BPro%2B2TB+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=990%2BPro%2B2TB+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=990%2BPro%2B2TB+Detail"
+    ],
+    "categoryId": 24,
+    "categoryName": "Stockage SSD / HDD",
+    "brandId": 9,
+    "brandName": "Samsung",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Lecture sequentielle",
+        "value": "Jusqu a 7 450 Mo/s"
+      },
+      {
+        "group": "Performance",
+        "key": "Ecriture sequentielle",
+        "value": "Jusqu a 6 900 Mo/s"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Capacite",
+        "value": "2 To"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Interface",
+        "value": "PCIe 4.0 x4 NVMe"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Endurance",
+        "value": "1 200 TBW"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 214,
+    "createdAt": "2026-01-05T10:00:00Z"
+  },
+  {
+    "id": 12,
+    "name": "Samsung 990 Pro 1TB NVMe PCIe 4.0",
+    "slug": "samsung-990-pro-1tb",
+    "shortDescription": "La reference 1 To PCIe 4.0.",
+    "description": "Meme architecture que le 990 Pro 2 To, en version 1 To. Parfait pour un disque systeme rapide ou un second disque pour les jeux.",
+    "sku": "TS-SSD-990P-1T",
+    "price": 1250,
+    "stock": 30,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=990%2BPro%2B1TB",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=990%2BPro%2B1TB",
+      "https://placehold.co/600x600/F5F5F5/666666?text=990%2BPro%2B1TB+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=990%2BPro%2B1TB+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=990%2BPro%2B1TB+Detail"
+    ],
+    "categoryId": 24,
+    "categoryName": "Stockage SSD / HDD",
+    "brandId": 9,
+    "brandName": "Samsung",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Lecture sequentielle",
+        "value": "Jusqu a 7 450 Mo/s"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Capacite",
+        "value": "1 To"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Interface",
+        "value": "PCIe 4.0 x4 NVMe"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Endurance",
+        "value": "600 TBW"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 341,
+    "createdAt": "2026-01-05T10:00:00Z"
+  },
+  {
+    "id": 13,
+    "name": "WD Black SN850X 4TB NVMe",
+    "slug": "wd-black-sn850x-4tb",
+    "shortDescription": "Enorme capacite, taille de bibliotheque de jeux complete.",
+    "description": "4 To de PCIe 4.0 pour ne plus jamais supprimer un jeu. Le SN850X reste parmi les plus rapides de sa categorie avec 7 300 Mo/s en lecture.",
+    "sku": "TS-SSD-SN850X-4T",
+    "price": 3800,
+    "stock": 8,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=SN850X%2B4TB",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=SN850X%2B4TB",
+      "https://placehold.co/600x600/F5F5F5/666666?text=SN850X%2B4TB+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=SN850X%2B4TB+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=SN850X%2B4TB+Detail"
+    ],
+    "categoryId": 24,
+    "categoryName": "Stockage SSD / HDD",
+    "brandId": 10,
+    "brandName": "Western Digital",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Lecture sequentielle",
+        "value": "Jusqu a 7 300 Mo/s"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Capacite",
+        "value": "4 To"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Interface",
+        "value": "PCIe 4.0 x4 NVMe"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 64,
+    "createdAt": "2026-02-28T10:00:00Z"
+  },
+  {
+    "id": 14,
+    "name": "ASUS ROG STRIX X670E-E Gaming WiFi",
+    "slug": "asus-rog-strix-x670e-e",
+    "shortDescription": "Carte mere AM5 haut de gamme PCIe 5.0.",
+    "description": "Carte mere ATX X670E avec 18+2 phases d'alimentation, PCIe 5.0 complet (CPU + stockage), WiFi 6E et 4x M.2. Pour les montages Ryzen les plus ambitieux.",
+    "sku": "TS-MB-X670E",
+    "price": 5200,
+    "stock": 6,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BX670E-E",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BX670E-E",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BX670E-E+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BX670E-E+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=ROG%2BX670E-E+Detail"
+    ],
+    "categoryId": 25,
+    "categoryName": "Cartes meres",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Chipset",
+        "value": "AMD X670E"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "AM5"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "ATX"
+      },
+      {
+        "group": "Connectivite",
+        "key": "WiFi",
+        "value": "WiFi 6E + Bluetooth 5.3"
+      },
+      {
+        "group": "Connectivite",
+        "key": "M.2",
+        "value": "4x (dont PCIe 5.0)"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 22,
+    "createdAt": "2026-01-25T10:00:00Z"
+  },
+  {
+    "id": 15,
+    "name": "MSI MAG B650 Tomahawk WiFi",
+    "slug": "msi-mag-b650-tomahawk-wifi",
+    "shortDescription": "Rapport qualite/prix imbattable en AM5.",
+    "description": "La MAG B650 Tomahawk WiFi est LA carte mere equilibree pour Ryzen 7000/8000. VRM solide, 2x M.2, WiFi 6E, un vrai socle pour un build gaming fiable.",
+    "sku": "TS-MB-B650TOM",
+    "price": 2400,
+    "stock": 14,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2BB650%2BTomahawk",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2BB650%2BTomahawk",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2BB650%2BTomahawk+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2BB650%2BTomahawk+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=MAG%2BB650%2BTomahawk+Detail"
+    ],
+    "categoryId": 25,
+    "categoryName": "Cartes meres",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Chipset",
+        "value": "AMD B650"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Socket",
+        "value": "AM5"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "ATX"
+      },
+      {
+        "group": "Connectivite",
+        "key": "WiFi",
+        "value": "WiFi 6E"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 95,
+    "createdAt": "2026-02-03T10:00:00Z"
+  },
+  {
+    "id": 16,
+    "name": "Corsair RM850x 850W 80+ Gold",
+    "slug": "corsair-rm850x-850w",
+    "shortDescription": "Alimentation silencieuse modulaire 80+ Gold.",
+    "description": "Avec 850 W, 80+ Gold et une modularite totale, la RM850x est le choix sans risque pour un build RTX 4070 Ti / 4080. Ventilo fluid-dynamic quasi silencieux.",
+    "sku": "TS-PSU-RM850X",
+    "price": 1400,
+    "stock": 18,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RM850x",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=RM850x",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RM850x+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=RM850x+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=RM850x+Detail"
+    ],
+    "categoryId": 26,
+    "categoryName": "Alimentations",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Puissance",
+        "value": "850 W"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Certification",
+        "value": "80+ Gold"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Modularite",
+        "value": "Totalement modulaire"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Garantie",
+        "value": "10 ans"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 156,
+    "createdAt": "2026-01-12T10:00:00Z"
+  },
+  {
+    "id": 17,
+    "name": "MSI MEG Ai1300P 1300W 80+ Platinum",
+    "slug": "msi-meg-ai1300p-1300w",
+    "shortDescription": "Alimentation extreme pour configs RTX 4090.",
+    "description": "1 300 W en 80+ Platinum avec connecteur 16-pin natif (PCIe 5.0). Congue pour les configurations extremes : RTX 4090, Threadripper, overclocking.",
+    "sku": "TS-PSU-AI1300P",
+    "price": 3600,
+    "stock": 5,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MEG%2BAi1300P",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MEG%2BAi1300P",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MEG%2BAi1300P+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MEG%2BAi1300P+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=MEG%2BAi1300P+Detail"
+    ],
+    "categoryId": 26,
+    "categoryName": "Alimentations",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Puissance",
+        "value": "1 300 W"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Certification",
+        "value": "80+ Platinum"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Connecteur",
+        "value": "16-pin PCIe 5.0 natif"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 11,
+    "createdAt": "2026-03-10T10:00:00Z"
+  },
+  {
+    "id": 18,
+    "name": "Corsair 4000D Airflow",
+    "slug": "corsair-4000d-airflow",
+    "shortDescription": "Boitier ATX best-seller, flux d air maximal.",
+    "description": "Le boitier ATX le plus recommande du marche. Facade mesh, cable management intelligent, compatible GPUs les plus longs et AIO 360 mm sur le front.",
+    "sku": "TS-CASE-4000D",
+    "price": 950,
+    "stock": 22,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Corsair%2B4000D",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Corsair%2B4000D",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Corsair%2B4000D+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Corsair%2B4000D+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Corsair%2B4000D+Detail"
+    ],
+    "categoryId": 27,
+    "categoryName": "Boitiers",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "ATX Mid-Tower"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "GPU max",
+        "value": "360 mm"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Radiateur max",
+        "value": "360 mm (avant)"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 287,
+    "createdAt": "2026-01-08T10:00:00Z"
+  },
+  {
+    "id": 19,
+    "name": "MSI MPG Sekira 500X",
+    "slug": "msi-mpg-sekira-500x",
+    "shortDescription": "Boitier premium full-tower verre trempe.",
+    "description": "Sekira 500X : 4 panneaux en verre trempe, 4 ventilateurs ARGB inclus, finition noire mate. Un chassis premium pour une config qui doit etre vue.",
+    "sku": "TS-CASE-SEKIRA500X",
+    "price": 1800,
+    "stock": 9,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MPG%2BSekira%2B500X",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MPG%2BSekira%2B500X",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MPG%2BSekira%2B500X+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MPG%2BSekira%2B500X+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=MPG%2BSekira%2B500X+Detail"
+    ],
+    "categoryId": 27,
+    "categoryName": "Boitiers",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "E-ATX Full Tower"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Panneaux verre",
+        "value": "4"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Ventilateurs inclus",
+        "value": "4x ARGB"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 34,
+    "createdAt": "2026-02-15T10:00:00Z"
+  },
+  {
+    "id": 20,
+    "name": "Corsair iCUE H150i Elite LCD XT",
+    "slug": "corsair-icue-h150i-elite-lcd-xt",
+    "shortDescription": "AIO 360 mm avec ecran LCD IPS.",
+    "description": "Watercooling AIO 360 mm de reference, avec ecran LCD IPS couleur sur la pompe (temperatures, logo, GIF). Parfait pour les CPUs gourmands type i9-14900K ou Ryzen 9.",
+    "sku": "TS-COOL-H150ILCD",
+    "price": 2600,
+    "stock": 11,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=iCUE%2BH150i%2BElite",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=iCUE%2BH150i%2BElite",
+      "https://placehold.co/600x600/F5F5F5/666666?text=iCUE%2BH150i%2BElite+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=iCUE%2BH150i%2BElite+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=iCUE%2BH150i%2BElite+Detail"
+    ],
+    "categoryId": 28,
+    "categoryName": "Refroidissement",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Type",
+        "value": "Watercooling AIO 360 mm"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Ecran",
+        "value": "LCD IPS 2.1 pouces"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Compatibilite",
+        "value": "AM5, LGA1700"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 52,
+    "createdAt": "2026-02-07T10:00:00Z"
+  },
+  {
+    "id": 21,
+    "name": "MSI MAG CoreLiquid 360R V2",
+    "slug": "msi-mag-coreliquid-360r-v2",
+    "shortDescription": "AIO 360 mm RGB excellent rapport qualite/prix.",
+    "description": "Watercooling 360 mm avec pompe rotative 270 deg, 3 ventilateurs ARGB inclus. L option equilibree pour refroidir un Ryzen 7 ou Core i7.",
+    "sku": "TS-COOL-CL360RV2",
+    "price": 1500,
+    "oldPrice": 1800,
+    "stock": 16,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2BCoreLiquid%2B360R",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2BCoreLiquid%2B360R",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2BCoreLiquid%2B360R+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2BCoreLiquid%2B360R+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=MAG%2BCoreLiquid%2B360R+Detail"
+    ],
+    "categoryId": 28,
+    "categoryName": "Refroidissement",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Type",
+        "value": "Watercooling AIO 360 mm"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Ventilateurs",
+        "value": "3x ARGB"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Pompe",
+        "value": "Rotative 270 deg"
+      }
+    ],
+    "rating": 4.5,
+    "reviewCount": 73,
+    "createdAt": "2026-01-18T10:00:00Z"
+  },
+  {
+    "id": 22,
+    "name": "TechSpace Gamer Intel i7 + RTX 4070 Ti SUPER",
+    "slug": "techspace-gamer-intel-i7-rtx-4070-ti",
+    "shortDescription": "Config 1440p Ultra, assemblee et testee au Maroc.",
+    "description": "Configuration assemblee par nos techniciens : Core i7-14700K, RTX 4070 Ti SUPER 16 Go, 32 Go DDR5 6000, SSD 1 To NVMe, alimentation 850W Gold. Livree testee 24h sous stress.",
+    "sku": "TS-PC-INTELM1",
+    "price": 22500,
+    "stock": 4,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BGamer%2BIntel%2Bi7",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BGamer%2BIntel%2Bi7",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BGamer%2BIntel%2Bi7+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BGamer%2BIntel%2Bi7+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=TS%2BGamer%2BIntel%2Bi7+Detail"
+    ],
+    "categoryId": 11,
+    "categoryName": "PC Gamer Intel",
+    "brandId": 13,
+    "brandName": "TechSpace",
+    "specifications": [
+      {
+        "group": "Configuration",
+        "key": "CPU",
+        "value": "Intel Core i7-14700K"
+      },
+      {
+        "group": "Configuration",
+        "key": "GPU",
+        "value": "RTX 4070 Ti SUPER 16 Go"
+      },
+      {
+        "group": "Configuration",
+        "key": "RAM",
+        "value": "32 Go DDR5 6000 MHz"
+      },
+      {
+        "group": "Configuration",
+        "key": "Stockage",
+        "value": "SSD NVMe 1 To"
+      },
+      {
+        "group": "Configuration",
+        "key": "Alimentation",
+        "value": "850 W 80+ Gold"
+      },
+      {
+        "group": "Service",
+        "key": "Garantie",
+        "value": "2 ans piece + main d oeuvre"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 14,
+    "createdAt": "2026-03-01T10:00:00Z"
+  },
+  {
+    "id": 23,
+    "name": "TechSpace Ultimate Intel i9 + RTX 4080 SUPER",
+    "slug": "techspace-ultimate-intel-i9-rtx-4080",
+    "shortDescription": "Station 4K path-traced, RGB, boitier verre trempe.",
+    "description": "Config haut de gamme : i9-14900K, RTX 4080 SUPER 16 Go, 64 Go DDR5, 2 To NVMe + 4 To NVMe, watercooling 360 mm LCD, boitier verre trempe. Pour les pros et streamers.",
+    "sku": "TS-PC-ULTIM1",
+    "price": 35000,
+    "stock": 2,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BUltimate%2Bi9",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BUltimate%2Bi9",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BUltimate%2Bi9+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BUltimate%2Bi9+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=TS%2BUltimate%2Bi9+Detail"
+    ],
+    "categoryId": 11,
+    "categoryName": "PC Gamer Intel",
+    "brandId": 13,
+    "brandName": "TechSpace",
+    "specifications": [
+      {
+        "group": "Configuration",
+        "key": "CPU",
+        "value": "Intel Core i9-14900K"
+      },
+      {
+        "group": "Configuration",
+        "key": "GPU",
+        "value": "RTX 4080 SUPER 16 Go"
+      },
+      {
+        "group": "Configuration",
+        "key": "RAM",
+        "value": "64 Go DDR5 6400 MHz"
+      },
+      {
+        "group": "Configuration",
+        "key": "Stockage",
+        "value": "SSD 2 To + 4 To NVMe"
+      },
+      {
+        "group": "Configuration",
+        "key": "Refroidissement",
+        "value": "AIO 360 mm LCD"
+      }
+    ],
+    "rating": 5,
+    "reviewCount": 6,
+    "createdAt": "2026-03-12T10:00:00Z"
+  },
+  {
+    "id": 24,
+    "name": "TechSpace Gamer AMD Ryzen 7 + RX 7800 XT",
+    "slug": "techspace-gamer-amd-ryzen-7-rx-7800-xt",
+    "shortDescription": "Setup AMD equilibre 1440p a prix doux.",
+    "description": "Config AMD 100% : Ryzen 7 7800X3D, RX 7800 XT 16 Go, 32 Go DDR5 6000, SSD 1 To. Le meilleur rapport perf/prix pour jouer en 1440p Ultra.",
+    "sku": "TS-PC-AMDM1",
+    "price": 18900,
+    "stock": 5,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BGamer%2BAMD%2BR7",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TS%2BGamer%2BAMD%2BR7",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BGamer%2BAMD%2BR7+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TS%2BGamer%2BAMD%2BR7+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=TS%2BGamer%2BAMD%2BR7+Detail"
+    ],
+    "categoryId": 12,
+    "categoryName": "PC Gamer AMD",
+    "brandId": 13,
+    "brandName": "TechSpace",
+    "specifications": [
+      {
+        "group": "Configuration",
+        "key": "CPU",
+        "value": "AMD Ryzen 7 7800X3D"
+      },
+      {
+        "group": "Configuration",
+        "key": "GPU",
+        "value": "AMD RX 7800 XT 16 Go"
+      },
+      {
+        "group": "Configuration",
+        "key": "RAM",
+        "value": "32 Go DDR5 6000 MHz"
+      },
+      {
+        "group": "Configuration",
+        "key": "Stockage",
+        "value": "SSD NVMe 1 To"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 9,
+    "createdAt": "2026-02-25T10:00:00Z"
+  },
+  {
+    "id": 25,
+    "name": "ASUS ROG Strix G16 RTX 4060",
+    "slug": "asus-rog-strix-g16-rtx-4060",
+    "shortDescription": "Portable gamer 16\", 240 Hz, i7 + RTX 4060.",
+    "description": "ROG Strix G16 : dalle 16\" QHD+ 240 Hz, Core i7-13650HX, RTX 4060 8 Go, 16 Go DDR5, SSD 1 To. Clavier RGB 4 zones, AURA Sync.",
+    "sku": "TS-LAP-STRIXG16",
+    "price": 15800,
+    "stock": 6,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BStrix%2BG16",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BStrix%2BG16",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BStrix%2BG16+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BStrix%2BG16+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=ROG%2BStrix%2BG16+Detail"
+    ],
+    "categoryId": 31,
+    "categoryName": "Portables Gamer",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "CPU",
+        "value": "Intel Core i7-13650HX"
+      },
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA RTX 4060 8 Go"
+      },
+      {
+        "group": "Ecran",
+        "key": "Dalle",
+        "value": "16\" QHD+ 240 Hz"
+      },
+      {
+        "group": "Memoire",
+        "key": "RAM / SSD",
+        "value": "16 Go DDR5 / 1 To NVMe"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 45,
+    "createdAt": "2026-02-11T10:00:00Z"
+  },
+  {
+    "id": 26,
+    "name": "MSI Katana 17 RTX 4070",
+    "slug": "msi-katana-17-rtx-4070",
+    "shortDescription": "Portable 17\" gaming, RTX 4070, 144 Hz.",
+    "description": "Katana 17 : grand ecran 17.3\" QHD 144 Hz, Core i7-13700H, RTX 4070 8 Go, 16 Go DDR5, 1 To NVMe. Parfait pour jouer confortablement.",
+    "sku": "TS-LAP-KATANA17",
+    "price": 17900,
+    "stock": 3,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Katana%2B17",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Katana%2B17",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Katana%2B17+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Katana%2B17+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Katana%2B17+Detail"
+    ],
+    "categoryId": 31,
+    "categoryName": "Portables Gamer",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "CPU",
+        "value": "Intel Core i7-13700H"
+      },
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA RTX 4070 8 Go"
+      },
+      {
+        "group": "Ecran",
+        "key": "Dalle",
+        "value": "17.3\" QHD 144 Hz"
+      },
+      {
+        "group": "Memoire",
+        "key": "RAM / SSD",
+        "value": "16 Go DDR5 / 1 To NVMe"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 27,
+    "createdAt": "2026-02-17T10:00:00Z"
+  },
+  {
+    "id": 27,
+    "name": "ASUS TUF Gaming A15 RTX 4050",
+    "slug": "asus-tuf-gaming-a15-rtx-4050",
+    "shortDescription": "L entree de gamme gaming solide 1080p.",
+    "description": "TUF Gaming A15 : Ryzen 7 7735HS, RTX 4050 6 Go, 16 Go DDR5, SSD 512 Go. Chassis renforce 'military-grade'. Ideal pour jouer en 1080p.",
+    "sku": "TS-LAP-TUFA15",
+    "price": 11900,
+    "oldPrice": 12800,
+    "stock": 7,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TUF%2BA15",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=TUF%2BA15",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TUF%2BA15+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=TUF%2BA15+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=TUF%2BA15+Detail"
+    ],
+    "categoryId": 31,
+    "categoryName": "Portables Gamer",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "CPU",
+        "value": "AMD Ryzen 7 7735HS"
+      },
+      {
+        "group": "Performance",
+        "key": "GPU",
+        "value": "NVIDIA RTX 4050 6 Go"
+      },
+      {
+        "group": "Ecran",
+        "key": "Dalle",
+        "value": "15.6\" FHD 144 Hz"
+      },
+      {
+        "group": "Memoire",
+        "key": "RAM / SSD",
+        "value": "16 Go DDR5 / 512 Go NVMe"
+      }
+    ],
+    "rating": 4.5,
+    "reviewCount": 64,
+    "createdAt": "2026-01-22T10:00:00Z"
+  },
+  {
+    "id": 28,
+    "name": "ASUS VivoBook 15 i5",
+    "slug": "asus-vivobook-15-i5",
+    "shortDescription": "Portable multimedia/etudiant fin et silencieux.",
+    "description": "VivoBook 15 : Core i5-1335U, 16 Go DDR4, SSD 512 Go, ecran 15.6\" FHD. Autonomie 10h, parfait pour bureautique, etudes, video.",
+    "sku": "TS-LAP-VIVO15",
+    "price": 6800,
+    "stock": 12,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=VivoBook%2B15",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=VivoBook%2B15",
+      "https://placehold.co/600x600/F5F5F5/666666?text=VivoBook%2B15+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=VivoBook%2B15+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=VivoBook%2B15+Detail"
+    ],
+    "categoryId": 32,
+    "categoryName": "Portables Multimedia",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "CPU",
+        "value": "Intel Core i5-1335U"
+      },
+      {
+        "group": "Ecran",
+        "key": "Dalle",
+        "value": "15.6\" FHD IPS"
+      },
+      {
+        "group": "Memoire",
+        "key": "RAM / SSD",
+        "value": "16 Go DDR4 / 512 Go NVMe"
+      },
+      {
+        "group": "Autonomie",
+        "key": "Batterie",
+        "value": "Jusqu a 10h"
+      }
+    ],
+    "rating": 4.4,
+    "reviewCount": 112,
+    "createdAt": "2026-01-04T10:00:00Z"
+  },
+  {
+    "id": 29,
+    "name": "MSI MAG 274UPF 27\" 4K 144 Hz",
+    "slug": "msi-mag-274upf-4k-144hz",
+    "shortDescription": "Ecran 27\" 4K IPS 144 Hz, HDR.",
+    "description": "Dalle IPS 27\" 4K a 144 Hz, 1 ms GtG, compatible FreeSync et G-Sync. L ecran polyvalent parfait pour gaming next-gen et creation.",
+    "sku": "TS-MON-274UPF",
+    "price": 4800,
+    "stock": 8,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2B274UPF%2B4K",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=MAG%2B274UPF%2B4K",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2B274UPF%2B4K+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=MAG%2B274UPF%2B4K+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=MAG%2B274UPF%2B4K+Detail"
+    ],
+    "categoryId": 41,
+    "categoryName": "Ecrans Gaming",
+    "brandId": 1,
+    "brandName": "MSI",
+    "specifications": [
+      {
+        "group": "Dalle",
+        "key": "Type",
+        "value": "IPS Rapid"
+      },
+      {
+        "group": "Dalle",
+        "key": "Taille",
+        "value": "27 pouces"
+      },
+      {
+        "group": "Dalle",
+        "key": "Resolution",
+        "value": "3840 x 2160 (4K UHD)"
+      },
+      {
+        "group": "Performance",
+        "key": "Taux de rafraichissement",
+        "value": "144 Hz"
+      },
+      {
+        "group": "Performance",
+        "key": "Temps de reponse",
+        "value": "1 ms GtG"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 39,
+    "createdAt": "2026-02-08T10:00:00Z"
+  },
+  {
+    "id": 30,
+    "name": "ASUS ROG Swift PG279QM 27\" 1440p 240 Hz",
+    "slug": "asus-rog-swift-pg279qm",
+    "shortDescription": "Ecran esport 1440p 240 Hz, latence minimale.",
+    "description": "PG279QM : 27\" IPS 1440p 240 Hz, G-Sync Ultimate, HDR400. Concu pour les joueurs competitifs qui veulent une image rapide et fidele.",
+    "sku": "TS-MON-PG279QM",
+    "price": 6200,
+    "stock": 5,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BPG279QM",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=ROG%2BPG279QM",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BPG279QM+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=ROG%2BPG279QM+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=ROG%2BPG279QM+Detail"
+    ],
+    "categoryId": 41,
+    "categoryName": "Ecrans Gaming",
+    "brandId": 2,
+    "brandName": "ASUS",
+    "specifications": [
+      {
+        "group": "Dalle",
+        "key": "Type",
+        "value": "IPS"
+      },
+      {
+        "group": "Dalle",
+        "key": "Taille / Resolution",
+        "value": "27\" / 2560x1440"
+      },
+      {
+        "group": "Performance",
+        "key": "Taux de rafraichissement",
+        "value": "240 Hz"
+      },
+      {
+        "group": "Performance",
+        "key": "G-Sync",
+        "value": "Ultimate"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 28,
+    "createdAt": "2026-03-04T10:00:00Z"
+  },
+  {
+    "id": 31,
+    "name": "Samsung Odyssey G7 32\" 1440p 240 Hz",
+    "slug": "samsung-odyssey-g7-32",
+    "shortDescription": "Ecran incurve 32\" 1000R, 240 Hz.",
+    "description": "Samsung Odyssey G7 : 32\" VA incurve 1000R, 1440p, 240 Hz, 1 ms. Immersion maximale pour les jeux AAA et les FPS competitifs.",
+    "sku": "TS-MON-ODYG7-32",
+    "price": 5400,
+    "oldPrice": 6200,
+    "stock": 9,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Odyssey%2BG7%2B32",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Odyssey%2BG7%2B32",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Odyssey%2BG7%2B32+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Odyssey%2BG7%2B32+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Odyssey%2BG7%2B32+Detail"
+    ],
+    "categoryId": 41,
+    "categoryName": "Ecrans Gaming",
+    "brandId": 9,
+    "brandName": "Samsung",
+    "specifications": [
+      {
+        "group": "Dalle",
+        "key": "Type",
+        "value": "VA incurve 1000R"
+      },
+      {
+        "group": "Dalle",
+        "key": "Taille / Resolution",
+        "value": "32\" / 2560x1440"
+      },
+      {
+        "group": "Performance",
+        "key": "Taux de rafraichissement",
+        "value": "240 Hz"
+      },
+      {
+        "group": "Performance",
+        "key": "Temps de reponse",
+        "value": "1 ms"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 83,
+    "createdAt": "2026-01-30T10:00:00Z"
+  },
+  {
+    "id": 32,
+    "name": "Logitech G Pro X Superlight 2",
+    "slug": "logitech-g-pro-x-superlight-2",
+    "shortDescription": "Souris esport wireless, 60 g, capteur HERO 2.",
+    "description": "La reference absolue des souris esport : seulement 60 g, capteur HERO 2 32 000 DPI, autonomie 95h, LIGHTSPEED wireless ultra-fiable.",
+    "sku": "TS-MOU-GPXSL2",
+    "price": 1450,
+    "stock": 14,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G%2BPro%2BX%2BSuperlight%2B2",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G%2BPro%2BX%2BSuperlight%2B2",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G%2BPro%2BX%2BSuperlight%2B2+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G%2BPro%2BX%2BSuperlight%2B2+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=G%2BPro%2BX%2BSuperlight%2B2+Detail"
+    ],
+    "categoryId": 52,
+    "categoryName": "Souris",
+    "brandId": 7,
+    "brandName": "Logitech",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Capteur",
+        "value": "HERO 2 - 32 000 DPI"
+      },
+      {
+        "group": "Performance",
+        "key": "Poids",
+        "value": "60 g"
+      },
+      {
+        "group": "Connectivite",
+        "key": "Connexion",
+        "value": "LIGHTSPEED Wireless"
+      },
+      {
+        "group": "Autonomie",
+        "key": "Batterie",
+        "value": "95 heures"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 178,
+    "createdAt": "2026-02-22T10:00:00Z"
+  },
+  {
+    "id": 33,
+    "name": "Corsair K70 RGB TKL",
+    "slug": "corsair-k70-rgb-tkl",
+    "shortDescription": "Clavier mecanique TKL Cherry MX, RGB par touche.",
+    "description": "Clavier mecanique TKL avec switches Cherry MX Red, retroeclairage RGB par touche, 8 000 Hz polling, chassis aluminium.",
+    "sku": "TS-KB-K70RGB",
+    "price": 1650,
+    "stock": 10,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=K70%2BRGB%2BTKL",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=K70%2BRGB%2BTKL",
+      "https://placehold.co/600x600/F5F5F5/666666?text=K70%2BRGB%2BTKL+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=K70%2BRGB%2BTKL+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=K70%2BRGB%2BTKL+Detail"
+    ],
+    "categoryId": 51,
+    "categoryName": "Claviers",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Switches",
+        "value": "Cherry MX Red"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "TKL (Tenkeyless)"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Polling",
+        "value": "8 000 Hz"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "RGB",
+        "value": "Par touche (iCUE)"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 91,
+    "createdAt": "2026-01-28T10:00:00Z"
+  },
+  {
+    "id": 34,
+    "name": "Logitech G915 TKL",
+    "slug": "logitech-g915-tkl",
+    "shortDescription": "Clavier mecanique low-profile wireless.",
+    "description": "G915 TKL : profil bas, switches GL Tactile, wireless LIGHTSPEED ou Bluetooth, 40h d autonomie avec RGB. Format tenkeyless compact et premium.",
+    "sku": "TS-KB-G915TKL",
+    "price": 2800,
+    "stock": 6,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G915%2BTKL",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G915%2BTKL",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G915%2BTKL+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G915%2BTKL+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=G915%2BTKL+Detail"
+    ],
+    "categoryId": 51,
+    "categoryName": "Claviers",
+    "brandId": 7,
+    "brandName": "Logitech",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Switches",
+        "value": "GL Tactile (low-profile)"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Format",
+        "value": "TKL"
+      },
+      {
+        "group": "Connectivite",
+        "key": "Connexion",
+        "value": "LIGHTSPEED / Bluetooth"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 63,
+    "createdAt": "2026-02-14T10:00:00Z"
+  },
+  {
+    "id": 35,
+    "name": "Logitech G502 HERO",
+    "slug": "logitech-g502-hero",
+    "shortDescription": "La souris gaming best-seller, filaire.",
+    "description": "G502 HERO : capteur HERO 25K, 11 boutons programmables, poids reglable. Un classique, un rapport qualite/prix imbattable.",
+    "sku": "TS-MOU-G502HERO",
+    "price": 650,
+    "stock": 30,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G502%2BHERO",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=G502%2BHERO",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G502%2BHERO+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=G502%2BHERO+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=G502%2BHERO+Detail"
+    ],
+    "categoryId": 52,
+    "categoryName": "Souris",
+    "brandId": 7,
+    "brandName": "Logitech",
+    "specifications": [
+      {
+        "group": "Performance",
+        "key": "Capteur",
+        "value": "HERO 25K"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Boutons",
+        "value": "11 programmables"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Poids reglable",
+        "value": "5x 3.6 g"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 412,
+    "createdAt": "2026-01-06T10:00:00Z"
+  },
+  {
+    "id": 36,
+    "name": "HyperX Cloud III Wireless",
+    "slug": "hyperx-cloud-iii-wireless",
+    "shortDescription": "Casque gaming wireless 120h d autonomie.",
+    "description": "Cloud III Wireless : transducteurs 53 mm DTS Headphone:X, micro detachable, 120h d autonomie, confort HyperX legendaire.",
+    "sku": "TS-HS-CLOUDIII",
+    "price": 1950,
+    "stock": 11,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Cloud%2BIII%2BWireless",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Cloud%2BIII%2BWireless",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Cloud%2BIII%2BWireless+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Cloud%2BIII%2BWireless+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Cloud%2BIII%2BWireless+Detail"
+    ],
+    "categoryId": 53,
+    "categoryName": "Casques",
+    "brandId": 8,
+    "brandName": "HyperX",
+    "specifications": [
+      {
+        "group": "Audio",
+        "key": "Transducteurs",
+        "value": "53 mm"
+      },
+      {
+        "group": "Audio",
+        "key": "Surround",
+        "value": "DTS Headphone:X"
+      },
+      {
+        "group": "Autonomie",
+        "key": "Batterie",
+        "value": "120 heures"
+      }
+    ],
+    "rating": 4.7,
+    "reviewCount": 129,
+    "createdAt": "2026-02-19T10:00:00Z"
+  },
+  {
+    "id": 37,
+    "name": "Corsair HS80 RGB Wireless",
+    "slug": "corsair-hs80-rgb-wireless",
+    "shortDescription": "Casque gaming wireless premium, Dolby Atmos.",
+    "description": "HS80 RGB Wireless : audio Dolby Atmos haute fidelite, micro broadcast-grade omnidirectionnel, 20h d autonomie, confort memory foam.",
+    "sku": "TS-HS-HS80",
+    "price": 1650,
+    "oldPrice": 1850,
+    "stock": 13,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=HS80%2BRGB%2BWireless",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=HS80%2BRGB%2BWireless",
+      "https://placehold.co/600x600/F5F5F5/666666?text=HS80%2BRGB%2BWireless+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=HS80%2BRGB%2BWireless+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=HS80%2BRGB%2BWireless+Detail"
+    ],
+    "categoryId": 53,
+    "categoryName": "Casques",
+    "brandId": 3,
+    "brandName": "Corsair",
+    "specifications": [
+      {
+        "group": "Audio",
+        "key": "Transducteurs",
+        "value": "50 mm neodymium"
+      },
+      {
+        "group": "Audio",
+        "key": "Surround",
+        "value": "Dolby Atmos"
+      },
+      {
+        "group": "Autonomie",
+        "key": "Batterie",
+        "value": "20 heures"
+      }
+    ],
+    "rating": 4.6,
+    "reviewCount": 77,
+    "createdAt": "2026-01-14T10:00:00Z"
+  },
+  {
+    "id": 38,
+    "name": "Sony PlayStation 5 Slim",
+    "slug": "sony-ps5-slim",
+    "shortDescription": "PS5 version slim, plus compacte, plus legere.",
+    "description": "La PlayStation 5 Slim conserve la puissance de la PS5 originale dans un chassis 30 % plus compact. Lecteur Blu-ray Ultra HD, SSD 1 To, manette DualSense incluse.",
+    "sku": "TS-CON-PS5SL",
+    "price": 6400,
+    "stock": 10,
+    "isActive": true,
+    "isFeatured": true,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=PS5%2BSlim",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=PS5%2BSlim",
+      "https://placehold.co/600x600/F5F5F5/666666?text=PS5%2BSlim+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=PS5%2BSlim+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=PS5%2BSlim+Detail"
+    ],
+    "categoryId": 61,
+    "categoryName": "PlayStation 5",
+    "brandId": 11,
+    "brandName": "Sony",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Stockage",
+        "value": "1 To SSD"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Lecteur disque",
+        "value": "Blu-ray Ultra HD"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Manette",
+        "value": "DualSense (incluse)"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Resolution max",
+        "value": "4K 120 Hz / 8K"
+      }
+    ],
+    "rating": 4.9,
+    "reviewCount": 267,
+    "createdAt": "2026-02-01T10:00:00Z"
+  },
+  {
+    "id": 39,
+    "name": "Xbox Series X 1TB",
+    "slug": "xbox-series-x-1tb",
+    "shortDescription": "Xbox Series X, la console 4K la plus puissante.",
+    "description": "Xbox Series X : 12 teraflops, 4K natif, 120 FPS, SSD custom 1 To, Quick Resume. Compatible avec le catalogue Xbox Game Pass Ultimate.",
+    "sku": "TS-CON-XSX1TB",
+    "price": 6800,
+    "stock": 7,
+    "isActive": true,
+    "isFeatured": false,
+    "mainImage": "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Xbox%2BSeries%2BX",
+    "images": [
+      "https://placehold.co/600x600/F5F5F5/1E3A5F?text=Xbox%2BSeries%2BX",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Xbox%2BSeries%2BX+Back",
+      "https://placehold.co/600x600/F5F5F5/666666?text=Xbox%2BSeries%2BX+Side",
+      "https://placehold.co/600x600/EEEEEE/F26826?text=Xbox%2BSeries%2BX+Detail"
+    ],
+    "categoryId": 62,
+    "categoryName": "Xbox Series",
+    "brandId": 12,
+    "brandName": "Microsoft",
+    "specifications": [
+      {
+        "group": "Caracteristiques",
+        "key": "Stockage",
+        "value": "1 To SSD"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Performance",
+        "value": "12 TFLOPS"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Resolution max",
+        "value": "4K 120 FPS / 8K"
+      },
+      {
+        "group": "Caracteristiques",
+        "key": "Manette",
+        "value": "Xbox Wireless Controller"
+      }
+    ],
+    "rating": 4.8,
+    "reviewCount": 198,
+    "createdAt": "2026-02-01T10:00:00Z"
+  }
+]
