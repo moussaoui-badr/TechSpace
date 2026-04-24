@@ -11,8 +11,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+    public DbSet<ProductMedia> ProductMedia => Set<ProductMedia>();
+    public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+    public DbSet<ProductDocument> ProductDocuments => Set<ProductDocument>();
     public DbSet<ProductSpecification> ProductSpecifications => Set<ProductSpecification>();
+    public DbSet<SpecAttribute> SpecAttributes => Set<SpecAttribute>();
+    public DbSet<ProductAttributeValue> ProductAttributeValues => Set<ProductAttributeValue>();
+    public DbSet<ProductTag> ProductTags => Set<ProductTag>();
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Banner> Banners => Set<Banner>();
     public DbSet<Address> Addresses => Set<Address>();
@@ -54,6 +59,16 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             b.Property(x => x.MainImage).IsRequired().HasMaxLength(500);
             b.Property(x => x.Price).HasColumnType("decimal(18,2)");
             b.Property(x => x.OldPrice).HasColumnType("decimal(18,2)");
+            b.Property(x => x.Weight).HasColumnType("decimal(10,2)");
+            b.Property(x => x.ProductLength).HasColumnType("decimal(10,2)");
+            b.Property(x => x.ProductWidth).HasColumnType("decimal(10,2)");
+            b.Property(x => x.ProductHeight).HasColumnType("decimal(10,2)");
+            b.Property(x => x.MetaTitle).HasMaxLength(200);
+            b.Property(x => x.MetaDescription).HasMaxLength(500);
+            b.Property(x => x.Barcode).HasMaxLength(30);
+            b.Property(x => x.VendorUrl).HasMaxLength(500);
+            b.Property(x => x.SourceUrl).HasMaxLength(500);
+            b.HasIndex(x => x.ExternalId).IsUnique().HasFilter("[ExternalId] IS NOT NULL");
 
             b.HasOne(x => x.Category)
              .WithMany(x => x.Products)
@@ -65,19 +80,87 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
              .HasForeignKey(x => x.BrandId)
              .OnDelete(DeleteBehavior.Restrict);
 
+            b.HasMany(x => x.Tags)
+             .WithMany(x => x.Products)
+             .UsingEntity("ProductTagLinks");
+
             b.HasIndex(x => new { x.IsActive, x.CategoryId });
             b.HasIndex(x => new { x.IsActive, x.BrandId });
             b.HasIndex(x => x.IsFeatured);
         });
 
-        modelBuilder.Entity<ProductImage>(b =>
+        modelBuilder.Entity<ProductMedia>(b =>
         {
             b.Property(x => x.Url).IsRequired().HasMaxLength(500);
+            b.Property(x => x.PosterUrl).HasMaxLength(500);
+            b.Property(x => x.Alt).HasMaxLength(300);
             b.HasOne(x => x.Product)
-             .WithMany(x => x.Images)
+             .WithMany(x => x.Media)
              .HasForeignKey(x => x.ProductId)
              .OnDelete(DeleteBehavior.Cascade);
             b.HasIndex(x => new { x.ProductId, x.SortOrder });
+        });
+
+        modelBuilder.Entity<ProductVariant>(b =>
+        {
+            b.Property(x => x.Title).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Sku).IsRequired().HasMaxLength(60);
+            b.HasIndex(x => x.Sku).IsUnique();
+            b.Property(x => x.Barcode).HasMaxLength(30);
+            b.Property(x => x.OptionsJson).HasMaxLength(1000);
+            b.Property(x => x.Price).HasColumnType("decimal(18,2)");
+            b.Property(x => x.OldPrice).HasColumnType("decimal(18,2)");
+            b.HasOne(x => x.Product)
+             .WithMany(x => x.Variants)
+             .HasForeignKey(x => x.ProductId)
+             .OnDelete(DeleteBehavior.Cascade);
+            b.HasIndex(x => new { x.ProductId, x.SortOrder });
+        });
+
+        modelBuilder.Entity<ProductDocument>(b =>
+        {
+            b.Property(x => x.Title).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Url).IsRequired().HasMaxLength(500);
+            b.Property(x => x.Language).HasMaxLength(2);
+            b.HasOne(x => x.Product)
+             .WithMany(x => x.Documents)
+             .HasForeignKey(x => x.ProductId)
+             .OnDelete(DeleteBehavior.Cascade);
+            b.HasIndex(x => x.ProductId);
+        });
+
+        modelBuilder.Entity<SpecAttribute>(b =>
+        {
+            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Slug).IsRequired().HasMaxLength(100);
+            b.HasIndex(x => x.Slug).IsUnique();
+            b.Property(x => x.Unit).HasMaxLength(20);
+            b.HasOne(x => x.CategoryScopeNav)
+             .WithMany()
+             .HasForeignKey(x => x.CategoryScope)
+             .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ProductAttributeValue>(b =>
+        {
+            b.Property(x => x.TextValue).HasMaxLength(500);
+            b.Property(x => x.NumericValue).HasColumnType("decimal(18,4)");
+            b.HasOne(x => x.Product)
+             .WithMany(x => x.AttributeValues)
+             .HasForeignKey(x => x.ProductId)
+             .OnDelete(DeleteBehavior.Cascade);
+            b.HasOne(x => x.Attribute)
+             .WithMany(x => x.ProductValues)
+             .HasForeignKey(x => x.AttributeId)
+             .OnDelete(DeleteBehavior.Restrict);
+            b.HasIndex(x => new { x.ProductId, x.AttributeId }).IsUnique();
+        });
+
+        modelBuilder.Entity<ProductTag>(b =>
+        {
+            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Slug).IsRequired().HasMaxLength(120);
+            b.HasIndex(x => x.Slug).IsUnique();
         });
 
         modelBuilder.Entity<ProductSpecification>(b =>
@@ -108,6 +191,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             b.Property(x => x.Title).IsRequired().HasMaxLength(200);
             b.Property(x => x.Subtitle).HasMaxLength(500);
             b.Property(x => x.ImageUrl).IsRequired().HasMaxLength(500);
+            b.Property(x => x.VideoUrl).HasMaxLength(500);
+            b.Property(x => x.PosterUrl).HasMaxLength(500);
+            b.Property(x => x.MobileImageUrl).HasMaxLength(500);
             b.Property(x => x.LinkUrl).HasMaxLength(500);
             b.Property(x => x.CtaLabel).HasMaxLength(100);
             b.HasIndex(x => new { x.IsActive, x.SortOrder });

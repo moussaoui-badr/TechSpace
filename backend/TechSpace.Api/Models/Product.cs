@@ -1,5 +1,7 @@
 namespace TechSpace.Api.Models;
 
+public enum ProductType { Physical, Digital, Software }
+
 public class Product
 {
     public int Id { get; set; }
@@ -28,8 +30,27 @@ public class Product
     public int ReviewCount { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? PublishedAt { get; set; }
 
-    public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
+    // Enrichissement catalogue
+    public ProductType ProductType { get; set; } = ProductType.Physical;
+    public string? MetaTitle { get; set; }
+    public string? MetaDescription { get; set; }
+    public string? Barcode { get; set; }
+    public decimal? Weight { get; set; }
+    public decimal? ProductLength { get; set; }
+    public decimal? ProductWidth { get; set; }
+    public decimal? ProductHeight { get; set; }
+    public string? VendorUrl { get; set; }
+    public long? ExternalId { get; set; }
+    public string? SourceUrl { get; set; }
+
+    public ICollection<ProductMedia> Media { get; set; } = new List<ProductMedia>();
     public ICollection<ProductSpecification> Specifications { get; set; } = new List<ProductSpecification>();
     public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public ICollection<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
+    public ICollection<ProductDocument> Documents { get; set; } = new List<ProductDocument>();
+    public ICollection<ProductAttributeValue> AttributeValues { get; set; } = new List<ProductAttributeValue>();
+    public ICollection<ProductTag> Tags { get; set; } = new List<ProductTag>();
 }

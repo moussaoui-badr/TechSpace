@@ -94,8 +94,11 @@ public class ProductService(AppDbContext db)
             .AsNoTracking()
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p => p.Images.OrderBy(i => i.SortOrder))
+            .Include(p => p.Media.OrderBy(m => m.SortOrder))
             .Include(p => p.Specifications.OrderBy(s => s.SortOrder))
+            .Include(p => p.Variants.OrderBy(v => v.SortOrder))
+            .Include(p => p.Documents)
+            .Include(p => p.Tags)
             .FirstOrDefaultAsync(p => p.Slug == slug && p.IsActive, ct);
 
         if (product is null) return null;
@@ -122,10 +125,29 @@ public class ProductService(AppDbContext db)
             Rating = product.Rating,
             ReviewCount = product.ReviewCount,
             CreatedAt = product.CreatedAt,
-            Images = product.Images.Select(i => i.Url).ToList(),
+            ProductType = product.ProductType,
+            MetaTitle = product.MetaTitle,
+            MetaDescription = product.MetaDescription,
+            VendorUrl = product.VendorUrl,
+            SourceUrl = product.SourceUrl,
+            Images = product.Media
+                .Where(m => m.MediaType == MediaType.Image)
+                .OrderBy(m => m.SortOrder)
+                .Select(m => m.Url)
+                .ToList(),
+            Media = product.Media.Select(m => new ProductMediaDto(
+                m.Id, m.Url, m.MediaType.ToString(), m.PosterUrl, m.Width, m.Height, m.Alt, m.SortOrder
+            )).ToList(),
             Specifications = product.Specifications
                 .Select(s => new ProductSpecDto(s.Group, s.Key, s.Value))
                 .ToList(),
+            Variants = product.Variants.Select(v => new ProductVariantDto(
+                v.Id, v.Title, v.Sku, v.Price, v.OldPrice, v.Stock, v.OptionsJson, v.IsDefault, v.SortOrder
+            )).ToList(),
+            Documents = product.Documents.Select(d => new ProductDocumentDto(
+                d.Id, d.Title, d.Url, d.DocumentType.ToString(), d.FileSizeBytes, d.Language
+            )).ToList(),
+            Tags = product.Tags.Select(t => t.Name).ToList(),
         };
     }
 
@@ -160,5 +182,6 @@ public class ProductService(AppDbContext db)
         Rating = p.Rating,
         ReviewCount = p.ReviewCount,
         CreatedAt = p.CreatedAt,
+        ProductType = p.ProductType,
     };
 }

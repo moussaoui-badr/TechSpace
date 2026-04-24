@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechSpace.Api.Data;
 
@@ -11,9 +12,11 @@ using TechSpace.Api.Data;
 namespace TechSpace.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260424185722_AddIdentityAndAddresses")]
+    partial class AddIdentityAndAddresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,21 +154,6 @@ namespace TechSpace.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ProductTagLinks", b =>
-                {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("ProductTagLinks");
                 });
 
             modelBuilder.Entity("TechSpace.Api.Models.Address", b =>
@@ -333,14 +321,6 @@ namespace TechSpace.Api.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MobileImageUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("PosterUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
@@ -352,10 +332,6 @@ namespace TechSpace.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("VideoUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -441,10 +417,6 @@ namespace TechSpace.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Barcode")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
@@ -459,9 +431,6 @@ namespace TechSpace.Api.Migrations
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
-                    b.Property<long?>("ExternalId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -473,14 +442,6 @@ namespace TechSpace.Api.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MetaDescription")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("MetaTitle")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -491,21 +452,6 @@ namespace TechSpace.Api.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("ProductHeight")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<decimal?>("ProductLength")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int>("ProductType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("ProductWidth")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<DateTime?>("PublishedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -528,32 +474,14 @@ namespace TechSpace.Api.Migrations
                         .HasMaxLength(220)
                         .HasColumnType("nvarchar(220)");
 
-                    b.Property<string>("SourceUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int>("Stock")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VendorUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<decimal?>("Weight")
-                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ExternalId")
-                        .IsUnique()
-                        .HasFilter("[ExternalId] IS NOT NULL");
 
                     b.HasIndex("IsFeatured");
 
@@ -570,102 +498,13 @@ namespace TechSpace.Api.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TechSpace.Api.Models.ProductAttributeValue", b =>
+            modelBuilder.Entity("TechSpace.Api.Models.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttributeId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("BooleanValue")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal?>("NumericValue")
-                        .HasColumnType("decimal(18,4)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TextValue")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttributeId");
-
-                    b.HasIndex("ProductId", "AttributeId")
-                        .IsUnique();
-
-                    b.ToTable("ProductAttributeValues");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.ProductDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DocumentType")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("FileSizeBytes")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Language")
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductDocuments");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.ProductMedia", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Alt")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<int?>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PosterUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -678,14 +517,11 @@ namespace TechSpace.Api.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("Width")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId", "SortOrder");
 
-                    b.ToTable("ProductMedia");
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("TechSpace.Api.Models.ProductSpecification", b =>
@@ -724,86 +560,6 @@ namespace TechSpace.Api.Migrations
                     b.ToTable("ProductSpecifications");
                 });
 
-            modelBuilder.Entity("TechSpace.Api.Models.ProductTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Slug")
-                        .IsUnique();
-
-                    b.ToTable("ProductTags");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.ProductVariant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Barcode")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal?>("OldPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("OptionsJson")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sku")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Sku")
-                        .IsUnique();
-
-                    b.HasIndex("ProductId", "SortOrder");
-
-                    b.ToTable("ProductVariants");
-                });
-
             modelBuilder.Entity("TechSpace.Api.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -836,50 +592,6 @@ namespace TechSpace.Api.Migrations
                     b.HasIndex("ProductId", "CreatedAt");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.SpecAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CategoryScope")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DataType")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsComparable")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsFilterable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Unit")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryScope");
-
-                    b.HasIndex("Slug")
-                        .IsUnique();
-
-                    b.ToTable("SpecAttributes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -933,21 +645,6 @@ namespace TechSpace.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductTagLinks", b =>
-                {
-                    b.HasOne("TechSpace.Api.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechSpace.Api.Models.ProductTag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TechSpace.Api.Models.Address", b =>
                 {
                     b.HasOne("TechSpace.Api.Models.AppUser", "User")
@@ -988,40 +685,10 @@ namespace TechSpace.Api.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TechSpace.Api.Models.ProductAttributeValue", b =>
-                {
-                    b.HasOne("TechSpace.Api.Models.SpecAttribute", "Attribute")
-                        .WithMany("ProductValues")
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TechSpace.Api.Models.Product", "Product")
-                        .WithMany("AttributeValues")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attribute");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.ProductDocument", b =>
+            modelBuilder.Entity("TechSpace.Api.Models.ProductImage", b =>
                 {
                     b.HasOne("TechSpace.Api.Models.Product", "Product")
-                        .WithMany("Documents")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.ProductMedia", b =>
-                {
-                    b.HasOne("TechSpace.Api.Models.Product", "Product")
-                        .WithMany("Media")
+                        .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1040,17 +707,6 @@ namespace TechSpace.Api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TechSpace.Api.Models.ProductVariant", b =>
-                {
-                    b.HasOne("TechSpace.Api.Models.Product", "Product")
-                        .WithMany("Variants")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("TechSpace.Api.Models.Review", b =>
                 {
                     b.HasOne("TechSpace.Api.Models.Product", "Product")
@@ -1060,16 +716,6 @@ namespace TechSpace.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.SpecAttribute", b =>
-                {
-                    b.HasOne("TechSpace.Api.Models.Category", "CategoryScopeNav")
-                        .WithMany()
-                        .HasForeignKey("CategoryScope")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CategoryScopeNav");
                 });
 
             modelBuilder.Entity("TechSpace.Api.Models.AppUser", b =>
@@ -1091,22 +737,11 @@ namespace TechSpace.Api.Migrations
 
             modelBuilder.Entity("TechSpace.Api.Models.Product", b =>
                 {
-                    b.Navigation("AttributeValues");
-
-                    b.Navigation("Documents");
-
-                    b.Navigation("Media");
+                    b.Navigation("Images");
 
                     b.Navigation("Reviews");
 
                     b.Navigation("Specifications");
-
-                    b.Navigation("Variants");
-                });
-
-            modelBuilder.Entity("TechSpace.Api.Models.SpecAttribute", b =>
-                {
-                    b.Navigation("ProductValues");
                 });
 #pragma warning restore 612, 618
         }
