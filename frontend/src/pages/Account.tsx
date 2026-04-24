@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import {
+  Edit2,
   Heart,
   LogOut,
   MapPin,
   Package,
+  Plus,
   Settings,
   ShoppingBag,
+  Trash2,
   User,
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -281,18 +284,166 @@ function WishlistTab({ wishlistIds }: { wishlistIds: number[] }) {
   )
 }
 
-function AddressesTab(_: { user: { firstName: string; lastName: string } }) {
+// ————— Types locaux adresses —————
+interface SavedAddress {
+  id: number
+  label: string
+  fullName: string
+  phone: string
+  line1: string
+  city: string
+  postalCode: string
+  isDefault: boolean
+}
+
+const CITIES_MA = ['Casablanca', 'Rabat', 'Marrakech', 'Fès', 'Tanger', 'Agadir', 'Meknès', 'Oujda', 'Kenitra', 'Tétouan', 'Safi', 'El Jadida', 'Beni Mellal', 'Laâyoune', 'Dakhla']
+
+const EMPTY_ADDR: Omit<SavedAddress, 'id' | 'isDefault'> = {
+  label: '', fullName: '', phone: '', line1: '', city: '', postalCode: '',
+}
+
+function AddressesTab({ user }: { user: { firstName: string; lastName: string } }) {
+  const [addresses, setAddresses] = useState<SavedAddress[]>([
+    { id: 1, label: 'Domicile', fullName: `${user.firstName} ${user.lastName}`.trim(), phone: '+212 6 00 00 00 00', line1: '123 Rue exemple', city: 'Casablanca', postalCode: '20000', isDefault: true },
+  ])
+  const [editing, setEditing] = useState<SavedAddress | null>(null)
+  const [isAdding, setIsAdding] = useState(false)
+  const [draft, setDraft] = useState<Omit<SavedAddress, 'id' | 'isDefault'>>(EMPTY_ADDR)
+
+  function openAdd() { setDraft(EMPTY_ADDR); setIsAdding(true); setEditing(null) }
+  function openEdit(addr: SavedAddress) { setDraft({ label: addr.label, fullName: addr.fullName, phone: addr.phone, line1: addr.line1, city: addr.city, postalCode: addr.postalCode }); setEditing(addr); setIsAdding(false) }
+  function closeForm() { setIsAdding(false); setEditing(null) }
+
+  function save() {
+    if (!draft.fullName.trim() || !draft.line1.trim() || !draft.city) return
+    if (editing) {
+      setAddresses((p) => p.map((a) => a.id === editing.id ? { ...a, ...draft } : a))
+    } else {
+      const newId = Date.now()
+      setAddresses((p) => [...p, { id: newId, ...draft, isDefault: p.length === 0 }])
+    }
+    closeForm()
+  }
+
+  function remove(id: number) {
+    if (!window.confirm('Supprimer cette adresse ?')) return
+    setAddresses((p) => {
+      const filtered = p.filter((a) => a.id !== id)
+      if (filtered.length > 0 && !filtered.some((a) => a.isDefault)) {
+        filtered[0].isDefault = true
+      }
+      return filtered
+    })
+  }
+
+  function setDefault(id: number) {
+    setAddresses((p) => p.map((a) => ({ ...a, isDefault: a.id === id })))
+  }
+
+  const showForm = isAdding || !!editing
+
   return (
     <div>
-      <h2 className="mb-4 text-lg font-bold text-text">Mes adresses</h2>
-      <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-text-muted">
-        <MapPin className="mx-auto mb-3 h-8 w-8 text-text-subtle" />
-        <p>Aucune adresse enregistrée.</p>
-        <p className="mt-1 text-xs">Vos adresses seront sauvegardées lors de votre prochaine commande.</p>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-lg font-bold text-text">Mes adresses</h2>
+        {!showForm && (
+          <button onClick={openAdd} className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark">
+            <Plus className="h-4 w-4" /> Ajouter
+          </button>
+        )}
       </div>
+
+      {/* Formulaire */}
+      {showForm && (
+        <div className="mb-6 rounded-lg border border-primary/30 bg-surface p-5">
+          <h3 className="mb-4 font-semibold text-text">{editing ? 'Modifier l\'adresse' : 'Nouvelle adresse'}</h3>
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text">Étiquette</label>
+                <input value={draft.label} onChange={(e) => setDraft((p) => ({ ...p, label: e.target.value }))} placeholder="Domicile, Bureau…" className={addrInput} />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text">Nom complet</label>
+                <input value={draft.fullName} onChange={(e) => setDraft((p) => ({ ...p, fullName: e.target.value }))} placeholder="Prénom Nom" className={addrInput} />
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-text">Téléphone</label>
+              <input type="tel" value={draft.phone} onChange={(e) => setDraft((p) => ({ ...p, phone: e.target.value }))} placeholder="+212 6 00 00 00 00" className={addrInput} />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-text">Adresse</label>
+              <input value={draft.line1} onChange={(e) => setDraft((p) => ({ ...p, line1: e.target.value }))} placeholder="Numéro et nom de rue" className={addrInput} />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text">Ville</label>
+                <select value={draft.city} onChange={(e) => setDraft((p) => ({ ...p, city: e.target.value }))} className={addrInput}>
+                  <option value="" disabled>Choisir…</option>
+                  {CITIES_MA.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text">Code postal</label>
+                <input value={draft.postalCode} onChange={(e) => setDraft((p) => ({ ...p, postalCode: e.target.value }))} placeholder="20000" className={addrInput} />
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 flex gap-2">
+            <button onClick={save} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark">
+              {editing ? 'Mettre à jour' : 'Ajouter'}
+            </button>
+            <button onClick={closeForm} className="rounded-lg border border-border px-4 py-2 text-sm text-text-muted hover:border-text-muted">
+              Annuler
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Liste */}
+      {addresses.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-text-muted">
+          <MapPin className="mx-auto mb-3 h-8 w-8 text-text-subtle" />
+          <p>Aucune adresse enregistrée.</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {addresses.map((addr) => (
+            <div key={addr.id} className={`rounded-lg border p-4 ${addr.isDefault ? 'border-primary bg-primary-soft' : 'border-border bg-background'}`}>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-text">{addr.label || 'Adresse'}</span>
+                    {addr.isDefault && <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">Par défaut</span>}
+                  </div>
+                  <p className="mt-1 text-sm text-text-muted">{addr.fullName}</p>
+                  <p className="text-sm text-text-muted">{addr.line1}, {addr.city} {addr.postalCode}</p>
+                  <p className="text-xs text-text-subtle">{addr.phone}</p>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  {!addr.isDefault && (
+                    <button onClick={() => setDefault(addr.id)} className="text-xs text-text-muted hover:text-primary">
+                      Par défaut
+                    </button>
+                  )}
+                  <button onClick={() => openEdit(addr)} className="text-text-muted hover:text-primary">
+                    <Edit2 className="h-4 w-4" />
+                  </button>
+                  <button onClick={() => remove(addr.id)} className="text-text-muted hover:text-danger">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
+
+const addrInput = 'h-9 w-full rounded-md border border-border bg-background px-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary'
 
 function ProfileTab({
   user,
