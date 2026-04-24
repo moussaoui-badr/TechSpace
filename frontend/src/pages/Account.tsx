@@ -96,7 +96,7 @@ export function AccountPage() {
   const cartItems = useCartStore((s) => s.items)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
 
-  if (status === 'guest' || (status !== 'loading' && status !== 'idle' && !user)) {
+  if (status === 'ready' && !user) {
     return <Navigate to="/login" replace />
   }
 

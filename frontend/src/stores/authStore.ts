@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import * as authApi from '@/api/auth'
 import type { AuthUser } from '@/types'
 
-type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'guest'
+type AuthStatus = 'idle' | 'loading' | 'ready'
 
 interface AuthState {
   user: AuthUser | null
@@ -22,17 +22,17 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     if (get().status !== 'idle') return
     set({ status: 'loading' })
     const user = await authApi.getMe()
-    set({ user, status: user ? 'authenticated' : 'guest' })
+    set({ user, status: 'ready' })
   },
 
   login: async ({ email, password, rememberMe }) => {
     const user = await authApi.login({ email, password, rememberMe })
-    set({ user, status: 'authenticated' })
+    set({ user, status: 'ready' })
   },
 
   register: async (data) => {
     const user = await authApi.register(data)
-    set({ user, status: 'authenticated' })
+    set({ user, status: 'ready' })
   },
 
   logout: async () => {
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     } catch {
       // Cookie expiré ou backend indisponible — on déconnecte quand même
     }
-    set({ user: null, status: 'guest' })
+    set({ user: null, status: 'ready' })
   },
 
   updateProfile: (data) =>

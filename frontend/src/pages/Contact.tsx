@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, MessageCircle, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { isValidEmail } from '@/utils/validators'
 
 interface ContactFormData {
   firstName: string
@@ -46,7 +47,7 @@ function validateForm(data: ContactFormData): FormErrors {
   if (!data.firstName.trim()) errors.firstName = 'Prénom requis'
   if (!data.lastName.trim()) errors.lastName = 'Nom requis'
   if (!data.email.trim()) errors.email = 'Email requis'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Email invalide'
+  else if (!isValidEmail(data.email)) errors.email = 'Email invalide'
   if (!data.subject) errors.subject = 'Veuillez choisir un objet'
   if (!data.message.trim()) errors.message = 'Message requis'
   else if (data.message.trim().length < 20) errors.message = 'Message trop court (min. 20 caractères)'

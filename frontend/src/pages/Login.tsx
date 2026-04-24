@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AxiosError } from 'axios'
 import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
 import { Logo } from '@/components/layout/Logo'
 import { useAuthStore } from '@/stores/authStore'
+import { isUnauthorized } from '@/api/http'
+import { isValidEmail } from '@/utils/validators'
 
 export function LoginPage() {
   const navigate = useNavigate()
@@ -18,7 +20,7 @@ export function LoginPage() {
   function validate(): boolean {
     const e: typeof errors = {}
     if (!email.trim()) e.email = 'Email requis'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Email invalide'
+    else if (!isValidEmail(email)) e.email = 'Email invalide'
     if (!password) e.password = 'Mot de passe requis'
     setErrors(e)
     return Object.keys(e).length === 0
@@ -32,10 +34,11 @@ export function LoginPage() {
       await login({ email, password, rememberMe })
       navigate('/account')
     } catch (err) {
-      const msg = err instanceof AxiosError && err.response?.status === 401
-        ? 'Email ou mot de passe incorrect.'
-        : 'Une erreur est survenue. Réessayez.'
-      setErrors({ global: msg })
+      setErrors({
+        global: isUnauthorized(err)
+          ? 'Email ou mot de passe incorrect.'
+          : 'Une erreur est survenue. Réessayez.',
+      })
     } finally {
       setIsLoading(false)
     }
@@ -64,35 +67,31 @@ export function LoginPage() {
           )}
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: undefined })) }}
-                placeholder="vous@email.com"
-                autoComplete="email"
-                className={inputCls(!!errors.email)}
-              />
-              {errors.email && <p className="mt-1 text-xs text-danger">{errors.email}</p>}
-            </div>
+            <Input
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: undefined })) }}
+              placeholder="vous@email.com"
+              autoComplete="email"
+              error={errors.email}
+            />
 
             <div>
-              <div className="mb-1 flex items-center justify-between">
-                <label className="text-sm font-medium text-text">Mot de passe</label>
+              <div className="mb-1.5 flex items-center justify-between">
+                <span className="text-sm font-medium text-text">Mot de passe</span>
                 <Link to="/faq" className="text-xs text-text-muted hover:text-primary">
                   Mot de passe oublié ?
                 </Link>
               </div>
-              <input
+              <Input
                 type="password"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setErrors((p) => ({ ...p, password: undefined })) }}
                 placeholder="••••••••"
                 autoComplete="current-password"
-                className={inputCls(!!errors.password)}
+                error={errors.password}
               />
-              {errors.password && <p className="mt-1 text-xs text-danger">{errors.password}</p>}
             </div>
 
             <label className="flex cursor-pointer items-center gap-2 text-sm text-text-muted">
@@ -113,11 +112,4 @@ export function LoginPage() {
       </div>
     </div>
   )
-}
-
-function inputCls(hasError: boolean) {
-  return [
-    'h-10 w-full rounded-md border bg-background px-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary',
-    hasError ? 'border-danger' : 'border-border',
-  ].join(' ')
 }

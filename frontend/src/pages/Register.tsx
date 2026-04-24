@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
 import { Logo } from '@/components/layout/Logo'
 import { useAuthStore } from '@/stores/authStore'
+import { isValidEmail } from '@/utils/validators'
 
 interface FormState {
   firstName: string
@@ -33,7 +35,7 @@ export function RegisterPage() {
     if (!form.firstName.trim()) e.firstName = 'Prénom requis'
     if (!form.lastName.trim()) e.lastName = 'Nom requis'
     if (!form.email.trim()) e.email = 'Email requis'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Email invalide'
+    else if (!isValidEmail(form.email)) e.email = 'Email invalide'
     if (!form.password) e.password = 'Mot de passe requis'
     else if (form.password.length < 8) e.password = 'Minimum 8 caractères'
     if (!form.confirm) e.confirm = 'Confirmation requise'
@@ -90,44 +92,44 @@ export function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
             <div className="grid grid-cols-2 gap-4">
-              <InputField
+              <Input
                 label="Prénom"
                 value={form.firstName}
                 error={errors.firstName}
-                onChange={(v) => set('firstName', v)}
+                onChange={(e) => set('firstName', e.target.value)}
                 placeholder="Mohammed"
               />
-              <InputField
+              <Input
                 label="Nom"
                 value={form.lastName}
                 error={errors.lastName}
-                onChange={(v) => set('lastName', v)}
+                onChange={(e) => set('lastName', e.target.value)}
                 placeholder="Alaoui"
               />
             </div>
-            <InputField
+            <Input
               label="Email"
+              type="email"
               value={form.email}
               error={errors.email}
-              onChange={(v) => set('email', v)}
+              onChange={(e) => set('email', e.target.value)}
               placeholder="vous@email.com"
-              type="email"
             />
-            <InputField
+            <Input
               label="Mot de passe"
+              type="password"
               value={form.password}
               error={errors.password}
-              onChange={(v) => set('password', v)}
+              onChange={(e) => set('password', e.target.value)}
               placeholder="Minimum 8 caractères"
-              type="password"
             />
-            <InputField
+            <Input
               label="Confirmer le mot de passe"
+              type="password"
               value={form.confirm}
               error={errors.confirm}
-              onChange={(v) => set('confirm', v)}
+              onChange={(e) => set('confirm', e.target.value)}
               placeholder="••••••••"
-              type="password"
             />
 
             <Button type="submit" className="w-full" isLoading={isLoading}>
@@ -136,34 +138,6 @@ export function RegisterPage() {
           </form>
         </div>
       </div>
-    </div>
-  )
-}
-
-interface InputFieldProps {
-  label: string
-  value: string
-  error?: string
-  onChange: (v: string) => void
-  placeholder?: string
-  type?: string
-}
-
-function InputField({ label, value, error, onChange, placeholder, type = 'text' }: InputFieldProps) {
-  return (
-    <div>
-      <label className="mb-1 block text-sm font-medium text-text">{label}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className={[
-          'h-10 w-full rounded-md border bg-background px-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary',
-          error ? 'border-danger' : 'border-border',
-        ].join(' ')}
-      />
-      {error && <p className="mt-1 text-xs text-danger">{error}</p>}
     </div>
   )
 }

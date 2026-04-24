@@ -15,9 +15,10 @@ http.interceptors.response.use(
   (error: AxiosError) => {
     if (error.response?.status === 401) {
       const url = error.config?.url ?? ''
-      // Ne pas logout lors du hydrate silencieux
-      if (!url.includes('/auth/me')) {
-        useAuthStore.getState().logout()
+      const isAuthEndpoint = url.includes('/auth/')
+      const isAuthenticated = useAuthStore.getState().status === 'ready' && useAuthStore.getState().user !== null
+      if (!isAuthEndpoint && isAuthenticated) {
+        void useAuthStore.getState().logout()
       }
     }
     return Promise.reject(error)
@@ -26,4 +27,12 @@ http.interceptors.response.use(
 
 export function isNotFound(error: unknown): boolean {
   return error instanceof AxiosError && error.response?.status === 404
+}
+
+export function isUnauthorized(error: unknown): boolean {
+  return error instanceof AxiosError && error.response?.status === 401
+}
+
+export function isBadRequest(error: unknown): boolean {
+  return error instanceof AxiosError && error.response?.status === 400
 }
