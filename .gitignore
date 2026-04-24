@@ -80,6 +80,10 @@ PublishProfiles/
 *.bacpac
 *.dacpac
 
+# ---------- Scraper ----------
+backend/TechSpace.Scraper/.cache/
+backend/TechSpace.Api/SeedData/.backup-*/
+
 # ---------- Divers ----------
 *.tmp
 *.bak
