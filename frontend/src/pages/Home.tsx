@@ -246,25 +246,16 @@ export function HomePage() {
       {/* ============ Shell Shocker (deals flash) ============ */}
       <section className="bg-background">
         <div className="mx-auto max-w-7xl px-3 py-8 sm:px-4">
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-                <Zap className="h-3.5 w-3.5" />
-                Shell Shocker
-              </span>
-              <h2 className="mt-2 font-display text-2xl font-black leading-tight text-text md:text-3xl">
-                Deals eclairs, stocks limites
-              </h2>
-              <p className="mt-1 flex items-center gap-2 text-sm text-text-muted">
-                <Clock className="h-4 w-4 text-primary" />
-                Nouveaux deals toutes les 6 heures.
-              </p>
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2.5">
+              <Zap className="h-5 w-5 text-primary" />
+              <h2 className="text-2xl font-black text-navy md:text-[1.75rem]">Shell Shocker</h2>
             </div>
             <Link
               to="/products?sort=promo"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+              className="shrink-0 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
             >
-              Voir tous les deals <ArrowRight className="h-3.5 w-3.5" />
+              Voir plus &#9658;
             </Link>
           </div>
 
@@ -361,7 +352,7 @@ export function HomePage() {
             eyebrow={
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles className="h-3.5 w-3.5" />
-                Selection TechSpace
+                Sélection Loot
               </span>
             }
             title="Produits vedettes"
@@ -538,7 +529,7 @@ export function HomePage() {
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-sm bg-secondary px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-accent">
                 <Zap className="h-3.5 w-3.5" />
-                Service TechSpace
+                Service Loot
               </span>
               <h2 className="mt-3 text-2xl font-black leading-tight text-secondary md:text-3xl">
                 On assemble votre PC Gamer. Vous jouez des la livraison.
@@ -599,31 +590,19 @@ interface SectionHeaderProps {
 }
 
 function SectionHeader({
-  eyebrow,
   title,
-  description,
   linkTo,
-  linkLabel = 'Voir tout',
+  linkLabel = 'Voir plus',
 }: SectionHeaderProps) {
   return (
-    <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        {eyebrow && (
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-            {eyebrow}
-          </span>
-        )}
-        <h2 className="mt-1 font-display text-xl font-black leading-tight text-text md:text-2xl">
-          {title}
-        </h2>
-        {description && <p className="mt-1 text-sm text-text-muted">{description}</p>}
-      </div>
+    <div className="mb-5 flex items-center justify-between gap-4">
+      <h2 className="text-2xl font-black text-navy md:text-[1.75rem]">{title}</h2>
       {linkTo && (
         <Link
           to={linkTo}
-          className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+          className="shrink-0 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
         >
-          {linkLabel} <ArrowRight className="h-3.5 w-3.5" />
+          {linkLabel} &#9658;
         </Link>
       )}
     </div>
@@ -695,7 +674,7 @@ const PROMO_TILES: PromoTile[] = [
     subtitle: 'Deals éclairs, stocks limités',
     cta: 'Voir les deals',
     to: '/products?sort=promo',
-    gradient: 'from-[#F26826] to-[#D9561C]',
+    gradient: 'from-primary to-primary-dark',
     icon: <Zap className="h-4 w-4" />,
     emphasis: '-40%',
   },
@@ -709,7 +688,7 @@ const PROMO_TILES: PromoTile[] = [
     emphasis: 'NEW',
   },
   {
-    title: 'TechSpace Card',
+    title: 'Loot Card',
     subtitle: '-10% permanent sur tout le site',
     cta: 'Adhérer',
     to: '/membership',
@@ -747,8 +726,8 @@ function PromoTilesGrid() {
           </div>
           <div>
             <h3 className="text-sm font-black">{tile.title}</h3>
-            <p className="mt-0.5 text-[11px] text-white/80">{tile.subtitle}</p>
-            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-accent transition-transform group-hover:translate-x-1">
+            <p className="mt-0.5 text-[11px] text-white">{tile.subtitle}</p>
+            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-white transition-transform group-hover:translate-x-1">
               {tile.cta} <ArrowRight className="h-3 w-3" />
             </span>
           </div>
@@ -871,7 +850,7 @@ function AppBlock() {
       </span>
       <div>
         <h3 className="font-display text-xl font-black text-white">
-          Telechargez l application TechSpace
+          Téléchargez l'application Loot
         </h3>
         <p className="mt-1 text-sm text-white/80">
           Suivi commande en temps reel, alertes promo et paiement en 1 tap. Disponible bientot
@@ -904,7 +883,7 @@ interface PromoBannerData {
 
 const PROMO_BANNERS: PromoBannerData[] = [
   {
-    eyebrow: 'Outil TechSpace',
+    eyebrow: 'Outil Loot',
     title: 'Trouvez votre alimentation idéale',
     subtitle: 'Calculateur de puissance : évitez les sous-dimensionnements et dimensionnez votre PSU en 2 minutes.',
     cta: 'Lancer le calculateur',
@@ -943,7 +922,7 @@ const PROMO_BANNERS: PromoBannerData[] = [
 
 const THEME_CLASSES: Record<PromoBannerData['theme'], { bg: string; accent: string }> = {
   dark: { bg: 'bg-gradient-to-r from-secondary-deep via-secondary to-secondary-light', accent: 'text-accent' },
-  orange: { bg: 'bg-gradient-to-r from-[#F26826] via-[#D9561C] to-[#A93F0C]', accent: 'text-white' },
+  orange: { bg: 'bg-gradient-to-r from-primary via-primary-dark to-[#005C8E]', accent: 'text-white' },
   blue: { bg: 'bg-gradient-to-r from-[#1F4070] via-[#2A5A8C] to-[#1B3758]', accent: 'text-accent' },
   purple: { bg: 'bg-gradient-to-r from-[#3A2A5C] via-[#5B3B8C] to-[#2E1F4D]', accent: 'text-accent' },
 }
@@ -1035,23 +1014,14 @@ function CategoryCarousel({
 
   return (
     <div>
-      <div className="mb-4 flex items-end justify-between gap-3">
-        <div>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-primary">
-            <Tag className="h-3 w-3" />
-            {config.eyebrow}
-          </span>
-          <h2 className="mt-1 font-display text-xl font-black leading-tight text-text md:text-2xl">
-            {config.title}
-          </h2>
-          <p className="mt-0.5 text-sm text-text-muted">{config.description}</p>
-        </div>
-        <div className="flex items-center gap-2">
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <h2 className="text-2xl font-black text-navy md:text-[1.75rem]">{config.title}</h2>
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => scroll('left')}
             aria-label="Défiler à gauche"
-            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
+            className="hidden h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
           >
             <ArrowLeft className="h-4 w-4" />
           </button>
@@ -1059,15 +1029,15 @@ function CategoryCarousel({
             type="button"
             onClick={() => scroll('right')}
             aria-label="Défiler à droite"
-            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
+            className="hidden h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-text-muted transition-colors hover:border-primary hover:text-primary md:flex"
           >
             <ArrowRight className="h-4 w-4" />
           </button>
           <Link
             to={config.linkTo}
-            className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+            className="shrink-0 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
           >
-            Voir plus <ArrowRight className="h-3.5 w-3.5" />
+            Voir plus &#9658;
           </Link>
         </div>
       </div>
@@ -1133,7 +1103,7 @@ function TodayBestDeals({
         eyebrow={
           <span className="inline-flex items-center gap-1.5">
             <TrendingDown className="h-3.5 w-3.5" />
-            TechSpace Select
+            Loot Select
           </span>
         }
         title="Meilleurs deals du jour"
@@ -1248,7 +1218,7 @@ const FEATURETTES: Featurette[] = [
     subtitle: 'Les produits les plus achetés par la communauté.',
     cta: 'Voir le classement',
     to: '/products?sort=best-sellers',
-    gradient: 'from-[#F26826] to-[#D9561C]',
+    gradient: 'from-primary to-primary-dark',
     size: 'small',
     icon: <Flame className="h-5 w-5" />,
   },
@@ -1262,7 +1232,7 @@ const FEATURETTES: Featurette[] = [
     icon: <GraduationCap className="h-5 w-5" />,
   },
   {
-    title: 'TechSpace Refreshed',
+    title: 'Loot Refreshed',
     subtitle: 'Produits reconditionnés certifiés, garantie 12 mois.',
     cta: 'Voir les reconditionnés',
     to: '/products?sort=refreshed',
@@ -1271,7 +1241,7 @@ const FEATURETTES: Featurette[] = [
     icon: <Rocket className="h-5 w-5" />,
   },
   {
-    title: 'Newegg Select',
+    title: 'Loot Picks',
     subtitle: 'Curation experts : tops hardware selon benchmarks 2026.',
     cta: 'Consulter les picks',
     to: '/products?sort=editor',
@@ -1285,7 +1255,7 @@ function FeaturettesGrid() {
   return (
     <div>
       <SectionHeader
-        eyebrow="TechSpace Experiences"
+        eyebrow="Loot Experiences"
         title="Explorez nos univers"
         description="Des espaces pensés pour chaque usage : IA, étudiant, reconditionné, gaming."
       />
@@ -1434,7 +1404,7 @@ function InsiderSection() {
         eyebrow={
           <span className="inline-flex items-center gap-1.5">
             <BookOpen className="h-3.5 w-3.5" />
-            TechSpace Insider
+            Loot Insider
           </span>
         }
         title="Tests, guides et actualités tech"
@@ -1485,9 +1455,9 @@ function SeoSection() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_auto]">
           <div className="max-w-3xl text-sm leading-relaxed text-text-muted">
-            <h2 className="text-base font-bold text-text">TechSpace — votre marketplace tech au Maroc</h2>
+            <h2 className="text-base font-bold text-text">Loot — votre marketplace tech au Maroc</h2>
             <p className="mt-2">
-              Depuis 2024, TechSpace est la référence pour l'achat en ligne de matériel
+              Depuis 2024, Loot est la référence pour l'achat en ligne de matériel
               informatique au Maroc. Plus de <strong className="text-text">10 000 produits</strong>{' '}
               en stock : PC gamer, composants, portables, écrans, consoles, smart home, électroménager.
               Livraison partout au royaume en 2 à 4 jours, paiement à la livraison sans carte bancaire.

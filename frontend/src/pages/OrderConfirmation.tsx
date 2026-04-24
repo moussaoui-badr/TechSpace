@@ -40,7 +40,7 @@ export function OrderConfirmationPage() {
       <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Link
           to="/products"
-          className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(242,104,38,0.45)] transition-colors hover:bg-primary-hover"
+          className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,159,227,0.45)] transition-colors hover:bg-primary-hover"
         >
           Continuer mes achats
         </Link>

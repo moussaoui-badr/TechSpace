@@ -44,15 +44,15 @@ export function App() {
         <Route path="compare" element={<ComparePage />} />
         <Route path="orders" element={<StubPage title="Mes commandes" subtitle="Suivi de toutes vos commandes." phase="Phase 3" />} />
         <Route path="faq" element={<StubPage title="FAQ" subtitle="Questions fréquentes sur nos services." phase="Phase 3" />} />
-        <Route path="brands" element={<StubPage title="Nos marques" subtitle="Toutes les marques disponibles sur TechSpace." phase="Phase 3" />} />
+        <Route path="brands" element={<StubPage title="Nos marques" subtitle="Toutes les marques disponibles sur Loot." phase="Phase 3" />} />
         <Route path="gifts" element={<StubPage title="Cadeau offert" subtitle="Profitez de nos offres cadeaux." phase="Phase 3" />} />
-        <Route path="sell" element={<StubPage title="Vendre sur TechSpace" subtitle="Rejoignez notre marketplace en tant que vendeur." phase="Phase 3" />} />
-        <Route path="about" element={<StubPage title="À propos de TechSpace" subtitle="Notre histoire et notre mission." phase="Phase 3" />} />
+        <Route path="sell" element={<StubPage title="Vendre sur Loot" subtitle="Rejoignez notre marketplace en tant que vendeur." phase="Phase 3" />} />
+        <Route path="about" element={<StubPage title="À propos de Loot" subtitle="Notre histoire et notre mission." phase="Phase 3" />} />
         <Route path="contact" element={<StubPage title="Contactez-nous" subtitle="Notre équipe est disponible 7j/7." phase="Phase 3" />} />
         <Route path="shipping" element={<StubPage title="Livraison" subtitle="Délais et zones de livraison." phase="Phase 3" />} />
         <Route path="returns" element={<StubPage title="Retours & Garantie" subtitle="Politique de retour et garantie produits." phase="Phase 3" />} />
         <Route path="terms" element={<StubPage title="Conditions générales" subtitle="Conditions générales de vente." phase="Phase 3" />} />
-        <Route path="legal" element={<StubPage title="Mentions légales" subtitle="Informations légales TechSpace." phase="Phase 3" />} />
+        <Route path="legal" element={<StubPage title="Mentions légales" subtitle="Informations légales Loot." phase="Phase 3" />} />
         <Route path="privacy" element={<StubPage title="Confidentialité" subtitle="Notre politique de confidentialité." phase="Phase 3" />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

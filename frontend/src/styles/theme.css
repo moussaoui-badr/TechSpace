@@ -1,79 +1,103 @@
 @import "tailwindcss";
+/* Polices chargées via index.html : Barlow Condensed, Nunito, DM Sans */
 
 /* =============================================================
-   TechSpace — Design System (palette Newegg authentique)
-   Orange #F26826 + Jaune #FBD32C + Bleu fonce #1E3A5F
-   Tokens Tailwind v4 via @theme
+   Loot — Design System
+   Cyan #009FE3 + Navy #162844 + DM Sans / Barlow Condensed
+   Tokens TailwindCSS v4 via @theme
    ============================================================= */
 
 @theme {
-  /* Couleurs principales (orange Newegg) */
-  --color-primary: #F26826;
-  --color-primary-hover: #D9561C;
-  --color-primary-deep: #A93F0C;
-  --color-primary-soft: rgba(242, 104, 38, 0.08);
 
-  /* Fond et surfaces (theme clair marketplace) */
-  --color-background: #FFFFFF;
-  --color-surface: #F5F5F5;
-  --color-surface-hover: #EEEEEE;
+  /* ── Primary : Loot Cyan ──────────────────────────────────── */
+  --color-primary:          #009FE3;
+  --color-primary-light:    #33B8F0;
+  --color-primary-dark:     #0077B3;
+  --color-primary-soft:     rgba(0, 159, 227, 0.08);
+
+  /* ── Brand Navy ───────────────────────────────────────────── */
+  --color-navy:             #162844;
+  --color-navy-mid:         #1E3A6E;
+  --color-navy-deep:        #0E1A2E;
+  --color-navy-purple:      #1B1F4A;
+
+  /* ── Fond et surfaces ─────────────────────────────────────── */
+  --color-background:       #FFFFFF;
+  --color-surface:          #F5F7FA;
+  --color-surface-2:        #E8EDF5;
+  --color-surface-hover:    #DDE4EF;
   --color-surface-elevated: #FFFFFF;
 
-  /* Bordures */
-  --color-border: #E0E0E0;
-  --color-border-strong: #C8C8C8;
+  /* ── Bordures ─────────────────────────────────────────────── */
+  --color-border:           #D4DCE8;
+  --color-border-strong:    #B8C4D8;
 
-  /* Accents (bleu Newegg exact + jaune signature) */
-  --color-secondary: #1B3758;
-  --color-secondary-light: #1F4070;
-  --color-secondary-hover: #14293F;
-  --color-secondary-deep: #0E1F33;
-  --color-accent: #FBD32C;
-  --color-accent-hover: #E8C01B;
+  /* ── Texte ────────────────────────────────────────────────── */
+  --color-text:             #0F1B30;
+  --color-text-muted:       #5A6A85;
+  --color-text-subtle:      #8A9AB5;
 
-  /* CTA vert (Newegg "Shop now" vert pill) */
-  --color-success-cta: #13A971;
-  --color-success-cta-hover: #0F8B5E;
+  /* ── Semantic ─────────────────────────────────────────────── */
+  --color-success:          #22C55E;
+  --color-success-bg:       #DCFCE7;
+  --color-danger:           #EF4444;
+  --color-danger-bg:        #FEE2E2;
+  --color-warning:          #F59E0B;
+  --color-warning-bg:       #FEF3C7;
+  --color-info:             #3B82F6;
 
-  /* Texte */
-  --color-text: #1A1A1A;
-  --color-text-muted: #666666;
-  --color-text-subtle: #999999;
+  /* ── Typographie ──────────────────────────────────────────── */
+  --font-display:  "Barlow Condensed", ui-sans-serif, system-ui;
+  --font-tagline:  "Nunito", ui-sans-serif, system-ui;
+  --font-body:     "DM Sans", ui-sans-serif, system-ui;
+  --font-sans:     "DM Sans", ui-sans-serif, system-ui;
 
-  /* Feedback */
-  --color-success: #16A34A;
-  --color-danger: #DC2626;
-  --color-warning: #D97706;
-  --color-info: #2563EB;
+  /* ── Échelle de texte ─────────────────────────────────────── */
+  --text-2xs:  0.6875rem / 1.4;
+  --text-xs:   0.75rem   / 1.4;
+  --text-sm:   0.8125rem / 1.5;
+  --text-base: 0.9375rem / 1.65;
+  --text-lg:   1.0625rem / 1.55;
+  --text-xl:   1.25rem   / 1.4;
+  --text-2xl:  1.5rem    / 1.3;
+  --text-3xl:  2rem      / 1.15;
+  --text-4xl:  2.75rem   / 1.1;
+  --text-5xl:  3.75rem   / 1;
 
-  /* Typographie */
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Outfit", "Inter", system-ui, sans-serif;
+  /* ── Radius ───────────────────────────────────────────────── */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-full: 9999px;
 
-  /* Radius (Newegg utilise des radius modestes) */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-card:     0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-cyan:     0 8px 28px rgba(0, 159, 227, 0.14);
+  --shadow-focus:    0 0 0 3px rgba(0, 159, 227, 0.28);
+  --shadow-lg:       0 10px 24px rgba(0, 0, 0, 0.10);
 
-  /* Shadows subtiles light theme */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.10);
-  --shadow-focus: 0 0 0 3px rgba(242, 104, 38, 0.2);
-  --shadow-cta-primary: 0 4px 14px -4px rgba(242, 104, 38, 0.45);
-  --shadow-cta-success: 0 4px 14px -4px rgba(19, 169, 113, 0.45);
+  /* ── Transitions ──────────────────────────────────────────── */
+  --ease-fast: 150ms ease;
+  --ease-base: 200ms ease;
+  --ease-slow: 300ms ease;
 
-  /* Animations */
+  /* ── Étoiles produits ────────────────────────────────────── */
+  --color-star:  #F59E0B;   /* amber — étoiles rating produits */
+
+  /* ── Animation shimmer (skeleton loader) ─────────────────── */
   --animate-shimmer: shimmer 1.8s linear infinite;
-  --animate-logo-pulse: logo-pulse 2.4s ease-in-out infinite;
-  --animate-logo-dot-glow: logo-dot-glow 2s ease-in-out infinite;
-  --animate-logo-slide: logo-slide 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
 
-/* =============================================================
-   Base reset et styles globaux
-   ============================================================= */
+  /* ── Alias de compatibilité (anciens noms de tokens) ─────── */
+  --color-primary-hover:       #0077B3;   /* = primary-dark */
+  --color-secondary:           #162844;   /* = navy */
+  --color-secondary-light:     #1E3A6E;   /* = navy-mid */
+  --color-secondary-deep:      #0E1A2E;   /* = navy-deep */
+  --color-accent:              #33B8F0;   /* = primary-light (was yellow, now cyan clair) */
+  --color-success-cta:         #22C55E;   /* = success */
+  --color-success-cta-hover:   #16A34A;
+}
 
 @layer base {
   html {
@@ -83,7 +107,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-text);
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -93,14 +117,12 @@
     font-family: var(--font-display);
     font-weight: 900;
     letter-spacing: -0.01em;
-    color: var(--color-text);
   }
 
   h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--color-text);
   }
 
   ::selection {
@@ -115,62 +137,22 @@
   }
 }
 
-/* =============================================================
-   Keyframes
-   ============================================================= */
-
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes slide-in-right {
   from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  to   { transform: translateX(0); }
 }
 
 @keyframes slide-in-left {
   from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes logo-pulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 2px 8px rgba(10, 22, 40, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 4px 14px rgba(10, 22, 40, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  }
-}
-
-@keyframes logo-dot-glow {
-  0%, 100% {
-    box-shadow:
-      0 0 10px rgba(242, 104, 38, 0.9),
-      0 0 20px rgba(251, 211, 44, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  }
-  50% {
-    box-shadow:
-      0 0 16px rgba(242, 104, 38, 1),
-      0 0 28px rgba(251, 211, 44, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  }
-}
-
-@keyframes logo-slide {
-  0%, 8% { transform: translateX(0); }
-  46%, 54% { transform: translateX(var(--logo-slide-distance, 18px)); }
-  92%, 100% { transform: translateX(0); }
+  to   { transform: translateX(0); }
 }

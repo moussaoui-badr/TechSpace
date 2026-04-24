@@ -29,7 +29,7 @@ export function Logo({
   return (
     <Link
       to="/"
-      aria-label="LooT — Retour à l'accueil"
+      aria-label="Loot — Retour à l'accueil"
       className={cn('group shrink-0 inline-block', className)}
     >
       <svg
@@ -41,33 +41,33 @@ export function Logo({
         aria-hidden
       >
         <defs>
-          {/* Dégradé diagonal pour la lettre L (bleu marine → bleu clair) */}
+          {/* Dégradé diagonal pour la lettre L (navy → cyan) */}
           <linearGradient id="lg-L" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-            <stop offset="0%" stopColor="#1E3A5F" />
-            <stop offset="100%" stopColor="#3A80C5" />
+            <stop offset="0%" stopColor="#162844" />
+            <stop offset="100%" stopColor="#33B8F0" />
           </linearGradient>
 
-          {/* Dégradé horizontal pour le contour du toggle (gris → orange → gris) */}
+          {/* Dégradé horizontal pour le contour du toggle (gris → cyan → gris) */}
           <linearGradient id="lg-pill" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#606060" />
-            <stop offset="50%" stopColor="#F26826" />
+            <stop offset="50%" stopColor="#009FE3" />
             <stop offset="100%" stopColor="#606060" />
           </linearGradient>
 
-          {/* Dégradé radial sphérique pour le dot orange */}
+          {/* Dégradé radial sphérique pour le dot cyan */}
           <radialGradient id="lg-dot" cx="33%" cy="28%" r="68%">
-            <stop offset="0%" stopColor="#FFD4A0" />
-            <stop offset="45%" stopColor="#F26826" />
-            <stop offset="100%" stopColor="#C44010" />
+            <stop offset="0%" stopColor="#A8E0F7" />
+            <stop offset="45%" stopColor="#009FE3" />
+            <stop offset="100%" stopColor="#0077B3" />
           </radialGradient>
 
-          {/* Dégradé vertical pour le contour du T (gris → orange) */}
+          {/* Dégradé vertical pour le contour du T (gris → cyan) */}
           <linearGradient id="lg-T" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
             <stop offset="0%" stopColor="#606060" />
-            <stop offset="100%" stopColor="#F26826" />
+            <stop offset="100%" stopColor="#009FE3" />
           </linearGradient>
 
-          {/* Lueur douce autour du dot */}
+          {/* Lueur douce autour du dot cyan */}
           <filter id="lg-glow" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
             <feMerge>
@@ -130,16 +130,16 @@ export function Logo({
 
         {/* Icônes PlayStation dans la tige (de haut en bas : □ × ○ △) */}
         {/* □ carré */}
-        <rect x="432" y="57" width="20" height="20" stroke="#F26826" strokeWidth="2" />
+        <rect x="432" y="57" width="20" height="20" stroke="#009FE3" strokeWidth="2" />
         {/* × croix */}
-        <line x1="432" y1="89" x2="452" y2="109" stroke="#F26826" strokeWidth="2" strokeLinecap="round" />
-        <line x1="452" y1="89" x2="432" y2="109" stroke="#F26826" strokeWidth="2" strokeLinecap="round" />
+        <line x1="432" y1="89" x2="452" y2="109" stroke="#009FE3" strokeWidth="2" strokeLinecap="round" />
+        <line x1="452" y1="89" x2="432" y2="109" stroke="#009FE3" strokeWidth="2" strokeLinecap="round" />
         {/* ○ cercle */}
-        <circle cx="442" cy="129" r="10" stroke="#F26826" strokeWidth="2" />
+        <circle cx="442" cy="129" r="10" stroke="#009FE3" strokeWidth="2" />
         {/* △ triangle */}
         <polygon
           points="442,150 431,169 453,169"
-          stroke="#F26826"
+          stroke="#009FE3"
           strokeWidth="2"
           strokeLinejoin="round"
         />
@@ -159,7 +159,7 @@ export function Logo({
             fill="#555555"
           >
             {'Gear up game '}
-            <tspan fill="#F26826">on</tspan>
+            <tspan fill="#009FE3">on</tspan>
           </text>
         )}
       </svg>

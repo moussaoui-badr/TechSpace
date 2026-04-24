@@ -64,7 +64,7 @@ export function HeroSlider({ banners, autoPlayMs = 6000, className }: HeroSlider
 
             <div className="relative flex h-full max-w-7xl flex-col justify-center gap-4 px-6 sm:px-10 lg:gap-5 lg:px-14">
               <span className="inline-flex w-fit items-center gap-2 rounded-sm bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-secondary">
-                TechSpace
+                Loot
               </span>
               <h2 className="max-w-2xl text-3xl font-black leading-[0.95] text-white drop-shadow-md sm:text-5xl lg:text-6xl">
                 {banner.title}

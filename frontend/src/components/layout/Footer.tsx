@@ -119,7 +119,7 @@ const myAccountLinks = [
 ]
 
 const companyLinks = [
-  { label: 'À propos de TechSpace', to: '/about' },
+  { label: 'À propos de Loot', to: '/about' },
   { label: 'Gamer Zone', to: '/category/gaming-vr' },
   { label: 'Récompenses', to: '/about' },
   { label: 'Carrières', to: '/about' },
@@ -130,7 +130,7 @@ const companyLinks = [
 
 const toolsLinks = [
   { label: 'Portail fournisseurs', to: '/sell' },
-  { label: 'Vendre sur TechSpace', to: '/sell' },
+  { label: 'Vendre sur Loot', to: '/sell' },
   { label: 'Compte professionnel', to: '/business' },
   { label: 'Services partenaires', to: '/sell' },
   { label: 'Programme Affiliés', to: '/sell' },
@@ -139,13 +139,13 @@ const toolsLinks = [
   { label: 'Rebates & remises', to: '/products?sort=rebates' },
   { label: 'Apps mobiles', to: '/about' },
   { label: 'Pack Étudiant', to: '/membership' },
-  { label: 'TechSpace Card', to: '/membership' },
+  { label: 'Loot Card', to: '/membership' },
   { label: 'Trade In', to: '/contact' },
 ]
 
 const brandsLinks = [
-  { label: 'TechSpace Business', to: '/business' },
-  { label: 'TechSpace Global', to: '/about' },
+  { label: 'Loot Business', to: '/business' },
+  { label: 'Loot Global', to: '/about' },
   { label: 'ABS Gaming PC', to: '/products?brands=abs' },
   { label: 'Rosewill Accessoires', to: '/products?brands=rosewill' },
 ]
@@ -210,7 +210,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                <span>contact@techspace.ma</span>
+                <span>contact@loot.ma</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -242,7 +242,7 @@ export function Footer() {
         {/* ===== Newsletter + social ===== */}
         <div className="mt-12 grid gap-6 rounded-md border border-white/10 bg-white/5 p-5 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8 lg:p-6">
           <div>
-            <h3 className="text-base font-bold text-white">Recevez les bons plans TechSpace</h3>
+            <h3 className="text-base font-bold text-white">Recevez les bons plans Loot</h3>
             <p className="mt-1 text-sm text-white/70">
               Deals exclusifs, nouveautés hardware et tests : 1 email par semaine, pas de spam.
             </p>
@@ -281,7 +281,7 @@ export function Footer() {
       {/* ===== SEO mega-grid ===== */}
       <div className="mx-auto max-w-7xl border-t border-white/10 px-6 py-10">
         <h3 className="mb-5 text-xs font-bold uppercase tracking-widest text-white/60">
-          Populaire chez TechSpace
+          Populaire chez Loot
         </h3>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {Object.entries(seoLinks).map(([group, items]) => (
@@ -307,7 +307,7 @@ export function Footer() {
       {/* ===== Legal bottom bar ===== */}
       <div className="border-t border-white/10 bg-secondary-deep">
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-3 px-6 py-5 text-[11.5px] text-white/60 lg:flex-row lg:items-center lg:justify-between">
-          <p>© 2024-{new Date().getFullYear()} TechSpace. Tous droits réservés.</p>
+          <p>© 2024-{new Date().getFullYear()} Loot. Tous droits réservés.</p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link to="/terms" className="hover:text-accent">Conditions générales</Link>
             <Link to="/privacy" className="hover:text-accent">Politique de confidentialité</Link>

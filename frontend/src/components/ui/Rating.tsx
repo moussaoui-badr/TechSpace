@@ -36,7 +36,7 @@ export function Rating({
           ))}
         </div>
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 flex gap-0.5 overflow-hidden text-accent"
+          className="pointer-events-none absolute inset-y-0 left-0 flex gap-0.5 overflow-hidden text-star"
           style={{ width: `${percent}%` }}
         >
           {Array.from({ length: max }, (_, i) => (

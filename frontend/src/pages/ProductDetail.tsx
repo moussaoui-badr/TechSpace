@@ -50,7 +50,7 @@ const MOCK_QA: ProductQA[] = [
     askedAt: '2026-03-12',
     answer:
       'Oui, totalement compatible avec une B650 — un BIOS récent (AGESA 1.2.0.1+) suffit. Vérifiez juste la liste QVL de votre carte mère pour la RAM.',
-    answeredBy: 'Équipe TechSpace',
+    answeredBy: 'Équipe Loot',
     answeredAt: '2026-03-13',
     helpfulCount: 24,
     isVerified: true,
@@ -62,7 +62,7 @@ const MOCK_QA: ProductQA[] = [
     askedAt: '2026-03-08',
     answer:
       'Comptez 2 à 3 jours ouvrés sur Marrakech via notre transporteur partenaire, paiement à la livraison disponible.',
-    answeredBy: 'Équipe TechSpace',
+    answeredBy: 'Équipe Loot',
     answeredAt: '2026-03-09',
     helpfulCount: 18,
     isVerified: true,
@@ -73,8 +73,8 @@ const MOCK_QA: ProductQA[] = [
     askedBy: 'Karim B.',
     askedAt: '2026-02-28',
     answer:
-      'Garantie constructeur officielle 2 ans valable mondialement. Le SAV TechSpace gère la prise en charge depuis le Maroc.',
-    answeredBy: 'Équipe TechSpace',
+      'Garantie constructeur officielle 2 ans valable mondialement. Le SAV Loot gère la prise en charge depuis le Maroc.',
+    answeredBy: 'Équipe Loot',
     answeredAt: '2026-03-01',
     helpfulCount: 11,
     isVerified: true,

@@ -77,10 +77,10 @@ const QUICK_LINKS: { to: string; label: string; highlight?: boolean; business?: 
   { to: '/products?sort=promo', label: 'Promotions' },
   { to: '/products?sort=best-sellers', label: 'Best Sellers' },
   { to: '/products?sort=clearance', label: 'Clearance' },
-  { to: '/membership', label: 'TechSpace Card' },
+  { to: '/membership', label: 'Loot Card' },
   { to: '/category/gaming-vr', label: 'Gamer Community' },
   { to: '/gifts', label: 'Cadeau offert' },
-  { to: '/business', label: 'TECHSPACE BUSINESS', business: true },
+  { to: '/business', label: 'LOOT PRO', business: true },
 ]
 
 export function Header() {
@@ -468,7 +468,7 @@ export function Header() {
                 className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-text transition-colors hover:bg-surface-hover"
               >
                 <Store className="h-4 w-4" />
-                Vendre sur TechSpace
+                Vendre sur Loot
               </Link>
               <Link
                 to="/faq"

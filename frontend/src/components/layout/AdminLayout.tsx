@@ -22,7 +22,7 @@ export function AdminLayout() {
           >
             T
           </span>
-          <span className="text-sm font-bold text-text">TechSpace Admin</span>
+          <span className="text-sm font-bold text-text">Loot Admin</span>
         </div>
         <nav className="flex flex-col gap-0.5 p-3">
           {adminLinks.map(({ to, label, icon: Icon, end }) => (

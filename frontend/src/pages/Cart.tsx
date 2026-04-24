@@ -30,7 +30,7 @@ export function CartPage() {
         </p>
         <Link
           to="/products"
-          className="mt-8 inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(242,104,38,0.45)] transition-colors hover:bg-primary-hover"
+          className="mt-8 inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,159,227,0.45)] transition-colors hover:bg-primary-hover"
         >
           Voir le catalogue
         </Link>

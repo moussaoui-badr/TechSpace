@@ -20,7 +20,7 @@ export function AdminDashboardPage() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-text">Tableau de bord</h2>
-      <p className="mt-1 text-sm text-text-muted">Vue d'ensemble de l'activité TechSpace</p>
+      <p className="mt-1 text-sm text-text-muted">Vue d'ensemble de l'activité Loot</p>
 
       {/* KPI */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
