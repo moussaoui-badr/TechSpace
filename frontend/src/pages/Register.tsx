@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { AxiosError } from 'axios'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/layout/Logo'
 import { useAuthStore } from '@/stores/authStore'
@@ -16,10 +17,10 @@ const EMPTY: FormState = { firstName: '', lastName: '', email: '', password: '',
 
 export function RegisterPage() {
   const navigate = useNavigate()
-  const login = useAuthStore((s) => s.login)
+  const register = useAuthStore((s) => s.register)
 
   const [form, setForm] = useState<FormState>(EMPTY)
-  const [errors, setErrors] = useState<Partial<FormState>>({})
+  const [errors, setErrors] = useState<Partial<FormState & { global: string }>>({})
   const [isLoading, setIsLoading] = useState(false)
 
   function set(field: keyof FormState, value: string) {
@@ -34,27 +35,35 @@ export function RegisterPage() {
     if (!form.email.trim()) e.email = 'Email requis'
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Email invalide'
     if (!form.password) e.password = 'Mot de passe requis'
-    else if (form.password.length < 6) e.password = 'Minimum 6 caractères'
+    else if (form.password.length < 8) e.password = 'Minimum 8 caractères'
     if (!form.confirm) e.confirm = 'Confirmation requise'
     else if (form.confirm !== form.password) e.confirm = 'Les mots de passe ne correspondent pas'
     setErrors(e)
     return Object.keys(e).length === 0
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
     setIsLoading(true)
-    setTimeout(() => {
-      login({
-        id: Date.now(),
+    try {
+      await register({
         email: form.email,
+        password: form.password,
         firstName: form.firstName,
         lastName: form.lastName,
-        role: 'customer',
       })
       navigate('/account')
-    }, 800)
+    } catch (err) {
+      let msg = 'Une erreur est survenue. Réessayez.'
+      if (err instanceof AxiosError && err.response?.status === 400) {
+        const errs = err.response.data?.errors as string[] | undefined
+        msg = errs?.join(' ') ?? msg
+      }
+      setErrors({ global: msg })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -72,6 +81,12 @@ export function RegisterPage() {
               Se connecter
             </Link>
           </p>
+
+          {errors.global && (
+            <div className="mt-4 rounded-md bg-danger/10 p-3 text-sm text-danger">
+              {errors.global}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
             <div className="grid grid-cols-2 gap-4">
@@ -103,7 +118,7 @@ export function RegisterPage() {
               value={form.password}
               error={errors.password}
               onChange={(v) => set('password', v)}
-              placeholder="Minimum 6 caractères"
+              placeholder="Minimum 8 caractères"
               type="password"
             />
             <InputField

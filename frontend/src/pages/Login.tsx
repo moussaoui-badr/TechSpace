@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { AxiosError } from 'axios'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/layout/Logo'
 import { useAuthStore } from '@/stores/authStore'
@@ -10,6 +11,7 @@ export function LoginPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState<{ email?: string; password?: string; global?: string }>({})
   const [isLoading, setIsLoading] = useState(false)
 
@@ -18,26 +20,25 @@ export function LoginPage() {
     if (!email.trim()) e.email = 'Email requis'
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Email invalide'
     if (!password) e.password = 'Mot de passe requis'
-    else if (password.length < 6) e.password = 'Minimum 6 caractères'
     setErrors(e)
     return Object.keys(e).length === 0
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
     setIsLoading(true)
-    setTimeout(() => {
-      const namePart = email.split('@')[0]
-      login({
-        id: 1,
-        email,
-        firstName: namePart,
-        lastName: '',
-        role: 'customer',
-      })
+    try {
+      await login({ email, password, rememberMe })
       navigate('/account')
-    }, 700)
+    } catch (err) {
+      const msg = err instanceof AxiosError && err.response?.status === 401
+        ? 'Email ou mot de passe incorrect.'
+        : 'Une erreur est survenue. Réessayez.'
+      setErrors({ global: msg })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -93,6 +94,16 @@ export function LoginPage() {
               />
               {errors.password && <p className="mt-1 text-xs text-danger">{errors.password}</p>}
             </div>
+
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-text-muted">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="rounded border-border accent-primary"
+              />
+              Se souvenir de moi
+            </label>
 
             <Button type="submit" className="w-full" isLoading={isLoading}>
               Se connecter

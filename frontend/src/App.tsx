@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useCatalogStore } from '@/stores/catalogStore'
+import { useAuthStore } from '@/stores/authStore'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { AdminLayout } from '@/components/layout/AdminLayout'
 import { HomePage } from '@/pages/Home'
@@ -33,10 +34,12 @@ import { AdminUsersPage } from '@/pages/admin/AdminUsers'
 import { AdminBannersPage } from '@/pages/admin/AdminBanners'
 
 export function App() {
-  const hydrate = useCatalogStore((s) => s.hydrate)
+  const hydrateCatalog = useCatalogStore((s) => s.hydrate)
+  const hydrateAuth = useAuthStore((s) => s.hydrate)
   useEffect(() => {
-    void hydrate()
-  }, [hydrate])
+    void hydrateCatalog()
+    void hydrateAuth()
+  }, [hydrateCatalog, hydrateAuth])
   return (
     <Routes>
       {/* Site public */}

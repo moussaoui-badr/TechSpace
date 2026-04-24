@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TechSpace.Api.Models;
 
 namespace TechSpace.Api.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options)
+    : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>(options)
 {
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
@@ -12,6 +15,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<ProductSpecification> ProductSpecifications => Set<ProductSpecification>();
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Banner> Banners => Set<Banner>();
+    public DbSet<Address> Addresses => Set<Address>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -107,6 +111,30 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             b.Property(x => x.LinkUrl).HasMaxLength(500);
             b.Property(x => x.CtaLabel).HasMaxLength(100);
             b.HasIndex(x => new { x.IsActive, x.SortOrder });
+        });
+
+        modelBuilder.Entity<AppUser>(b =>
+        {
+            b.Property(x => x.FirstName).IsRequired().HasMaxLength(100);
+            b.Property(x => x.LastName).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Phone).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<Address>(b =>
+        {
+            b.Property(x => x.Label).IsRequired().HasMaxLength(32);
+            b.Property(x => x.FullName).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Phone).IsRequired().HasMaxLength(20);
+            b.Property(x => x.Line1).IsRequired().HasMaxLength(300);
+            b.Property(x => x.Line2).HasMaxLength(300);
+            b.Property(x => x.City).IsRequired().HasMaxLength(100);
+            b.Property(x => x.PostalCode).IsRequired().HasMaxLength(10);
+            b.Property(x => x.Country).IsRequired().HasMaxLength(100);
+            b.HasOne(x => x.User)
+             .WithMany(x => x.Addresses)
+             .HasForeignKey(x => x.UserId)
+             .OnDelete(DeleteBehavior.Cascade);
+            b.HasIndex(x => x.UserId);
         });
     }
 }

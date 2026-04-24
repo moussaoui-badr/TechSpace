@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TechSpace.Api.Data;
+using TechSpace.Api.Models;
 using TechSpace.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,10 +26,43 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var cs = builder.Configuration.GetConnectionString("Default")
              ?? throw new InvalidOperationException("Connection string 'Default' manquante.");
-
     options.UseSqlServer(cs);
 });
 
+builder.Services
+    .AddIdentity<AppUser, IdentityRole<Guid>>(opts =>
+    {
+        opts.Password.RequiredLength = 8;
+        opts.Password.RequireNonAlphanumeric = false;
+        opts.Password.RequireDigit = false;
+        opts.Password.RequireUppercase = false;
+        opts.User.RequireUniqueEmail = true;
+        opts.SignIn.RequireConfirmedEmail = false;
+    })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(opts =>
+{
+    opts.Cookie.Name = "loot.auth";
+    opts.Cookie.HttpOnly = true;
+    opts.Cookie.SameSite = SameSiteMode.Lax;
+    opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    opts.ExpireTimeSpan = TimeSpan.FromDays(14);
+    opts.SlidingExpiration = true;
+    opts.Events.OnRedirectToLogin = ctx =>
+    {
+        ctx.Response.StatusCode = 401;
+        return Task.CompletedTask;
+    };
+    opts.Events.OnRedirectToAccessDenied = ctx =>
+    {
+        ctx.Response.StatusCode = 403;
+        return Task.CompletedTask;
+    };
+});
+
+builder.Services.AddAuthorization();
 builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddControllers()
@@ -54,12 +89,14 @@ if (app.Environment.IsDevelopment())
     logger.LogInformation("Application des migrations pendantes...");
     await db.Database.MigrateAsync();
     await SeedData.SeedAsync(db, env, logger);
+    await SeedData.SeedIdentityAsync(scope.ServiceProvider, builder.Configuration, logger);
 }
 
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 
 app.UseCors(CorsPolicy);
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

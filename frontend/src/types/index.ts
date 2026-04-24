@@ -88,6 +88,16 @@ export interface User {
   role: UserRole
 }
 
+/** Utilisateur renvoyé par l'API Identity (Phase 4) */
+export interface AuthUser {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+  phone?: string
+  roles: string[]
+}
+
 export type OrderStatus =
   | 'pending'
   | 'confirmed'
@@ -113,6 +123,20 @@ export interface Address {
   city: string
   postalCode: string
   country: string
+}
+
+/** Adresse persistée côté API avec id */
+export interface SavedAddress {
+  id: string
+  label: string
+  fullName: string
+  phone: string
+  line1: string
+  line2?: string
+  city: string
+  postalCode: string
+  country: string
+  isDefault: boolean
 }
 
 export interface Order {

@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TechSpace.Api.Models;
 
 namespace TechSpace.Api.Data;
@@ -218,6 +220,43 @@ public static class SeedData
         await db.Database.ExecuteSqlRawAsync($"SET IDENTITY_INSERT dbo.[{table}] OFF", ct);
         await tx.CommitAsync(ct);
 #pragma warning restore EF1002
+    }
+
+    public static async Task SeedIdentityAsync(IServiceProvider services, IConfiguration config, ILogger logger)
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
+        foreach (var role in new[] { "Admin", "Customer" })
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole<Guid>(role));
+        }
+
+        const string adminEmail = "admin@loot.ma";
+        if (await userManager.FindByEmailAsync(adminEmail) is null)
+        {
+            var password = config["Seed:AdminPassword"] ?? "Admin@loot2026";
+            var admin = new AppUser
+            {
+                UserName = adminEmail,
+                Email = adminEmail,
+                FirstName = "Admin",
+                LastName = "Loot",
+                EmailConfirmed = true,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var result = await userManager.CreateAsync(admin, password);
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(admin, "Admin");
+                logger.LogInformation("Compte admin créé : {Email}", adminEmail);
+            }
+            else
+            {
+                logger.LogWarning("Échec création admin : {Errors}", string.Join(", ", result.Errors.Select(e => e.Description)));
+            }
+        }
     }
 
     // ----- DTOs de deserialisation JSON -----

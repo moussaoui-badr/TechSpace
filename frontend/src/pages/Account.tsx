@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import {
   Edit2,
@@ -17,11 +17,12 @@ import { Badge } from '@/components/ui/Badge'
 import { useAuthStore } from '@/stores/authStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { useCartStore } from '@/stores/cartStore'
+import * as addressesApi from '@/api/addresses'
 import { formatPrice } from '@/utils/formatPrice'
 import { cn } from '@/utils/cn'
-import type { OrderStatus } from '@/types'
+import type { OrderStatus, SavedAddress } from '@/types'
 
-// ————— Mock commandes —————
+// ————— Mock commandes (Phase 4b) —————
 interface MockOrderItem {
   name: string
   qty: number
@@ -88,16 +89,18 @@ const TABS: { key: Tab; label: string; icon: React.ReactNode }[] = [
 
 export function AccountPage() {
   const user = useAuthStore((s) => s.user)
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const status = useAuthStore((s) => s.status)
   const logout = useAuthStore((s) => s.logout)
   const updateProfile = useAuthStore((s) => s.updateProfile)
   const wishlistIds = useWishlistStore((s) => s.productIds)
   const cartItems = useCartStore((s) => s.items)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
 
-  if (!isAuthenticated || !user) {
+  if (status === 'guest' || (status !== 'loading' && status !== 'idle' && !user)) {
     return <Navigate to="/login" replace />
   }
+
+  if (!user) return null
 
   const fullName = `${user.firstName} ${user.lastName}`.trim()
 
@@ -139,7 +142,7 @@ export function AccountPage() {
             <div className="mt-4 border-t border-border pt-4">
               <button
                 type="button"
-                onClick={logout}
+                onClick={() => void logout()}
                 className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm font-medium text-danger transition-colors hover:bg-danger/10"
               >
                 <LogOut className="h-4 w-4" />
@@ -284,66 +287,86 @@ function WishlistTab({ wishlistIds }: { wishlistIds: number[] }) {
   )
 }
 
-// ————— Types locaux adresses —————
-interface SavedAddress {
-  id: number
-  label: string
-  fullName: string
-  phone: string
-  line1: string
-  city: string
-  postalCode: string
-  isDefault: boolean
-}
+// ————— Onglet Adresses (branché API) —————
 
 const CITIES_MA = ['Casablanca', 'Rabat', 'Marrakech', 'Fès', 'Tanger', 'Agadir', 'Meknès', 'Oujda', 'Kenitra', 'Tétouan', 'Safi', 'El Jadida', 'Beni Mellal', 'Laâyoune', 'Dakhla']
 
-const EMPTY_ADDR: Omit<SavedAddress, 'id' | 'isDefault'> = {
-  label: '', fullName: '', phone: '', line1: '', city: '', postalCode: '',
+const EMPTY_DRAFT: addressesApi.UpsertAddressData = {
+  label: '', fullName: '', phone: '', line1: '', city: '', postalCode: '', country: 'Maroc',
 }
 
 function AddressesTab({ user }: { user: { firstName: string; lastName: string } }) {
-  const [addresses, setAddresses] = useState<SavedAddress[]>([
-    { id: 1, label: 'Domicile', fullName: `${user.firstName} ${user.lastName}`.trim(), phone: '+212 6 00 00 00 00', line1: '123 Rue exemple', city: 'Casablanca', postalCode: '20000', isDefault: true },
-  ])
+  const [addresses, setAddresses] = useState<SavedAddress[]>([])
   const [editing, setEditing] = useState<SavedAddress | null>(null)
   const [isAdding, setIsAdding] = useState(false)
-  const [draft, setDraft] = useState<Omit<SavedAddress, 'id' | 'isDefault'>>(EMPTY_ADDR)
+  const [draft, setDraft] = useState<addressesApi.UpsertAddressData>(EMPTY_DRAFT)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function openAdd() { setDraft(EMPTY_ADDR); setIsAdding(true); setEditing(null) }
-  function openEdit(addr: SavedAddress) { setDraft({ label: addr.label, fullName: addr.fullName, phone: addr.phone, line1: addr.line1, city: addr.city, postalCode: addr.postalCode }); setEditing(addr); setIsAdding(false) }
+  useEffect(() => {
+    addressesApi.listAddresses()
+      .then(setAddresses)
+      .catch(() => setError('Impossible de charger les adresses.'))
+      .finally(() => setLoading(false))
+  }, [])
+
+  function openAdd() {
+    setDraft({ ...EMPTY_DRAFT, fullName: `${user.firstName} ${user.lastName}`.trim() })
+    setIsAdding(true)
+    setEditing(null)
+  }
+
+  function openEdit(addr: SavedAddress) {
+    setDraft({ label: addr.label, fullName: addr.fullName, phone: addr.phone, line1: addr.line1, line2: addr.line2, city: addr.city, postalCode: addr.postalCode, country: addr.country })
+    setEditing(addr)
+    setIsAdding(false)
+  }
+
   function closeForm() { setIsAdding(false); setEditing(null) }
 
-  function save() {
+  async function save() {
     if (!draft.fullName.trim() || !draft.line1.trim() || !draft.city) return
-    if (editing) {
-      setAddresses((p) => p.map((a) => a.id === editing.id ? { ...a, ...draft } : a))
-    } else {
-      const newId = Date.now()
-      setAddresses((p) => [...p, { id: newId, ...draft, isDefault: p.length === 0 }])
-    }
-    closeForm()
-  }
-
-  function remove(id: number) {
-    if (!window.confirm('Supprimer cette adresse ?')) return
-    setAddresses((p) => {
-      const filtered = p.filter((a) => a.id !== id)
-      if (filtered.length > 0 && !filtered.some((a) => a.isDefault)) {
-        filtered[0].isDefault = true
+    setSaving(true)
+    try {
+      if (editing) {
+        const updated = await addressesApi.updateAddress(editing.id, draft)
+        setAddresses((p) => p.map((a) => a.id === updated.id ? updated : a))
+      } else {
+        const created = await addressesApi.createAddress(draft)
+        setAddresses((p) => [...p, created])
       }
-      return filtered
-    })
+      closeForm()
+    } catch {
+      setError('Erreur lors de la sauvegarde.')
+    } finally {
+      setSaving(false)
+    }
   }
 
-  function setDefault(id: number) {
-    setAddresses((p) => p.map((a) => ({ ...a, isDefault: a.id === id })))
+  async function remove(id: string) {
+    if (!window.confirm('Supprimer cette adresse ?')) return
+    await addressesApi.deleteAddress(id)
+    setAddresses((p) => p.filter((a) => a.id !== id))
+  }
+
+  async function setDefault(id: string) {
+    const updated = await addressesApi.setDefaultAddress(id)
+    setAddresses((p) => p.map((a) => ({ ...a, isDefault: a.id === updated.id })))
   }
 
   const showForm = isAdding || !!editing
 
+  if (loading) {
+    return <div className="py-8 text-center text-sm text-text-muted">Chargement…</div>
+  }
+
   return (
     <div>
+      {error && (
+        <div className="mb-4 rounded-md bg-danger/10 p-3 text-sm text-danger">{error}</div>
+      )}
+
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-bold text-text">Mes adresses</h2>
         {!showForm && (
@@ -356,7 +379,7 @@ function AddressesTab({ user }: { user: { firstName: string; lastName: string } 
       {/* Formulaire */}
       {showForm && (
         <div className="mb-6 rounded-lg border border-primary/30 bg-surface p-5">
-          <h3 className="mb-4 font-semibold text-text">{editing ? 'Modifier l\'adresse' : 'Nouvelle adresse'}</h3>
+          <h3 className="mb-4 font-semibold text-text">{editing ? "Modifier l'adresse" : 'Nouvelle adresse'}</h3>
           <div className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -389,11 +412,20 @@ function AddressesTab({ user }: { user: { firstName: string; lastName: string } 
                 <input value={draft.postalCode} onChange={(e) => setDraft((p) => ({ ...p, postalCode: e.target.value }))} placeholder="20000" className={addrInput} />
               </div>
             </div>
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-text-muted">
+              <input
+                type="checkbox"
+                checked={draft.isDefault ?? false}
+                onChange={(e) => setDraft((p) => ({ ...p, isDefault: e.target.checked }))}
+                className="rounded border-border accent-primary"
+              />
+              Définir comme adresse par défaut
+            </label>
           </div>
           <div className="mt-4 flex gap-2">
-            <button onClick={save} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark">
+            <Button onClick={() => void save()} isLoading={saving}>
               {editing ? 'Mettre à jour' : 'Ajouter'}
-            </button>
+            </Button>
             <button onClick={closeForm} className="rounded-lg border border-border px-4 py-2 text-sm text-text-muted hover:border-text-muted">
               Annuler
             </button>
@@ -423,14 +455,14 @@ function AddressesTab({ user }: { user: { firstName: string; lastName: string } 
                 </div>
                 <div className="flex shrink-0 gap-2">
                   {!addr.isDefault && (
-                    <button onClick={() => setDefault(addr.id)} className="text-xs text-text-muted hover:text-primary">
+                    <button onClick={() => void setDefault(addr.id)} className="text-xs text-text-muted hover:text-primary">
                       Par défaut
                     </button>
                   )}
                   <button onClick={() => openEdit(addr)} className="text-text-muted hover:text-primary">
                     <Edit2 className="h-4 w-4" />
                   </button>
-                  <button onClick={() => remove(addr.id)} className="text-text-muted hover:text-danger">
+                  <button onClick={() => void remove(addr.id)} className="text-text-muted hover:text-danger">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
