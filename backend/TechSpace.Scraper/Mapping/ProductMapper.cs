@@ -16,6 +16,9 @@ public class ProductMapper
     private readonly HashSet<string> _usedVariantSkus = [];
     private readonly Dictionary<string, TagJson> _tagsBySlug = new(StringComparer.OrdinalIgnoreCase);
 
+    // Valeur sentinelle : l'API publique Shopify signale "available" sans exposer la quantité réelle
+    private const int StockAvailableSentinel = 99;
+
     private static readonly HashSet<string> SoftwareKeywords = new(StringComparer.OrdinalIgnoreCase)
         { "logiciel", "software", "licence", "license", "antivirus", "office", "windows" };
 
@@ -37,7 +40,9 @@ public class ProductMapper
 
         if (oldPrice <= price) oldPrice = null;
 
-        var totalStock = shopify.Variants.Sum(v => Math.Max(0, v.InventoryQuantity));
+        // L'API publique Shopify ne donne pas inventory_quantity — on utilise available
+        var anyAvailable = shopify.Variants.Any(v => v.Available);
+        var totalStock = anyAvailable ? StockAvailableSentinel : 0;
 
         var mainImage = shopify.Images.OrderBy(i => i.Position).FirstOrDefault()?.Src
             ?? "https://placehold.co/600x600/F5F5F5/162844?text=No+Image";
@@ -202,7 +207,7 @@ public class ProductMapper
                 Sku = sku,
                 Price = vPrice,
                 OldPrice = vOldPrice > vPrice ? vOldPrice : null,
-                Stock = Math.Max(0, v.InventoryQuantity),
+                Stock = v.Available ? StockAvailableSentinel : 0,
                 Barcode = v.Barcode?[..Math.Min(v.Barcode.Length, 30)],
                 OptionsJson = options,
                 IsDefault = i == 0,
@@ -227,12 +232,12 @@ public class ProductMapper
         }).ToList();
     }
 
-    private List<string> MapTags(string tagsString)
+    private List<string> MapTags(List<string> tagsList)
     {
-        if (string.IsNullOrWhiteSpace(tagsString)) return [];
+        if (tagsList is null or { Count: 0 }) return [];
 
         var slugs = new List<string>();
-        foreach (var raw in tagsString.Split(',', StringSplitOptions.RemoveEmptyEntries))
+        foreach (var raw in tagsList)
         {
             var name = raw.Trim();
             if (string.IsNullOrEmpty(name)) continue;
@@ -264,7 +269,7 @@ public class ProductMapper
 
     private static string DetectProductType(ShopifyProduct shopify)
     {
-        var text = $"{shopify.ProductType} {shopify.Tags}".ToLowerInvariant();
+        var text = $"{shopify.ProductType} {string.Join(' ', shopify.Tags)}".ToLowerInvariant();
         if (SoftwareKeywords.Any(k => text.Contains(k))) return "Software";
         if (text.Contains("digital") || text.Contains("code")) return "Digital";
         return "Physical";

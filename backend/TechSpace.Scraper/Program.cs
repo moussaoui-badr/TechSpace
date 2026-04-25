@@ -12,6 +12,8 @@ var dryRun = args.Contains("--dry-run");
 var verbose = args.Contains("--verbose");
 var clearCache = args.Contains("--clear-cache");
 var skipMedia = args.Contains("--skip-media");
+var downloadAssets = args.Contains("--download-assets");
+var assetsPathArg = args.SkipWhile(a => a != "--assets-path").Skip(1).FirstOrDefault();
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((_, cfg) => cfg.AddJsonFile("appsettings.json", optional: false))
@@ -58,6 +60,8 @@ var host = Host.CreateDefaultBuilder(args)
             SkipMedia = skipMedia || config["Scraper:SkipMedia"] == "true",
             SkipHtml = config["Scraper:SkipHtml"] == "true",
             MaxProducts = int.TryParse(config["Scraper:MaxProductsPerRun"], out var max) ? max : 0,
+            DownloadAssets = downloadAssets,
+            AssetsPath = assetsPathArg ?? config["Scraper:AssetsPath"] ?? "../TechSpace.Api/SeedData/assets",
         });
 
         services.AddSingleton<ScraperPipeline>();

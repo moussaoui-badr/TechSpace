@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Cookie, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
@@ -6,12 +6,7 @@ import { Button } from '@/components/ui/Button'
 const STORAGE_KEY = 'techspace-cookie-consent'
 
 export function CookieConsent() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY)
-    if (!stored) setVisible(true)
-  }, [])
+  const [visible, setVisible] = useState(() => !window.localStorage.getItem(STORAGE_KEY))
 
   function accept() {
     window.localStorage.setItem(STORAGE_KEY, 'accepted')

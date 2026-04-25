@@ -4,13 +4,7 @@ namespace TechSpace.Scraper.Shopify.Models;
 
 public class ShopifyCollectionsResponse
 {
-    [JsonPropertyName("custom_collections")]
-    public List<ShopifyCollection> Collections { get; set; } = [];
-}
-
-public class ShopifySmartCollectionsResponse
-{
-    [JsonPropertyName("smart_collections")]
+    [JsonPropertyName("collections")]
     public List<ShopifyCollection> Collections { get; set; } = [];
 }
 
@@ -26,7 +20,10 @@ public class ShopifyCollection
     public string Title { get; set; } = string.Empty;
 
     [JsonPropertyName("body_html")]
-    public string BodyHtml { get; set; } = string.Empty;
+    public string? BodyHtml { get; set; }
+
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
 
     [JsonPropertyName("published_at")]
     public DateTime? PublishedAt { get; set; }

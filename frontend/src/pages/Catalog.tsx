@@ -72,6 +72,8 @@ export function CatalogPage() {
     getBrands().then(setBrandsList)
   }, [])
 
+  const brandSlugsKey = selectedBrandSlugs.join(',')
+
   // Recharge les produits chaque fois que les filtres changent
   useEffect(() => {
     setLoading(true)
@@ -98,7 +100,7 @@ export function CatalogPage() {
     maxPrice,
     onlyInStock,
     currentPage,
-    selectedBrandSlugs.join(','),
+    brandSlugsKey,
   ])
 
   function updateParam(key: string, value: string | undefined) {
@@ -133,7 +135,7 @@ export function CatalogPage() {
     }
     if (currentCategory) items.push({ label: currentCategory.name })
     return items
-  }, [currentCategory, currentCategorySlug])
+  }, [currentCategory, currentCategorySlug, findCategoryById])
 
   const pageTitle = currentCategory ? currentCategory.name : searchTerm ? `Recherche : "${searchTerm}"` : 'Tous les produits'
 

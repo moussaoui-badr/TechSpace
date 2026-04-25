@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useReducer, useState } from 'react'
+import { formatDate } from '@/utils/formatDate'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Check,
@@ -29,6 +30,26 @@ import { useHistoryStore } from '@/stores/historyStore'
 import { cn } from '@/utils/cn'
 
 type TabKey = 'description' | 'specs' | 'reviews' | 'qa'
+
+type ViewState = { loading: boolean; activeImage: number; quantity: number; activeTab: TabKey }
+type ViewAction =
+  | { type: 'reset' }
+  | { type: 'setLoaded' }
+  | { type: 'setImage'; index: number }
+  | { type: 'setQuantity'; qty: number }
+  | { type: 'setTab'; tab: TabKey }
+
+const INITIAL_VIEW: ViewState = { loading: true, activeImage: 0, quantity: 1, activeTab: 'description' }
+
+function viewReducer(state: ViewState, action: ViewAction): ViewState {
+  switch (action.type) {
+    case 'reset': return INITIAL_VIEW
+    case 'setLoaded': return { ...state, loading: false }
+    case 'setImage': return { ...state, activeImage: action.index }
+    case 'setQuantity': return { ...state, quantity: action.qty }
+    case 'setTab': return { ...state, activeTab: action.tab }
+  }
+}
 
 interface ProductQA {
   id: string
@@ -88,26 +109,22 @@ export function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null)
   const [similar, setSimilar] = useState<Product[]>([])
   const [reviews, setReviews] = useState<Review[]>([])
-  const [loading, setLoading] = useState(true)
-  const [quantity, setQuantity] = useState(1)
-  const [activeImage, setActiveImage] = useState(0)
-  const [activeTab, setActiveTab] = useState<TabKey>('description')
+  const [view, dispatchView] = useReducer(viewReducer, INITIAL_VIEW)
+  const { loading, activeImage, quantity, activeTab } = view
 
   const addToCart = useCartStore((s) => s.addItem)
   const toggleWishlist = useWishlistStore((s) => s.toggle)
   const wishlistIds = useWishlistStore((s) => s.productIds)
   const trackHistory = useHistoryStore((s) => s.track)
+  const findCategoryById = useCatalogStore((s) => s.findCategoryById)
 
   useEffect(() => {
     if (!slug) return
-    setLoading(true)
-    setActiveImage(0)
-    setQuantity(1)
-    setActiveTab('description')
+    dispatchView({ type: 'reset' })
     getProductBySlug(slug).then(async (p) => {
       if (!p) {
         setProduct(null)
-        setLoading(false)
+        dispatchView({ type: 'setLoaded' })
         return
       }
       const [sim, revs] = await Promise.all([
@@ -117,7 +134,7 @@ export function ProductDetailPage() {
       setProduct(p)
       setSimilar(sim)
       setReviews(revs)
-      setLoading(false)
+      dispatchView({ type: 'setLoaded' })
       trackHistory(p)
     })
   }, [slug, trackHistory])
@@ -151,7 +168,6 @@ export function ProductDetailPage() {
     )
   }
 
-  const findCategoryById = useCatalogStore((s) => s.findCategoryById)
   const category = findCategoryById(product.categoryId)
   const parentCategory = category?.parentId ? findCategoryById(category.parentId) : undefined
 
@@ -206,7 +222,7 @@ export function ProductDetailPage() {
                 <button
                   key={idx}
                   type="button"
-                  onClick={() => setActiveImage(idx)}
+                  onClick={() => dispatchView({ type: 'setImage', index: idx })}
                   aria-label={`Image ${idx + 1}`}
                   className={cn(
                     'overflow-hidden rounded-lg border bg-surface transition-all',
@@ -292,7 +308,7 @@ export function ProductDetailPage() {
                 value={quantity}
                 min={1}
                 max={Math.max(1, product.stock)}
-                onChange={setQuantity}
+                onChange={(qty) => dispatchView({ type: 'setQuantity', qty })}
               />
               <Button
                 size="lg"
@@ -341,16 +357,16 @@ export function ProductDetailPage() {
       {/* Tabs */}
       <section className="mt-14">
         <div className="flex gap-1 border-b border-border overflow-x-auto">
-          <TabButton active={activeTab === 'description'} onClick={() => setActiveTab('description')}>
+          <TabButton active={activeTab === 'description'} onClick={() => dispatchView({ type: 'setTab', tab: 'description' })}>
             Description
           </TabButton>
-          <TabButton active={activeTab === 'specs'} onClick={() => setActiveTab('specs')}>
+          <TabButton active={activeTab === 'specs'} onClick={() => dispatchView({ type: 'setTab', tab: 'specs' })}>
             Specifications
           </TabButton>
-          <TabButton active={activeTab === 'reviews'} onClick={() => setActiveTab('reviews')}>
+          <TabButton active={activeTab === 'reviews'} onClick={() => dispatchView({ type: 'setTab', tab: 'reviews' })}>
             Avis ({reviews.length})
           </TabButton>
-          <TabButton active={activeTab === 'qa'} onClick={() => setActiveTab('qa')}>
+          <TabButton active={activeTab === 'qa'} onClick={() => dispatchView({ type: 'setTab', tab: 'qa' })}>
             Questions ({MOCK_QA.length})
           </TabButton>
         </div>
@@ -410,13 +426,7 @@ export function ProductDetailPage() {
                         </span>
                         <div>
                           <p className="text-sm font-semibold text-text">{r.userName}</p>
-                          <time className="text-xs text-text-muted">
-                            {new Date(r.createdAt).toLocaleDateString('fr-MA', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            })}
-                          </time>
+                          <time className="text-xs text-text-muted">{formatDate(r.createdAt)}</time>
                         </div>
                       </div>
                       <Rating value={r.rating} size="sm" />
@@ -458,12 +468,7 @@ export function ProductDetailPage() {
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-text">{qa.question}</p>
                       <p className="mt-0.5 text-[11px] text-text-subtle">
-                        Posée par {qa.askedBy} —{' '}
-                        {new Date(qa.askedAt).toLocaleDateString('fr-MA', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
+                        Posée par {qa.askedBy} — {formatDate(qa.askedAt)}
                       </p>
                     </div>
                   </div>
@@ -480,13 +485,7 @@ export function ProductDetailPage() {
                             <CheckCircle2 className="h-3 w-3 text-success" aria-label="Réponse vérifiée" />
                           )}
                         </span>
-                        <span>
-                          {new Date(qa.answeredAt).toLocaleDateString('fr-MA', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
-                        </span>
+                        <span>{formatDate(qa.answeredAt)}</span>
                         <button
                           type="button"
                           className="ml-auto inline-flex items-center gap-1 rounded-md border border-border bg-background px-2 py-1 font-semibold text-text-muted transition-colors hover:border-primary hover:text-primary"

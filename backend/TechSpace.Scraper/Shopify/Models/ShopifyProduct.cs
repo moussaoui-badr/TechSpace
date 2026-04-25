@@ -20,7 +20,7 @@ public class ShopifyProduct
     public string Handle { get; set; } = string.Empty;
 
     [JsonPropertyName("body_html")]
-    public string BodyHtml { get; set; } = string.Empty;
+    public string? BodyHtml { get; set; }
 
     [JsonPropertyName("vendor")]
     public string Vendor { get; set; } = string.Empty;
@@ -28,8 +28,9 @@ public class ShopifyProduct
     [JsonPropertyName("product_type")]
     public string ProductType { get; set; } = string.Empty;
 
+    // Shopify expose tags comme un tableau de strings dans products.json
     [JsonPropertyName("tags")]
-    public string Tags { get; set; } = string.Empty;
+    public List<string> Tags { get; set; } = [];
 
     [JsonPropertyName("created_at")]
     public DateTime? CreatedAt { get; set; }
@@ -61,6 +62,7 @@ public class ShopifyVariant
     [JsonPropertyName("title")]
     public string Title { get; set; } = string.Empty;
 
+    // Prix en MAD (string décimal) dans products.json
     [JsonPropertyName("price")]
     public string Price { get; set; } = "0";
 
@@ -68,10 +70,14 @@ public class ShopifyVariant
     public string? CompareAtPrice { get; set; }
 
     [JsonPropertyName("sku")]
-    public string Sku { get; set; } = string.Empty;
+    public string? Sku { get; set; }
 
-    [JsonPropertyName("inventory_quantity")]
-    public int InventoryQuantity { get; set; }
+    // available = true/false (l'API publique ne donne pas la quantité exacte)
+    [JsonPropertyName("available")]
+    public bool Available { get; set; } = true;
+
+    [JsonPropertyName("grams")]
+    public int Grams { get; set; }
 
     [JsonPropertyName("barcode")]
     public string? Barcode { get; set; }
@@ -105,6 +111,9 @@ public class ShopifyImage
 
     [JsonPropertyName("alt")]
     public string? Alt { get; set; }
+
+    [JsonPropertyName("variant_ids")]
+    public List<long> VariantIds { get; set; } = [];
 }
 
 public class ShopifyOption

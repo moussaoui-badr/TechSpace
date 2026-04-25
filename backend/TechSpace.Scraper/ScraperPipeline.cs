@@ -13,6 +13,8 @@ public class ScraperOptions
     public bool SkipMedia { get; set; }
     public bool SkipHtml { get; set; }
     public int MaxProducts { get; set; }
+    public bool DownloadAssets { get; set; }
+    public string AssetsPath { get; set; } = "assets";
 }
 
 public class ScraperPipeline(
@@ -26,6 +28,7 @@ public class ScraperPipeline(
     ModelConstraintValidator validator,
     SeedJsonWriter writer,
     ScraperOptions options,
+    ILoggerFactory loggerFactory,
     ILogger<ScraperPipeline> logger)
 {
     public async Task RunAsync(CancellationToken ct)
@@ -141,6 +144,21 @@ public class ScraperPipeline(
         bundle.Tags = productMapper.GetAllTags();
         bundle.ProductTagLinks = tagLinkList;
         bundle.Reviews = [];
+
+        // Téléchargement des assets (images + documents) si demandé
+        if (options.DownloadAssets && !options.DryRun)
+        {
+            logger.LogInformation("Téléchargement des assets (images + documents)...");
+            var absAssets = Path.IsPathRooted(options.AssetsPath)
+                ? options.AssetsPath
+                : Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, options.AssetsPath));
+
+            var downloader = new AssetDownloader(shopify, absAssets,
+                loggerFactory.CreateLogger<AssetDownloader>());
+
+            bundle.Media = await downloader.DownloadMediaAsync(bundle.Media, ct);
+            bundle.Documents = await downloader.DownloadDocumentsAsync(bundle.Documents, ct);
+        }
 
         validator.Validate(bundle);
         await writer.WriteAllAsync(bundle, options.DryRun, ct);
