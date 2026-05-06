@@ -62,7 +62,6 @@ out/
 
 # Configuration sensible
 appsettings.Development.json
-appsettings.Production.json
 appsettings.Local.json
 secrets.json
 

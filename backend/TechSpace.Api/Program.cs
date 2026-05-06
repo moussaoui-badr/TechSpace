@@ -44,10 +44,11 @@ builder.Services
 
 builder.Services.ConfigureApplicationCookie(opts =>
 {
+    var isProduction = builder.Environment.IsProduction();
     opts.Cookie.Name = "loot.auth";
     opts.Cookie.HttpOnly = true;
-    opts.Cookie.SameSite = SameSiteMode.Lax;
-    opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    opts.Cookie.SameSite = isProduction ? SameSiteMode.None : SameSiteMode.Lax;
+    opts.Cookie.SecurePolicy = isProduction ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest;
     opts.ExpireTimeSpan = TimeSpan.FromDays(14);
     opts.SlidingExpiration = true;
     opts.Events.OnRedirectToLogin = ctx =>
@@ -77,20 +78,21 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.MapOpenApi();
-
-    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
     var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 
     logger.LogInformation("Application des migrations pendantes...");
     await db.Database.MigrateAsync();
-    await SeedData.SeedAsync(db, env, logger);
+    if (app.Environment.IsDevelopment())
+        await SeedData.SeedAsync(db, env, logger);
     await SeedData.SeedIdentityAsync(scope.ServiceProvider, builder.Configuration, logger);
 }
+
+if (app.Environment.IsDevelopment())
+    app.MapOpenApi();
 
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();

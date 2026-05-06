@@ -1,0 +1,13 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/api/*",
+      "/_framework/*",
+      "/*.{css,js,ico,png,jpg,svg,woff2,woff,ttf,eot,otf,map}"
+    ]
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  }
+}
