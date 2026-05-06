@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Check, Package, ShoppingBag, Truck } from 'lucide-react'
 
@@ -12,7 +11,8 @@ const STEPS = [
 ]
 
 export function OrderConfirmationPage() {
-  const [orderNumber] = useState(() => `LT-${Date.now().toString().slice(-8)}`)
+  const location = useLocation()
+  const orderNumber = (location.state as { orderNumber?: string } | null)?.orderNumber ?? `TS-${Date.now().toString().slice(-8)}`
 
   return (
     <div className="min-h-[80vh] bg-gradient-to-b from-surface to-background">

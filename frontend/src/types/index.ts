@@ -139,6 +139,36 @@ export interface SavedAddress {
   isDefault: boolean
 }
 
+/** Réponse API — aligné sur OrderDto backend */
+export interface ApiOrderItem {
+  productId: number
+  productName: string
+  productImage: string
+  productSku: string
+  unitPrice: number
+  quantity: number
+  total: number
+}
+
+export interface ApiOrder {
+  id: number
+  orderNumber: string
+  status: string
+  paymentMethod: string
+  shipFullName: string
+  shipPhone: string
+  shipAddress: string
+  shipCity: string
+  shipPostalCode: string
+  shipCountry: string
+  subtotal: number
+  shipping: number
+  total: number
+  createdAt: string
+  items: ApiOrderItem[]
+}
+
+/** @deprecated Utiliser ApiOrder pour les données réelles */
 export interface Order {
   id: number
   orderNumber: string

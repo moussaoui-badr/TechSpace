@@ -21,6 +21,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Banner> Banners => Set<Banner>();
     public DbSet<Address> Addresses => Set<Address>();
+    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -204,6 +206,39 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             b.Property(x => x.FirstName).IsRequired().HasMaxLength(100);
             b.Property(x => x.LastName).IsRequired().HasMaxLength(100);
             b.Property(x => x.Phone).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<Order>(b =>
+        {
+            b.Property(x => x.OrderNumber).IsRequired().HasMaxLength(20);
+            b.HasIndex(x => x.OrderNumber).IsUnique();
+            b.Property(x => x.ShipFullName).IsRequired().HasMaxLength(200);
+            b.Property(x => x.ShipPhone).IsRequired().HasMaxLength(20);
+            b.Property(x => x.ShipAddress).IsRequired().HasMaxLength(300);
+            b.Property(x => x.ShipCity).IsRequired().HasMaxLength(100);
+            b.Property(x => x.ShipPostalCode).HasMaxLength(10);
+            b.Property(x => x.ShipCountry).IsRequired().HasMaxLength(100);
+            b.Property(x => x.Subtotal).HasColumnType("decimal(18,2)");
+            b.Property(x => x.Shipping).HasColumnType("decimal(18,2)");
+            b.Property(x => x.Total).HasColumnType("decimal(18,2)");
+            b.HasOne(x => x.User)
+             .WithMany()
+             .HasForeignKey(x => x.UserId)
+             .OnDelete(DeleteBehavior.Restrict);
+            b.HasIndex(x => new { x.UserId, x.CreatedAt });
+        });
+
+        modelBuilder.Entity<OrderItem>(b =>
+        {
+            b.Property(x => x.ProductName).IsRequired().HasMaxLength(200);
+            b.Property(x => x.ProductImage).HasMaxLength(500);
+            b.Property(x => x.ProductSku).HasMaxLength(60);
+            b.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)");
+            b.Property(x => x.Total).HasColumnType("decimal(18,2)");
+            b.HasOne(x => x.Order)
+             .WithMany(x => x.Items)
+             .HasForeignKey(x => x.OrderId)
+             .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Address>(b =>

@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/Button'
 import { useCartStore, cartSubtotal } from '@/stores/cartStore'
 import { formatPrice } from '@/utils/formatPrice'
+import * as ordersApi from '@/api/orders'
 
 const CITIES = [
   'Casablanca', 'Rabat', 'Marrakech', 'Fès', 'Tanger', 'Agadir',
@@ -33,6 +34,7 @@ interface FormState {
 }
 
 type PaymentMethod = 'cod' | 'transfer'
+const PAYMENT_VALUES: Record<PaymentMethod, 0 | 1> = { cod: 0, transfer: 1 }
 
 const EMPTY_FORM: FormState = {
   firstName: '', lastName: '', phone: '', address: '', city: '', postalCode: '',
@@ -58,6 +60,7 @@ export function CheckoutPage() {
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [payment, setPayment] = useState<PaymentMethod>('cod')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   function validate(): boolean {
     const e: Partial<FormState> = {}
@@ -76,14 +79,28 @@ export function CheckoutPage() {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
     setIsSubmitting(true)
-    setTimeout(() => {
+    setSubmitError(null)
+    try {
+      const order = await ordersApi.createOrder({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        phone: form.phone,
+        address: form.address,
+        city: form.city,
+        postalCode: form.postalCode,
+        paymentMethod: PAYMENT_VALUES[payment],
+        items: items.map(({ product, quantity }) => ({ productId: product.id, quantity })),
+      })
       clear()
-      navigate('/order-confirmation')
-    }, 1000)
+      navigate('/order-confirmation', { state: { orderNumber: order.orderNumber } })
+    } catch {
+      setSubmitError('Une erreur est survenue. Veuillez réessayer.')
+      setIsSubmitting(false)
+    }
   }
 
   if (items.length === 0) {
@@ -280,6 +297,11 @@ export function CheckoutPage() {
                 </div>
 
                 <div className="px-5 pb-5 pt-1">
+                  {submitError && (
+                    <p className="mb-3 rounded-lg bg-danger/10 px-3 py-2 text-center text-xs text-danger">
+                      {submitError}
+                    </p>
+                  )}
                   <Button type="submit" className="w-full" isLoading={isSubmitting} size="lg">
                     Confirmer la commande
                   </Button>

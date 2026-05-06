@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import {
   Edit2,
@@ -18,63 +18,28 @@ import { useAuthStore } from '@/stores/authStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { useCartStore } from '@/stores/cartStore'
 import * as addressesApi from '@/api/addresses'
+import * as ordersApi from '@/api/orders'
 import { formatPrice } from '@/utils/formatPrice'
 import { cn } from '@/utils/cn'
-import type { OrderStatus, SavedAddress } from '@/types'
+import type { ApiOrder, SavedAddress } from '@/types'
 
-// ————— Mock commandes (Phase 4b) —————
-interface MockOrderItem {
-  name: string
-  qty: number
-  price: number
-  image: string
-}
-interface MockOrder {
-  id: string
-  status: OrderStatus
-  date: string
-  total: number
-  items: MockOrderItem[]
+const STATUS_LABELS: Record<string, string> = {
+  Pending: 'En attente',
+  Confirmed: 'Confirmée',
+  Preparing: 'En préparation',
+  Shipping: 'En livraison',
+  Delivered: 'Livrée',
+  Cancelled: 'Annulée',
 }
 
-const MOCK_ORDERS: MockOrder[] = [
-  {
-    id: 'TS-00000001',
-    status: 'delivered',
-    date: '2026-03-12',
-    total: 6890,
-    items: [
-      { name: 'AMD Ryzen 7 7800X3D', qty: 1, price: 3490, image: 'https://placehold.co/60x60/F5F5F5/1E3A5F?text=CPU' },
-      { name: 'Corsair Vengeance DDR5 32GB', qty: 2, price: 1700, image: 'https://placehold.co/60x60/F5F5F5/1E3A5F?text=RAM' },
-    ],
-  },
-  {
-    id: 'TS-00000002',
-    status: 'shipping',
-    date: '2026-04-10',
-    total: 11990,
-    items: [
-      { name: 'RTX 4080 Super 16GB MSI', qty: 1, price: 11990, image: 'https://placehold.co/60x60/F5F5F5/1E3A5F?text=GPU' },
-    ],
-  },
-]
-
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  pending: 'En attente',
-  confirmed: 'Confirmée',
-  preparing: 'En préparation',
-  shipping: 'En livraison',
-  delivered: 'Livrée',
-  cancelled: 'Annulée',
-}
-
-const STATUS_VARIANTS: Record<OrderStatus, 'outline' | 'warning' | 'primary' | 'success' | 'danger'> = {
-  pending: 'outline',
-  confirmed: 'primary',
-  preparing: 'warning',
-  shipping: 'primary',
-  delivered: 'success',
-  cancelled: 'danger',
+type BadgeVariant = 'outline' | 'warning' | 'primary' | 'success' | 'danger'
+const STATUS_VARIANTS: Record<string, BadgeVariant> = {
+  Pending: 'outline',
+  Confirmed: 'primary',
+  Preparing: 'warning',
+  Shipping: 'primary',
+  Delivered: 'success',
+  Cancelled: 'danger',
 }
 
 type Tab = 'dashboard' | 'orders' | 'wishlist' | 'addresses' | 'profile'
@@ -95,6 +60,20 @@ export function AccountPage() {
   const wishlistIds = useWishlistStore((s) => s.productIds)
   const cartItems = useCartStore((s) => s.items)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
+  const [orders, setOrders] = useState<ApiOrder[]>([])
+  const [ordersLoading, setOrdersLoading] = useState(false)
+  const ordersLoadedRef = useRef(false)
+
+  useEffect(() => {
+    if (activeTab === 'orders' && !ordersLoadedRef.current) {
+      ordersLoadedRef.current = true
+      setOrdersLoading(true)
+      ordersApi.getMyOrders()
+        .then(setOrders)
+        .catch(() => {})
+        .finally(() => setOrdersLoading(false))
+    }
+  }, [activeTab])
 
   if (status === 'ready' && !user) {
     return <Navigate to="/login" replace />
@@ -157,13 +136,13 @@ export function AccountPage() {
           {activeTab === 'dashboard' && (
             <DashboardTab
               name={fullName}
-              orderCount={MOCK_ORDERS.length}
+              orderCount={orders.length}
               wishlistCount={wishlistIds.length}
               cartCount={cartItems.length}
               onNavigate={setActiveTab}
             />
           )}
-          {activeTab === 'orders' && <OrdersTab orders={MOCK_ORDERS} />}
+          {activeTab === 'orders' && <OrdersTab orders={orders} loading={ordersLoading} />}
           {activeTab === 'wishlist' && <WishlistTab wishlistIds={wishlistIds} />}
           {activeTab === 'addresses' && <AddressesTab user={user} />}
           {activeTab === 'profile' && (
@@ -227,7 +206,11 @@ function DashboardTab({
   )
 }
 
-function OrdersTab({ orders }: { orders: MockOrder[] }) {
+function OrdersTab({ orders, loading }: { orders: ApiOrder[]; loading: boolean }) {
+  if (loading) {
+    return <div className="py-8 text-center text-sm text-text-muted">Chargement…</div>
+  }
+
   return (
     <div>
       <h2 className="mb-4 text-lg font-bold text-text">Mes commandes</h2>
@@ -239,21 +222,23 @@ function OrdersTab({ orders }: { orders: MockOrder[] }) {
             <div key={order.id} className="rounded-lg border border-border bg-background p-4 shadow-card">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="font-mono text-sm font-semibold text-text">{order.id}</p>
-                  <p className="text-xs text-text-muted">{new Date(order.date).toLocaleDateString('fr-MA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                  <p className="font-mono text-sm font-semibold text-text">{order.orderNumber}</p>
+                  <p className="text-xs text-text-muted">
+                    {new Date(order.createdAt).toLocaleDateString('fr-MA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant={STATUS_VARIANTS[order.status]} size="sm">
-                    {STATUS_LABELS[order.status]}
+                  <Badge variant={STATUS_VARIANTS[order.status] ?? 'outline'} size="sm">
+                    {STATUS_LABELS[order.status] ?? order.status}
                   </Badge>
                   <span className="font-bold text-primary">{formatPrice(order.total)}</span>
                 </div>
               </div>
               <div className="mt-3 flex gap-3 overflow-x-auto">
                 {order.items.map((item) => (
-                  <div key={item.name} className="flex shrink-0 items-center gap-2 text-xs text-text-muted">
-                    <img src={item.image} alt={item.name} className="h-10 w-10 rounded object-contain" />
-                    <span className="max-w-[100px] truncate">{item.name}</span>
+                  <div key={item.productId} className="flex shrink-0 items-center gap-2 text-xs text-text-muted">
+                    <img src={item.productImage} alt={item.productName} className="h-10 w-10 rounded object-contain" />
+                    <span className="max-w-[100px] truncate">{item.productName}</span>
                   </div>
                 ))}
               </div>
